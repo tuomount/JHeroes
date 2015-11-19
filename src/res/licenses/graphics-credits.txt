@@ -1,0 +1,1112 @@
+Full and detailed graphics credits:
+
+: Signposts, graves, line cloths and scare crow  :
+ + Nemisys
+ + Daniel Eddeland 
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+ + Tuomo Untinen
+: Hanging signs  :
+ + Based on LPC's Sign made by  Lanea Zimmerman (Sharm)
+: Tree stumps  :
+ + Johann C
+ + Hyptosis (Axe and wood block)
+ + Daniel Eddeland (Wood block with branch)
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements)
+: Campfire  :
+ + Zabin and Jetrel from OGA
+: Campfire base  :
+ + Based on LPC base tiles by Lanea Zimmerman (AKA Sharm)
+: Plants from LPC farming tileset  :
+ + Daniel Eddeland 
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+: Vines  :
+ + Hyptosis
+: Chimney  :
+ + Tuomo Untinen
+: Gray roof, Wooden and stone wall  :
+ + Hyptosis 
+: Timber wall  :
+ + Based on Hyptosis wooden and stone wall
+: Window (CC-BY) :
+ + Hyptosis
+ + Closed one by Tuomo Untinen based on Hyptosis window
+: Wooden wall 
+ + Based on LPC farming tileset by Daniel Eddeland 
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+: LPC Well, Red roof and Wooden roof :
+ + Xenodora
+: Wall lamp(or fence lamp) :
+ + Curt
+ + Sharm
+ + Hyptosis
+: Water tiles  :
+ + Based on water and grass tiles in LPC made by Lanea Zimmerman (Sharm)
+: Blueish roof : 
+ + From LPC made by Lanea Zimmerman (Sharm)
+: Cliffs and grass  :
+ + Based on grass and rock tiles in LPC made by Lanea Zimmerman (Sharm)
+: Trees :
+ + Based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
+: Doors  :
+ + By Guido Bos
+: Wooden wall with cement base  :
+ + By Guido Bos
+
+: Wooden floor :
+ + Horizontal wooden floor by Lanea Zimmerman (AKA Sharm)
+ + Horizontal wooden floor with hole by Lanea Zimmerman (AKA Sharm) and Tuomo Untinen
+ + Vertical wooden floor by Tuomo Untinen
+ + Vertical wooden floor with hole by Tuomo Untinen
+: Wooden wall topping  :
+ + Tuomo Untinen
+: Pile of barrels, Barrels and vases :
+ + Based LPC base tiles by Lanea Zimmerman (AKA Sharm)
+: Decorational stuff  :
+ + Green bottle
+ + Wine glass and bottle
+ + Hanging sacks
+ + Wall mounted rope and ropes
+ + Wall mounted swords
+ + Wall mounted kite shield
+ + Wall mounted bow
+ + Wall hole
+ By Tuomo Untinen
+ + Small sack from LPC farming tileset by Daniel Eddeland 
+ (http://opengameart.org/content/lpc- farming-tilesets-magic-animations-and-ui-elements) 
+ + Purple bottles and gray lantern from Hyptosis Mage city
+ + Green and blue bottle by Tuomo Untinen
+: Wall clock  :
+ + Lanea Zimmerman AKA Sharm
+ + Tuomo Untinen (Scaled down and animation)
+: Stone floor : 
+ + Tuomo Untinen 
+: Cobble stone floor : 
+ + Based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
+: Cabinets and kitchen stuff including metal stove :
+ + Based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
+ + Cutboard is made by Hyptosis
+ + Sacks based on LPC farming tileset by Daniel Eddeland 
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+ + Spears by Tuomo Untinen
+ + Vertical chest by Tuomo Untinen based on LPC base tiles Lanea Zimmerman (AKA Sharm)
+ + Candles are from Castle_2.png by Lanea Zimmerman (AKA Sharm)
+ + Mountain painting is from Castle_2.png by Lanea Zimmerman (AKA Sharm)
+ + Female paiting frame is done by Lanea Zimmerman (AKA Sharm) and female is done by
+Manuel Riecke (AKA MrBeast)
+: Skull and spider nets :
+ + http://opengameart.org/content/lpc-dungeon-elements
+ + Graphical artist Lanea Zimmerman AKA Sharm
+ + Contributor William Thompson
+: Anvils and pile sacks :
+ + LPC farming tileset by Daniel Eddeland 
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+: Pile of papers : 
+ + Based on caeles papers
+: Armor shelves :
+ + Based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
+ + Armors by: Adapted by Matthew Krohn from art created by Johannes Sjolund
+: Table lamp :
+  + Curt
+  + Sharm
+  + Hyptosis
+: Distiller :
+ + Table is from LPC base tileset by Lanea Zimmerman (AKA Sharm)
+ + Distiller by Tuomo Untinen
+: Wall shield and combat dummies :
+ + Johannes Sjolund
+: Fireplace :
+ + Tuomo Untinen
+ + Inspired by Lanea Zimmerman (AKA Sharm) Fireplace
+
+: Grass and flower tiles  :
+ + Based on LPC's Grass made by Lanea Zimmerman (Sharm)
+: Hole tiles  :
+ + Made by  Lanea Zimmerman (Sharm)
+: Water tiles  :
+ + Based on water, grass and rock tiles in LPC made by Lanea Zimmerman (Sharm)
+: Rock tiles  :
+ + Based on rock in LPC made by Lanea Zimmerman (Sharm)
+: Mushrooms, cave flower, low grass, ferns, leaves and flowers  :
+ + Based on Hyptosis trees_plants_0.png
+: Tall grass  :
+ + By Tuomo Untinen
+: Old tree trunk / Moldy tree trunk  :
+ Full and detailed graphics credits
+ 
+ + Based on Hyptosis trees_1.png
+: Juniper : 
+ + Based on Johann C tiles
+ : Moldy tree stump  :
+  +Base on Johann C tile
+: Cabinet :
+ + Based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
+: Pile of woods :
+ + Tuomo Untinen
+: Big spider web :
+ + Tuomo Untinen
+: Cocoon 
+ + Based on LPC soldier by Manuel Riecke (AKA MrBeast)s
+: Bee nests :
+ + Tuomo Untinen
+: Kettles and fireplace  :
+ + http://opengameart.org/content/lpc-dungeon-elements
+ + Graphical artist Lanea Zimmerman AKA Sharm
+ + Contributor William Thompson
+: Wooden beds  :
+ + http://opengameart.org/content/lpc-dungeon-elements
+ + Graphical artist Lanea Zimmerman AKA Sharm
+ + Contributor William Thompson
+: Butterflies  :
+ + Tuomo Untinen
+
+: Lava and Water tiles  :
+ + Based on water, lava and rock tiles in LPC made by Lanea Zimmerman (Sharm)
+: Cave wall tiles  :
+ + Based on cave tiles in LPC made by Lanea Zimmerman (Sharm)
+: Cave wall with wood tiles  :
+ + Based on cave tiles in LPC made by Lanea Zimmerman (Sharm)
+ + Wooden parts by Hyptosis
+: Wooden sturctures 
+ + Based on wooden parts by Hyptosis
+: Stair tiles  :
+ + Based on stair tiles in LPC made by Lanea Zimmerman (Sharm)
+: Gray brick wall tiles  :
+ + Based on cement tiles in LPC made by Lanea Zimmerman (Sharm)
+: Brown brick floor tiles  :
+ + Based on cement tiles in LPC made by Lanea Zimmerman (Sharm)
+: Carpet and cobble stone floor tiles  :
+ + By Tuomo Untinen
+: Blueish gray brick floor tiles  :
+ + By Tuomo Untinen
+ + Dark border is from Castle_2.png by Lanea Zimmerman (AKA Sharm)
+: Brown rocks and gray rock  :
+ + Johann C 
+: Gray columns  :
+ + Johann C 
+: Obelisk  :
+ + Obelisk base is made by Johann C
+ + Tuomo Untinen
+: Monk statue  :
+ + Statue base is made by Johann C
+ + Statue is made by Johannes Sjolund
+: Wooden boxes  :
+ + Box is from LPC farming tileset by Daniel Eddeland 
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+ + Gray rock content by Lanea Zimmerman (AKA Sharm)
+ + Brown rock content by Johann C
+ + Blue crystal content by Tuomo Untinen
+: Blue crystals and magic circles  :
+ + By Tuomo Untinen
+: Cell windows  :
+ + http://opengameart.org/content/lpc-dungeon-elements
+ + Graphical artist Lanea Zimmerman AKA Sharm
+ + Contributor William Thompson
+: Mine cart tracks  :
+ + By Tuomo Untinen
+: Coffin  :
+ + By Tuomo Untinen
+: Purple brick wall  :
+ + By Tuomo Untinen
+: Empty armors  :
+ + by Johannes Sjolund
+: Skeleton lying on the ground  :
+ + Skull by Johannes Sjolund
+ + Adaption by Tuomo Untinen
+: Imp Statue  :
+ + Imp by Stephen Challener and contributor is William Thompson
+ (http://opengameart.org/users/williamthompsonj)
+ + Statue base and Imp recoloring by Tuomo Untinen
+: Castle floors with small tiles  :
+ + by Daniel Armstrong (AKA HughSpectrum)
+: Castle floors with big tiles and purple castle floor  :
+ + by Tuomo Untinen
+: Fallen ceiling piece and rock sign  :
+ + By Tuomo Untinen
+: Brick Arc  :
+ + Bricks based on cement tiles in LPC made by Lanea Zimmerman (Sharm)
+ + By Tuomo Untinen
+: Stone fence  :
+ + By Tuomo Untinen
+: Big stone sign  :
+ + By Tuomo Untinen
+: Red and Blue throne  :
+ + By Tuomo Untinen
+
+: Stone floor bricks  :
+ + By Tuomo Untinen
+: Stone floor bricks with water and Stone brick with deep water  :
+ + Water from LPC made by Lanea Zimmerman (Sharm)
+ + Bricks by Tuomo Untinen
+: Brown windows  :
+ + Hyptosis
+ + Plants by Tuomo Untinen
+: Cement stair tiles  :
+ + Based on cement tiles in LPC made by Lanea Zimmerman (Sharm)
+: Doors  :
+ + By Guido Bos
+: Blueish roof and red roof with tower tops: 
+ + Based LPC made by Lanea Zimmerman (Sharm)
+ + Recoloration by Tuomo Untinen
+ + Clock by Tuomo Untinen
+: Red brick wall : 
+ + From LPC made by Lanea Zimmerman (Sharm)
+ + Wall base by Tuomo Untinen
+: White wall : 
+ + By Tuomo Untinen
+ + Wall base from cement tiles in LPC made by Lanea Zimmerman (Sharm)
+: White and blue roof : 
+ + By Tuomo Untinen
+: Gray windows : 
+ + By Tuomo Untinen
+: Gray brick wall : 
+ + By Tuomo Untinen
+: Yellow brick wall : 
+ + By Tuomo Untinen
+: Red banners and red flag : 
+ + By Tuomo Untinen
+: Monk statues  :
+ + Bright statue base is made by Johann C
+ + Statues are made by Johannes Sjolund
+: Obelisk  :
+ + Obelisk base is made by Johann C
+ + Tuomo Untinen
+: Pedastal and sun clock :
+ + Tuomo Untinen
+: Well :
+ + Xenodora
+ + Wooden parts by Tuomo Untinen
+: Blueish gray brick floor tiles  :
+ + By Tuomo Untinen
+ + Dark border is from Castle_2.png by Lanea Zimmerman (AKA Sharm)
+: Lamp post :
+  + Curt
+  + Sharm
+  + Hyptosis
+: Red chimney :
+ + Tuomo Untinen
+: Round flowerbeds :
+ + Tuomo Untinen
+ + Plant from Daniel Eddeland 
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+: Market place :
+ + Roof based on "Adobe Town Set" Artist: bluecarrot16 
+ License: CC-BY 3.0 / GPL 3.0 / GPL 2.0 / OGA-BY 3.0 
+ Please link to page on opengameart. 
+ Based on "[LPC] Adobe Building Set" Artist: Sharm (Lanea Zimmerman) 
+ Contributor: William.Thompsonj (William Thompson) 
+ License: CC-BY 3.0 / GPL 3.0 / GPL 2.0 / OGA-BY 3.0 
+ http://opengameart.org/content/lpc-adobe-building-set
+ + Table top Based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
+ + Plants,hammers, tongs and box from Daniel Eddeland 
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+ + Chest from LPC base tileset by Lanea Zimmerman (AKA Sharm)
+ + Rocks, papers and scissors by caeles.
+ + Dark green bottles by Tuomo Untinen
+ + Purple and green bottle from Hyptosis Mage city
+ + Kettle, pan and scoop by Lanea Zimmerman (AKA Sharm)
+ + Hanging cloths and sack by Tuomo Untinen
+: Boats :
+ + Daniel Eddeland 
+ (http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+
+: Red carpets :
++ From LPC base tileset by Daniel Armstrong (AKA HughSpectrum)
+: Beds :
++ Based on bed from LPC base tileset by Lanea Zimmerman (AKA Sharm)
+: Wooden big table :
++ Based on table from LPC base tileset by Lanea Zimmerman (AKA Sharm)
+: Cloth big table :
++ By Tuomo Untinen
+: Brazier :
++ By Tuomo Untinen
+: Throne :
++ By Tuomo Untinen
+: Doors :
++ Based on door by Guido Bos
+: Cupboard, small table and table with mirror :
++ Cupboard based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
++ Tables are from Castle_2.png by Lanea Zimmerman (AKA Sharm)
++ Mirror by Tuomo Untinen
+: Red banners, paintings and old papers :
++ By Tuomo Untinen
+: Small footchair :
++ By Tuomo Untinen
+: Double bed :
++ By Tuomo Untinen
+: Plants in pots :
++ By Tuomo Untinen
+: Gray bright windows :
++ By Tuomo Untinen
+: Short column and statue :
++ By Tuomo Untinen
+: Stone sign :
++ By Tuomo Untinen
+: Horse head :
++ By Tuomo Untinen
+: Grand piano :
++ By Tuomo Untinen
+: Cobblestone floor :
++ By Tuomo Untinen
+: Cellwall and door :
++ By Tuomo Untinen
+: Yellow stone floor :
++ Based from LPC base tileset by Daniel Armstrong (AKA HughSpectrum)
+: Gray wall topping  :
++ Tuomo Untinen
+: Vases with cover :
++ Based LPC base tiles by Lanea Zimmerman (AKA Sharm)
++ Modifications by Tuomo Untinen
+: Fireplace :
++ By Lanea Zimmerman
+
++ Wooden ship tiles by Tuomo Untinen
++ Snail and snail track tiles by Tuomo Untinen
++ Castle doors by Tuomo Untinen
++ Bush fence by Tuomo Untinen
++ Palm tree made by Tuomo Untinen 
++ Jungle tree made by Tuomo Untinen
++ Jungle tree made by Tuomo Untinen
++ Tombs and torture table by Tuomo Untinen
+
+: Wooden fortress walls :
++ By Tuomo Untinen
+: Clouds :
++ By Tuomo Untinen
+: Huge rock :
++ By Tuomo Untinen
+: Tall rock :
++ Based by Johann C 
++ Recoloration and rotation by Tuomo Untinen
+: Brown dirt tiles :
++ By Tuomo Untinen
+: Brown brick wall :
++ By Tuomo Untinen
+: Sand and Grass :
++ Sand is by William.Thompsonj and Daniel Eddeland
+(http://opengameart.org/content/lpc-sandrock-alt-colors)
++ grass tiles from LPC made by Lanea Zimmerman (Sharm)
+: Sand and Water :
++ Sand is  by William.Thompsonj and Daniel Eddeland
+(http://opengameart.org/content/lpc-sandrock-alt-colors)
++ Water tiles from LPC made by Lanea Zimmerman (Sharm)
++ Animation by Tuomo Untinen
+: Cave wall tiles  :
++ Based on cave tiles in LPC made by Lanea Zimmerman (Sharm)
+: Rope ladders :
++ By Tuomo Untinen
+
+
+: Limestone wall, doors and windows :
+By Tuomo Untinen
+: Light brown roof :
+By Tuomo Untinen
+: Light brown stone wall and windows :
+By Tuomo Untinen
+: Light brown stone wall top :
+By Tuomo Untinen
+: Brown ornament :
+By Tuomo Untinen
+: Fountain :
+By Tuomo Untinen
+: Sand block floors and stairs :
+By Tuomo Untinen
+: Columns, sabres and celtic crosses and hole in the wall :
+By Tuomo Untinen
+: Gray stone floor :
+By Tuomo Untinen
+
+: Stone bridge with arc :
+By Tuomo Untinen
+
+: Male hero in shiny armor :
++ Base character by Stephen Challener AKA Redshrike
++ Hair by Manuel Riecke AKA MrBeast
++ Armor by Johannes Sjolund AKA Wulax
++ Cape by Jaidyn Reiman
+: Female archer :
++ Blue pants by Nila122 
++ Braid hair by Nila122
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
+: Male wizard :
++ Base character by Stephen Challener AKA Redshrike
++ Hair by Manuel Riecke AKA MrBeast
++ Robe and boots by Johannes Sjolund AKA Wulax
+: Male barbarian :
++ Barbarian base by By Dalonedrau (http://opengameart.org/)
++ Vest by pennomi, laetissima and makrohn. 
++ Base character by Stephen Challener AKA Redshrike
+: Male hero in shiny armor 2 :
++ Base character by Stephen Challener AKA Redshrike
++ Hair by Manuel Riecke AKA MrBeast
++ Armor by Johannes Sjolund AKA Wulax
+: Female Swashbuckler :
++ Blue pants by Nila122 
++ Ponytail by Nila122
++ Corset by Nila122
++ Teal tunic by Jaidyn Reiman
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
+: Female Healer :
++ Blue pants by Nila122 
++ Curly hair by Nila122
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
+: Kungfu Woman :
++ Dress by Nila122 
++ Long boots by Nila122
++ Hair by Manuel Riecke AKA MrBeast
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
+
+: Old man :
++ Base character by Stephen Challener AKA Redshrike
++ Robe and boots by Johannes Sjolund AKA Wulax
++ Whitebeard by Nemisys
++ White eyebrowns by Tuomo Untinen
+: Old lady :
++ Teal tunic by Jaidyn Reiman
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Hair by Manuel Riecke AKA MrBeast
+: Man with beard :
++ Base character by Stephen Challener AKA Redshrike
++ Robe and boots by Johannes Sjolund AKA Wulax
++ Beard based on Whitebeard by Nemisys
++ Vest by pennomi, laetissima and makrohn.
++ Shirt by pennomi, laetissima and makrohn.
++ Plain hair by Joe White 
+: Woman with apron :
++ Irish dress by pennomi, laetissima and makrohn.
++ Apron by Nila122
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Hair by Manuel Riecke AKA MrBeast
+: Young man :
++ Base character by Stephen Challener AKA Redshrike
++ Boots by Johannes Sjolund AKA Wulax
++ Hair by Manuel Riecke AKA MrBeast
+: Young woman in a dress :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Hair by Manuel Riecke AKA MrBeast
+: Girl and boy :
+Radomir Dopieralsi
+
+: Snake :
+By Charles Sanchez (AKA CharlesGabriel)
+: Slime :
+By Charles Sanchez (AKA CharlesGabriel)
+: Spider :
+By Tuomo Untinen
+: Bee :
+By Charles Sanchez (AKA CharlesGabriel)
+: Rat :
+By Tuomo Untinen
+: White Cat :
+By Tuomo Untinen
+: Black Cat :
+By Tuomo Untinen
+: Dog :
+By Tuomo Untinen
+: Sheep :
+By Daniel Eddeland (http://opengameart.org/content/lpc-style-farm-animals)
+Scaled down by Tuomo Untinen
+: Goat :
+By Tuomo Untinen
+
+: Old man :
++ Base character by Stephen Challener AKA Redshrike
++ Boots by Johannes Sjolund AKA Wulax
++ Hair by Manuel Riecke AKA MrBeast
+: Old woman :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Bun hair modified by Tuomo Untinen, original by Manuel Riecke AKA MrBeast
+: Beggar :
++ Base character by Stephen Challener AKA Redshrike
++ Boots by Johannes Sjolund AKA Wulax
++ Sleeves shirt modified by Tuomo Untinen, original by Johannes Sjolund AKA Wulax
++ Beard based on Whitebeard by Nemisys
++ Plain hair by Joe White 
+: Woman with appron :
++ Apron by Nila122
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Headscarf by Tuomo Untinen
++ Hair by Manuel Riecke AKA MrBeast
+: Old man in blue/green clothes :
++ Base character by Stephen Challener AKA Redshrike
++ Boots by Johannes Sjolund AKA Wulax
++ Vest by pennomi, laetissima and makrohn. 
++ Hair by Manuel Riecke AKA MrBeast
+: Old woman with glasses : 
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Bun hair modified by Tuomo Untinen, original by Manuel Riecke AKA MrBeast
++ Headscarf for hair bun by Tuomo Untinen
++ Glasses by Tuomo Untinen
+: Sailor :
++ Barbarian base by By Dalonedrau (http://opengameart.org/)
++ Base character by Stephen Challener AKA Redshrike
++ Boots and Leather armor by Johannes Sjolund AKA Wulax
++ Sleeves shirt modified by Tuomo Untinen, original by Johannes Sjolund AKA Wulax
++ Bandana by Tuomo Untinen
++ Sideburns by Tuomo Untinen 
++ Hair by Manuel Riecke AKA MrBeast
+: Woman in appron :
++ Apron by Nila122
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Hair by Manuel Riecke AKA MrBeast
+: Young man :
++ Base character by Stephen Challener AKA Redshrike
++ Boots and Leather armor by Johannes Sjolund AKA Wulax
++ Hair by Manuel Riecke AKA MrBeast
+: Young woman in apron :
++ Apron by Nila122
++ Apron big knot by Tuomo Untinen
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Headscarf for hair bun by Tuomo Untinen
++ Hair by Manuel Riecke AKA MrBeast
+: Girl and boy :
+Radomir Dopieralsi
++ Color modifications by Tuomo Untinen
+: Woman with appron :
++ Apron by Nila122
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Headscarf by Tuomo Untinen
++ Hair by Manuel Riecke AKA MrBeast
+: Monk :
++ Base character by Stephen Challener AKA Redshrike
++ Boots and Leather armor by Johannes Sjolund AKA Wulax
+: Man with apron :
++ Base character by Stephen Challener AKA Redshrike
++ Boots and Leather armor by Johannes Sjolund AKA Wulax
++ Apron by Nila122 and modified for male by Tuomo Untinen
++ Shirt by pennomi, laetissima and makrohn.
+: Man with apron and moustache :
++ Base character by Stephen Challener AKA Redshrike
++ Boots and Leather armor by Johannes Sjolund AKA Wulax
++ Apron by Nila122 and modified for male by Tuomo Untinen
++ Moustache by Tuomo Untinen
++ Plain hair by Joe White 
+
+: Nerisella Songsteel :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad,
+ Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Single bauldron by Nila122
++ Plain hair by Joe White 
+: Crulamin Tigersoul :
++ Barbarian base by By Dalonedrau (http://opengameart.org/)
++ Base character by Stephen Challener AKA Redshrike
++ Sleeves shirt modified by Tuomo Untinen, original by Johannes Sjolund AKA Wulax
++ Short hair by Tuomo Untinen
+: Eleanor :
++ RubyRed hair by Jaidyn Reiman
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad,
+ Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Blue pants by Nila122 
++ Plain hair by Joe White 
+: Werdinor Blackbone :
++ Cape by Jaidyn Reiman
++ Base character by Stephen Challener AKA Redshrike
++ Shirt by pennomi, laetissima and makrohn.
++ Boots by Johannes Sjolund AKA Wulax
++ Sleeves shirt modified by Tuomo Untinen, original by Johannes Sjolund AKA Wulax
++ Plain hair by Joe White
+: Man with Tophat :
++ Base character by Stephen Challener AKA Redshrike
++ Shirt by pennomi, laetissima and makrohn.
++ Bowtie by pennomi, laetissima and makrohn.
++ Fine jacket by Tuomo Untinen, pennomi, laetissima and makrohn.
++ Boots by Johannes Sjolund AKA Wulax
++ Top hat by Tuomo Untinen
++ Plain hair by Joe White
+: Old adventurer :
++ Base character by Stephen Challener AKA Redshrike
++ Fine jacket by Tuomo Untinen, pennomi, laetissima and makrohn.
++ Boots by Johannes Sjolund AKA Wulax
++ Leather armor torso by Johannes Sjolund AKA Wulax
++ Whitebeard by Nemisys
++ Sideburns by Tuomo Untinen 
++ Hair by Manuel Riecke AKA MrBeast
+: Blond adventurer :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Irish dress by pennomi, laetissima and makrohn.
++ Long boots by Nila122
++ Leather armor by makrohn.
++ Hair by Manuel Riecke AKA MrBeast
+: Man in blue robe :
++ Base character by Stephen Challener AKA Redshrike
++ Whitebeard by Nemisys
++ Robe and boots by Johannes Sjolund AKA Wulax
++ Beret by Tuomo Untinen
++ Hair by Manuel Riecke AKA MrBeast
+: King :
++ Base character by Stephen Challener AKA Redshrike
++ Boots by Johannes Sjolund AKA Wulax
++ Fine jacket by Tuomo Untinen, pennomi, laetissima and makrohn.
++ Shirt by pennomi, laetissima and makrohn. 
++ Crown by Tuomo Untinen
++ Cape by Jaidyn Reiman
++ Capeclip by Jaidyn Reiman
++ Plain hair by Joe White 
+: Ghost of Queen :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Long boots by Nila122
++ Curly hair by Nila122
++ Crown by Tuomo Untinen
++ Cape by Jaidyn Reiman
++ Capeclip by Jaidyn Reiman
+: Big dead guard :
++ By Tuomo Untinen
+: Rebel soldier :
++ Base character by Stephen Challener AKA Redshrike
++ Boots by Johannes Sjolund AKA Wulax
++ Shirt by pennomi, laetissima and makrohn. 
++ Leather armor torso by Johannes Sjolund AKA Wulax
++ Plain hair by Joe White
+: Rebel leader :
++ Base character by Stephen Challener AKA Redshrike
++ Cape by Jaidyn Reiman
++ Hair by Manuel Riecke AKA MrBeast
++ Capeclip by Jaidyn Reiman
++ Hair by Manuel Riecke AKA MrBeast
+: Woman adventurer in chainmail :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Long boots by Nila122
++ Hair by Manuel Riecke AKA MrBeast
++ Belt by Johannes Sjolund AKA Wulax
+
+: Troll :
++ Barbarian base by By Dalonedrau (http://opengameart.org/)
++ Overall modified by Tuomo Untinen from Vest by pennomi, laetissima and makrohn. 
++ Base character and Green pants by Stephen Challener AKA Redshrike
++ Fangs by Tuomo Untinen
++ Elven ears by Jaidyn Reiman
+: Wolfman :
++ Base character by Stephen Challener AKA Redshrike
++ Chainmail torso by Johannes Sjolund AKA Wulax
++ Belt by Johannes Sjolund AKA Wulax
++ Plate shoulders by Johannes Sjolund AKA Wulax
++ Wolf head Art by Stephen "Redshrike" Challener and contributor by William.Thompsonj.
+  http://opengameart.org/content/lpc-wolf-animation
+: Wolfman Boss :
++ Base character by Stephen Challener AKA Redshrike
++ Chainmail torso by Johannes Sjolund AKA Wulax
++ Belt by Johannes Sjolund AKA Wulax
++ Plate armor by Johannes Sjolund AKA Wulax
++ Capeclip by Jaidyn Reiman
++ Wolf head Art by Stephen "Redshrike" Challener and contributor by William.Thompsonj.
+  http://opengameart.org/content/lpc-wolf-animation
+: Hobgoblin :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Chainmail torso by Johannes Sjolund AKA Wulax
++ Belt by Johannes Sjolund AKA Wulax
++ Plate armor by Johannes Sjolund AKA Wulax
++ Leather armor by Johannes Sjolund AK wulax
++ Boots by Johannes Sjolund AKA Wulax
++ Horns by Tuomo Untinen
+: Zombie :
++ Original Zombie by ArtisticDude, modified by Tuomo Untinen
+: Skeleton :
++ Original Skeleton by ArtisticDude, modified by Tuomo Untinen
+: Muscleman :
++ by Tuomo Untinen
+: Minotaur :
++ by Tuomo Untinen
+: Fairy :
++ by Tuomo Untinen
+: Skeleton in Armor :
++ Plate armor by Johannes Sjolund AKA Wulax
++ Skeleton by Johannes Sjolund AKA Wulax
+: Imp :
+Imp Art by Stephen "Redshrike" Challener and contributor by William.Thompsonj.
+http://opengameart.org/users/williamthompsonj
++ Scaled to 32 pixel width by Tuomo Untinen
+: Rogue :
++ Base character by Stephen Challener AKA Redshrike
++ Hair by Manuel Riecke AKA MrBeast
++ Belt by Johannes Sjolund AKA Wulax
++ Leather armor by Johannes Sjolund AK wulax
++ Boots by Johannes Sjolund AKA Wulax
++ Leather hat by Johannes Sjolund AKA Wulax
++ Scarf by Nila122
++ Cape by Jaidyn Reiman
+
+: Seagull :
+By Tuomo Untinen
+: Raven :
+By Tuomo Untinen
+
+: City guard :
++ Base character by Stephen Challener AKA Redshrike
++ Full plate mail by Johannes Sjolund AKA Wulax
+: Guard captain :
++ Base character by Stephen Challener AKA Redshrike
++ Full plate mail by Johannes Sjolund AKA Wulax
++ Hair by Manuel Riecke AKA MrBeast
++ Cape by Jaidyn Reiman
+: Pirate Captain :
++ Base character by Stephen Challener AKA Redshrike
++ Ponytail by Manuel Riecke AKA MrBeast
++ Plain hair by Joe White 
++ Belt by Johannes Sjolund AKA Wulax
++ Pirate hat and eye patch by Tuomo Untinen
++ Shirt by pennomi, laetissima and makrohn.
++ Fine jacket by Tuomo Untinen, pennomi, laetissima and makrohn.
++ Boots by Johannes Sjolund AKA Wulax
+: Muscle pirate :
++ Barbarian base by By Dalonedrau (http://opengameart.org/)
++ Base character by Stephen Challener AKA Redshrike
++ Belt by Johannes Sjolund AKA Wulax
++ Boots by Johannes Sjolund AKA Wulax
++ Sleeves shirt modified by Tuomo Untinen, original by Johannes Sjolund AKA Wulax
++ Beard based on Whitebeard by Nemisys
++ Moustache by Tuomo Untinen
++ Eyebrowns by Tuomo Untinen
+: Sailor :
++ Base character by Stephen Challener AKA Redshrike
++ Boots and Leather armor by Johannes Sjolund AKA Wulax
++ Sleeves shirt modified by Tuomo Untinen, original by Johannes Sjolund AKA Wulax
++ Greenish pants by Johannes Sjolund AKA Wulax
++ Bandana by Tuomo Untinen
+: Blue wizard :
++ Base character by Stephen Challener AKA Redshrike
++ Boots, Leather armor shoulder and chainmail jacket by Johannes Sjolund AKA Wulax
++ Shirt by pennomi, laetissima and makrohn.
++ Wizard hat by Tuomo Untinen
++ Whitebeard by Nemisys
++ White eyebrowns by Tuomo Untinen
+: High counsilor :
++ Base character by Stephen Challener AKA Redshrike
++ Boots, Leather armor shoulder and robe skirt by Johannes Sjolund AKA Wulax
++ Eyebrowns by Tuomo Untinen
++ Hair by Johannes Sjolund AKA Wulax
++ Cape by Jaidyn Reiman
++ Shirt and vest by pennomi, laetissima and makrohn.
+: Green wizard :
++ Base character by Stephen Challener AKA Redshrike
++ Boots, robe skirt, shirt, hood and belt by Johannes Sjolund AKA Wulax
++ Whitebeard by Nemisys modified by Tuomo Untinen
++ White eyebrowns by Tuomo Untinen
+: Old man in beret :
++ Base character by Stephen Challener AKA Redshrike
++ Boots, robe skirt by Johannes Sjolund AKA Wulax
++ Whitebeard by Nemisys modified by Tuomo Untinen
++ Fine jacket by Tuomo Untinen, pennomi, laetissima and makrohn.
++ Shirt by pennomi, laetissima and makrohn.
++ Glasses by Tuomo Untinen
++ White eyebrowns by Tuomo Untinen
++ Hair by Manuel Riecke AKA MrBeast
++ Beret by Tuomo Untinen
+: Vampire woman :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Long boots by Nila122
++ Hair by Manuel Riecke AKA MrBeast
++ Cape by Jaidyn Reiman
++ Single bauldron by Nila122
+: Forest spirit :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad, 
+Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Long boots by Nila122
++ Hair by Manuel Riecke AKA MrBeast
++ Cape by Jaidyn Reiman
++ Dress by Nila122 
+: Water elemental :
++ Walkcycle, Hurt, Slash, and Spellcast animations by Stephen Challener 
+(AKA Redshrike), Shooting and Thrusting animations by Johannes Sjolund, 
+Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad,
+ Tanned, Tanned2, and Dark colors by MadMarcel, other credit to Matthew Krohn
++ Hair by Manuel Riecke AKA MrBeast
++ Modified water base by Tuomo Untinen
++ Corset by Nila122
+
+: Brainmonster :
++ By Tuomo Untinen
+
+: Undeadking :
++ Original Skeleton by ArtisticDude, modified by Tuomo Untinen
+
+: Zombie pirate :
++ Original Zombie by ArtisticDude, modified by Tuomo Untinen
+
+: Treant :
++ By Tuomo Untinen
+
+: Animated shelf :
++ Skull by Graphical artist Lanea Zimmerman AKA Sharm and Contributor William Thompson
+ http://opengameart.org/content/lpc-dungeon-elements
++ Shelf based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
+
+: Swords and daggers :
++ By Tuomo Untinen
+: Axes :
++ By Tuomo Untinen
+: Plate mails :
++ by Johannes Sjolund AKA Wulax
+: Helmet :
++ by Johannes Sjolund AKA Wulax
+: Bows : 
++ By Tuomo Untinen
+: Round shields :
++ by Johannes Sjolund AKA Wulax
+: Gloves :
++ by Johannes Sjolund AKA Wulax
+: Bottles :
++ by Tuomo Untinen
+: Kite shields :
++ By Tuomo Untinen
+: Pick-Axe :
++ By Tuomo Untinen
+: Spiked Gloves :
++ by Johannes Sjolund AKA Wulax
++ Modifed by Tuomo Untinen
+: Keys and pick locks :
++ By Tuomo Untinen
+: Leather armors :
++ by Johannes Sjolund AKA Wulax
++ Spikes done by Tuomo Untinen
+: Maces :
++ By Tuomo Untinen
+: Carrot :
++ By Tuomo Untinen
+: Carrot :
++ By Tuomo Untinen
+: Money bag :
++ Small sack from LPC farming tileset by Daniel Eddeland 
+(http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements)
+: Spears : 
++ By Tuomo Untinen
+: Salad :
++ Based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
++ Modifications by Tuomo Untinen
+: Cheese :
++ By Tuomo Untinen
+: Bread, roast on plate and apple :
++ By Jetrel
+: Chainmail :
++ By Johannes Sjolund AKA Wulax
+: Crossbow :
++ By Gwes
+: Crudge Leather armor :
++ Leather armor by Johannes Sjolund AKA Wulax
++ Single bauldron by Nila122
+: Jackets :
++ Jacket by Tuomo Untinen, pennomi, laetissima and makrohn.
++ Belt by Johannes Sjolund AKA Wulax
+: Scrolls and books :
++ Modified by Tuomo Untinen originals by Gwes
+: Cabbage :
++ By Daniel Eddeland 
+(http://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements) 
+: Witch Hat :
++ By Tuomo Untinen
+: Torch and Lantern :
++ By Tuomo Untinen
+: Staff :
++ By Tuomo Untinen
+: Amulets :
++ Ruby by Gwes
++ Modifications by Tuomo Untinen
+: Rapier :
++ By Tuomo Untinen
+: Sling :
++ By Tuomo Untinen
+: Rope :
++ By Tuomo Untinen
+: Flails :
++ By Tuomo Untinen
+: Big hammers :
++ By Tuomo Untinen
+: Cooked fish :
++ By Tuomo Untinen
+: Exploding barrel :
++ Original barrel by by Lanea Zimmerman (AKA Sharm)
++ Modified by Tuomo Untinen
+: Splint Mail :
++ Leather armor by Johannes Sjolund AKA Wulax
++ Modified by Tuomo Untinen
+: Cape :
++ By Jaidyn Reiman
+: Sawtooth blade :
++ By Gwes
+: Diamonds : 
++ By Tuomo Untinen
+: Shurikens :
++ By Tuomo Untinen
+: Rings :
++ By Tuomo Untinen
+: Leather boots :
++ By Tuomo Untinen
+: Hairpin :
++ By Tuomo Untinen
+: Toolbox :
++ By Tuomo Untinen
+: Large shields :
++ By Gwes
+: Large key :
++ By Gwes 
+: Evil magic staff :
++ By Gwes
++ Modified by Tuomo Untinen
+: Iron boots :
++ By Gwes
+: Magic swords :
++ Handle by Gwes
++ Blade by Tuomo Untinen
+: Skull key :
++ By Tuomo Untinen
+: Javelins and throwing axes :
++ By Tuomo Untinen
+: Medikit :
++ By Tuomo Untinen
+: Buckler :
++ By Gwes
+: Fishing rod :
++ By Tuomo Untinen
+: Raw fish :
++ By Tuomo Untinen
+: Troll Head :
++ Base character by Stephen Challener AKA Redshrike
++ Fangs by Tuomo Untinen
++ Elven ears by Jaidyn Reiman
+: Map :
++ By Tuomo Untinen
+: Rope ladder :
++ By Tuomo Untinen
+: Shovel :
++ By Tuomo Untinen
+: Zombie head on rope :
++ Original Zombie by ArtisticDude, modified by Tuomo Untinen
+: Master key :
++ By Tuomo Untinen
+: Magic Hatchet :
++ By Tuomo Untinen
+: Blue plant and seeds :
++ By Tuomo Untinen
+: Wooden shield :
++ By Tuomo Untinen
+: Boomerang :
++ By Tuomo Untinen
+: Skull shield :
++ By Gwes
+: Magic wand :
++ By Gwes
+: Swords with black handle :
++ Handle by Gwes
++ Blade by Tuomo Untinen
+: Mystic books :
++ By Gwes
+: Phylantery :
++ By Jetrel
+: Magic sickle :
++ By Tuomo Untinen
+: Locket :
++ By Tuomo Untinen
+: Bridge repair kit :
++ By Tuomo Untinen
+
+: Look cursor, cast cursor, attack cursor, use cursor and talk cursor :
++ By Tuomo Untinen
+: Speech ballons and sweat :
++ By Tuomo Untinen
+: Small magic effect, good magic effect, poison and flame spell effects :
++ By Tuomo Untinen
+: Curse fear and darkness spell effects :
++ By Tuomo Untinen
++ Skull by Johannes Sjolund
+: Electric, teleport, freezing drowning and force fist spell effects :
++ By Tuomo Untinen
+: Bright light spell effect, blood stains and blade swing effects :
++ By Tuomo Untinen
+: Ranged attack miss effect :
++ By Tuomo Untinen
+: Sleeping speech bubble :
++ By Tuomo Untinen
+: Shopkeeper's speech bubble :
++ By Tuomo Untinen
+: Teddy bear speech bubble :
++ By Tuomo Untinen
+: Eating speech bubble :
++ Original meat By Jetrel
++ Adaptation by Tuomo Untinen
+
+: Faces art :
+Art by Charles Gabriel. Commissioned by OpenGameArt.org (http://opengameart.org)
+
+Art by Charles Gabriel. Commissioned by OpenGameArt.org (http://opengameart.org), 
+Modified by Tuomo Untinen
+
+Portrait graphics created by RPG Action, http://peterlzy.wix.com/rpgaction,
+ 
+Graphics designed by ZeNeRIA29, http://zeneria29.deviantart.com/
+
+Special thanks to Frank Ni and Markeus Brumfield
+
+Special Thanks to Markeus Brumfield and Frank Ni
+
+By Zeldyn
+
+By as Svetlana Kushnariova, lana-chan@yandex.ru
+
+Special thanks to Markeus Brumfield
+
+By Ravenmore, http://dycha.net
+
+By Tuomo Untinen
+
+ + Skull by Graphical artist Lanea Zimmerman AKA Sharm and Contributor William Thompson
+   http://opengameart.org/content/lpc-dungeon-elements
+ + Shelf based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
+

@@ -1,0 +1,523 @@
+#####################################################
+## SPOILER ALERT!!!!
+## If you haven't played Heroes of the Hawks Haven
+## you should not read this file since this file
+## tells the whole story as short story.
+##
+## First file contains list of story variable actually
+## used in the game. After listing the story variables
+## There is design document about the story itself.
+##
+## Continue reading only if you are ready to get
+## spoiled!!
+##
+#####################################################
+
+
+
+
+
+
+
+
+
+
+
+## Scroll more down
+
+
+
+
+
+
+
+
+
+
+
+
+## Scroll more down
+
+
+
+
+
+
+
+
+
+
+
+
+## Scroll more down
+
+
+
+
+
+
+
+
+
+
+
+
+## Scroll more down
+
+
+GAME STORY VARIABLES
+0 is for main quest(Hero of Empire)
+     State 1: Got Adventurer's Diploma and travel to Hawks Haven
+     State 2: Diploma registered
+     State 3: Got quest to get Aconitum from the Crystal Lake
+     State 4: Got the Aconitum
+     State 5: Access to Emperor's Chamber
+     State 6: Emperor has died! (30 days before crowning)
+     State 7: Empress Anthess last know place was Cloudtop monastery
+     State 8: Talked with Ghost of Anthess whom said his son has a Mother's locket
+              Magic word Venivec
+     State 9: Found out that Marcus Agnius has Mother's locket and Marcus is true heir
+     State 10: Killed Vicster (Deadline goes away)
+     State 11: Marcus will be crowned
+1 is for nerisella Quests
+     State 0: Nerisella Songsteel school keeps training adventurers
+     but not good adventurers anymore
+     State 1: Got the quest
+     State 2: Rat poison is poured
+     State 3: Zombie quest
+     State 4: Zombie is dead
+     State 5: Both quests are completed
+              Finally: Nerisella Songsteel School keeps training more
+              adventurers.
+2 is for Cruward's quest(Witch of Ravenwoods)
+     State 0: Finally: Tigersoul farm sheeps are mysteriously gone and crop
+     dies. Tigersoul family moves away from Ravenrow
+     State 1: Got quest
+     State 2: Proof that witch is dead
+            Finally: Tigersoul farm makes a best crop for years and
+            sheeps produce more wool than ever before
+3 is for Ravenrow's Well quest
+     State 0: Finally: Ravenrow town people mysteriously dies from poisoning.
+     State 2: Fight against Zombies
+     State 3: Got reward
+     Finally: Ravenrow town flourishes with fresh water. 
+4 is for Missing person(Ulrika Eastheart) in Ravenrow
+     State 4: Quest completed
+     State 5: Quest failed
+5 is For Stolen necklace in Lonely Inn
+     State 1: Got quest
+     State 2: Returned Necklace
+     State 3: Quest failed, tried to rob Robin Whitespoon
+6 is for "Werdinor's Quest: Power mage" Werdinor Blackbone
+     State 1: Got quest
+     State 2: Got ancient key from Tomb
+     State 3: Ancient key and scroll found
+     State 4: Werdinor has teleported into Ancient Shrine
+     State 5: Werdinor has read the Ancient Tome
+     State 6: Werdinor is out from Ancient Shrine
+     Finally: Evil Necromancer rises
+7 is for "Raiding Hobgoblins" gotten from Gumbert Nightbeard
+     State 1: Healed Gumbert and got quest.
+     State 2: Burt is dead
+     State 3: Reward is paid and Quest is done
+              Finally: Hobgoblins are gone from Shadow Woods for ever.
+8 is For "Raiding Hobgoblins" see above
+     State 0: Rope is not placed
+     State 1: Rope is placed
+     State 2: Explosion done
+              Finally: Since hobgoblin cave was sealed wandering adventurer
+              did not find gold from the cave.
+     if story[7] > 1 && story[8] < 2: Wandering adventurer goes to search
+     hobgoblin cave and finds a gold vein
+9 is for "Cat and Smith" Warrior's Den quest
+     State 1: Got quest             
+     State 2: Cat has been removed
+     State 3: Quest done
+10 is for Kerry Silverblade's quest
+     "Guard patrol"
+     State 1: Got patrol quest
+     State 2: First wp done
+     State 3: Second wp done
+     State 4: Robber encounter activated
+     State 5: Third wp done
+     State 6: Fourth wp done
+     State 7: Patrol done
+     "Hobgoblin trouble in sewers"
+     State 8: Got quest and key
+     State 9: Placed powder keg
+     State 10: Keg exploded
+     State 11: Quest done
+             Finally: Kerry Silverblade got promotion as Emperor's personal guard since
+             taking care of hobgoblin issue.
+11 is for Elnora Tanolian's Solo quest
+     "Nightmare at Orphanage"
+     State 0: Mysteriously there are multiple witches in Hawks Haven.
+     State 1: Got quest from Bridra
+     State 2: Seen what happens at night
+     State 3: Talked about what happened at night
+     State 4: Entered the Orphange's cellar
+     State 5: Fight against the Witch
+     State 6: Quest Done
+            Finally: Heroon's Orphanage helps street children in Hawks Haven.
+12 Is for Brunor Whitebeard start quest
+     State 1: Player is searching for staff
+     State 2: Brunor want ale
+     State 3: Brunor is ready to join party
+     State 4: Player failed Brunor quest
+13 Is for Hawks Haven's temple quest "Tomb of Undeads"
+     State 0: Finally: Heroon takes over the temple and lastly whole Hawks Haven.
+           All the people are turned into undead army after couple of years.
+     State 1: Player has agreed to solve problem in tomb
+     State 2: Player has entered to tomb
+     State 3: Player has learned that moon light can cause dead to
+     walk. But how moon light is shining in tomb?
+     State 4: Heroon was buried with ancient artefact called Moon stone,
+     which causes deads to become undeads.
+     State 5: Player has taken Moon Stone back to temple. Quest done.
+             Finally: Temple of Hawks Haven stays clean from undeads.
+     State 6: Turned down quest. Quest failed. 
+             Finally: Heroon takes over the temple and lastly whole Hawks Haven.
+           All the people are turned into undead army after couple of years.
+14 Is For Thieves' Guild Quest
+     State 1: Player has joined to thieves guild
+     State 2: Get evidence against Magnus the Captain.(Crook among crooks)
+     State 3: Got inside captains cabin
+     State 4: Returned book to Osdam and got new Quest.(Stealing the Master key)
+     State 5: Entered to Mage Guild Cellar
+     State 6: Found the Master Key
+     State 7: Retuned Master key to Thieves Guild.
+              Finally: Thieves guild destroy the Mages' guild from Hawks Haven
+15 Is for Mages' Guild Quest
+     State 1: Player has joined to Mages' guild
+     State 2: Player agreed to help Willo(Trouble in Beastery)
+     State 3: Fight against Demon or Demon banished
+     State 4: Done Trouble in Beastery
+     State 5: Agreed to find Master Key(Cleaning the cellar)Dae Spellarm
+     State 6: Found the Master Key
+     State 7: Master key returned to Dae Spellarm
+            Finally: Mages' guild destroy the Thieves guild from Hawks Haven
+16 Is for Getting Magnus' ship
+     State 1: Joined the crew
+     State 2: Stoaway
+17 Is for Hawks Haven's temple quest "Tomb of Undeads"
+     State 0: Nothing done for Heroon
+     State 1: Heroon was killed
+             Finally: Heroon body was destroyed. This caused money shortage for
+             Temple of Hawks Haven since the lance of pilgrims
+     State 2: Heroon was talked to go back to sleep
+             Finally: Heroon body was saved. Pilgrims kept coming to temple and
+             temple gained more fame and gold than before.     
+18 Is for Werdinor's Quest, second marker
+     State 0: Ancient scroll is not found
+     State 1: Ancient scroll is found.
+19 Is for (The Lost Dog)Vicsdor Woodenknight
+     State 1: Got quest
+     State 2: Found the dog and told it to go home
+     State 3: Quest done
+     State 9: Quest failed
+            Finally: Vicsdor's dog was killed by skeleton in the tomb.
+20 Is for (The Lost Ring)Aliya Northfork
+     State 1: Got quest
+     State 2: Got quest, copper reward promised
+     State 3: Returned the ring
+            Finally: Aliya had is ring and she got luckly. She won emperor's lottery
+            and got lot's of copper. But she did not find her true love.
+     State 4: Talked Aliya to give up on finding the ring.
+            Finally: Aliya accepted that her ring is gone for ever. She got married
+            with Vicsdor Woodenknight.
+     State 5: Turned down the quest
+            Finally: Aliya lost if family ring for ever. She died in one year into
+            sorrow.
+21 Is for tutorial
+     State 0: Tutorial disabled
+     State 1: Tutorial enabled
+22 Is for (The Stolen Fishing Rod) Larek Fishmaster
+     State 1: Got quest
+     State 2: Gardia Bronzelantern told that Felper Bronzelantern was seen with long pole.
+     State 3: Felper Bronzelantern has admited to steal the rod.
+     State 9: Quest done fishing rod found and returned to Larek
+                 Finally: Larek stays as fisherman in Riverton and Felper keeps
+                 farming.
+     State 10: Quest done Fooled Larek to believe himself stole it
+                 Finally: Larek becomes mad and drowns himself. Felper becomes
+                 Riverton fisherman.
+23 Is for (Troll and Bridge) Zaneles Southblade
+     State 1: Got quest
+     State 2: Started to fight with troll
+     State 3: Agreed to fake troll head with troll
+     State 4: 1 Cabbage
+     State 5: 2 Cabbages
+     State 6: 3 Cabbages
+     State 7: Honeycomb
+     State 8: Fish
+     State 9: Minor Healing Potion and Got faked troll head
+     State 10: Quest completed
+24 Is for (Wolf child)Beatrice Silvershield
+     State 1: Got quest by Travelling to Riverton with Beatrice
+     State 2: Vegetarian Wolfman recognizes Beatrice and tells how him saved her
+     when Beatrice was young. Beatrice childhood home is south from Riverton.
+     Vegetarian wolfman has key for Beatrice parent's garden where is their grave
+     State 3: Beatrice wants to enter his parents house alone
+     State 4: Beatrice enter her parents house
+     State 5: Beatrice finds her parents last resting place and quest ends
+25 Is for (Wolves of the Cabbage)Richard Dragonsail
+     State 1: Got quest from Richard Dragonsail
+     State 2: Found paw prints from the field
+     State 3: Vegetarian wolfman admits visiting the field to gather more cabbage
+     He tells about other wolfman to plotting to take over the Riverton. He promise to leave from Riverton
+     if his life is spared.
+     State 4: Player enters wolfmen cave
+     State 5: Player kills wolfmen leader
+     State 6: Quest completed
+              Finally: Riverton can be save from wolfmen 
+              Else: Riverton is occupied by horde of half men and half wolf creatures.
+26 Is for traveling to Mystery Island
+    State 0: Not on travel
+    State 1: Travelling 
+27 Is for (Treasure Hunt)Nehess Battlehawk
+    State 1: Sailed near the island
+    State 2: Got the rope ladders
+    State 3: Got the head on string
+    State 4: Found the key with head on a string
+    State 5: Entered the treasure chamber
+    State 6: Woke up the Pirate captain (Black Rudolf)
+    State 7: Let the Black Rudolf Ghost go
+             Finally: Horrible ghost ship sails over the seas causing terror
+             Else: Mystery island is never discovered 
+    State 8: Killed the Black Rudolf Ghost and got the treasure
+             Finally: Treasure on mystery island is found
+             Else: Mystery island is never discovered
+28 Is for Jack the Pirate
+   State 0: Nothing done
+   State 1: Jack is waiting for coppers
+   State 2: Jack has been paid
+   State 3: Fight with the Jack
+   State 4: Jack left
+29 Is for Feltorn the Hermit(Helping out the hermit)
+   State 1: Got quest to get the magical hoe
+   State 2: Found the hoe
+   State 3: Hoe returned
+30 Is for Helping the evil spirit(Elvirella)(Spirit trouble)
+   State 1: Champion of Evil
+   State 2: Old treant is dead
+   State 3: Got Seed of Evil
+   State 4: Seed of Evil is planted
+   State 5: Got the final task
+   State 6: Forest spirit is dead
+   State 7: Got reward
+            Finally: Crystal Lake, turned into swamp and trees died
+31 Is for helping the forest spirit(Mirella)(Spirit trouble)
+   State 1: Champion of Good
+   State 2: Ancient undead king is dead
+   State 3: Got Seed of Good
+   State 4: Seed of Good is planted
+   State 5: Got the final task
+   State 6: Evil spirit is dead
+   State 7: Got reward
+            Finally: Castle of Evil crumbled down and forest overgrowth
+32 is for Brunor Whitebeard Soloquest(Hole to underworld)
+   State 1: Brunor entered the hole
+   State 2: Jonan has found and he has turned into skeleton.
+   State 3: Got inside Underworld
+   State 4: Got outside of underworld
+33 is for searching rebel camp(Rebels of the Shadow Woods)
+   State 1: Got the quest
+   State 2: Got bridge repait kit
+   State 3: Brige has been repaired
+   State 4: Found rebel camp
+   State 5: Talked with rebel leader(Marcus Agnius)
+34 is for Frudam Graybow Quest(Cursed Artist)
+   State 1: Frudam asked for beer
+   State 2: Frudam tells that he has been cursed
+   State 3: PC talked that curse is not real
+   State 4: PC removed the curse
+   State 5: Quest failed
+35 is for Beggars
+   State 0: Beggars are neutral
+   State 1: Beggars like PC
+   State 2: Beggars are scared of PC
+36 is for Crulamin quest(Oh my head!)
+   State 1: Langahe Moonsmith asked for toolkit
+   State 2: Crulamin got the toolkit
+   State 3: Distler is fixed.
+   State 4: Crulamin got drunk.
+   State 5: Crulamin need to do choice
+   State 6: Marry (Finally no more missing drunken people)
+   State 7: Fight (Finally more missing drunken people, same with state < 4)
+   State 8: Got away (Finally more missing drunken people, same with state < 4)
+   State 9: Won fight (Finally no more missing drunken people)
+37 is for Wolfmen in Corndale (Wolves in robbers' clothing)
+   State 1: Tranel Braveblade has heard about Riverton was saved from Wolfmen
+   State 2: Entered Wolfmen cave
+   State 3: Pack leader is slain
+   State 4: Got reward from Tranel Braveblade(Axe of Might)
+   State 5: Pack leader is slain but cannot claim the reward
+38 is for (Martial arts challenge)
+   State 1: Go permission to enter challenge
+   State 2: Got on second level
+   State 3: Fight against brute
+   State 4: Talk with brute
+   State 5: Challenge completed
+39 is for (Lost sickle)
+   State 1: Got quest that sickle was lost
+   State 2: Sickle found
+   State 3: Sickle was originally taken without permission
+   State 4: Got sickle from fairy by buying
+   State 5: Got sickle from fairy by fight
+   State 6: Gave sickle to fairy
+   State 7: Gave sickle to Gardener
+   State 8: Explain how sickle belong to fairy
+   State 9: Kept sickle and lie
+   State 10: Tell how fairy died
+40 Is for Royal Library
+   State 1: read the law book
+   State 2: Got more time
+41 is for (Something down there...)
+   State 1: Got quest to kill monster from Fairy Inn Cellar
+   State 2: Fight againts Brain monster
+   State 3: Reported back to Alidos Hayfox
+   State 10: Alidos Hayfox is dead
+42 is for (Slaughter of rebels)
+   State 1: Killed the Gate guard
+   State 2: Killed rebel leader
+   State 3: Killed Vicster, you become empiror
+43 is for (Enemy of the Empire)
+   State 1: Agreed to help Vicster
+   State 2: Killed the Marcus
+   State 3: Report back to Vicster
+
+
+
+Game start from Adventurer's school
+ * Just graduated
+ * 2 possible party members:
+    * Crulamin Tigersoul (Unarmed fighter)
+      * Father's farm is at Raven Row
+    * Elnora Tanolian ( Rogue archer)
+     * Heroon's Orphanage
+       * Run away from Orphanage after started to
+         see weird dreams
+       * Lived while in streets of Hawks Haven
+         knows Sea Leg Tavern
+ * School Leader Nerisella Songsteel
+ * Couple of small quests
+   * Kill rats from cellar and place rat poison into rats nest.
+   * Warehouse building outside there is zombie capture. Kill it.
+ * All new adventurer's must register their adventurer's diploma at
+High Counsilor(Vicster Arborshate)
+ * Quest to travel Hawkshaven to register adventurer's diploma.
+
+Raven Row
+ * Village next to Adventurer's school
+ * Couple of small quests
+   * Cruward Tigersould says there is a witch in Ravenwoods
+   * Something is in Raven Row's well
+   * Spiders has gotten Ulrika EastHeart
+ * Two exists(Road to Hawks Haven(FromRoadToHawkshaven),
+             Adventurer's school)
+
+Road to Hawkshaven
+ * Exits (Raven Row(FromRavenrow), Hawks Haven, Cloud Top Monastery, Shadow Woods)
+ * Lonely Traveller Inn
+ * Werdinor Blackbone party member joins if agreed on Quest
+   * Werdinor wants to find ancient spell book. 
+   * Requires a key from Hawks Haven's tombs.
+   * Requires spell from Hawks Haven's Mage guild
+   
+
+Shadow Woods
+ * Exits (Rebel camp, Road to Hawks Haven)
+ * Injured Emperor's messeger     
+     * Quest get rid of Hobgoblins which are in Shadow Woods
+ 
+Hawks Haven
+ * Guard Captain Kerry Silverblade has couple of quests
+   * Patrol around Hawks Haven Market District.
+   * Get rid of hobgoblins in sewers, explode hole they have dug in sewers.
+ * Warrior's den smith has a monster/cat locked into cellar. Needs clearing by giving a food or fighting.
+ * Temple of Hawks Haven
+   * "We know that under the Hawkshaven there is tomb of Heroon the Righteous. He was a great paladin of Hawks Haven. But something is work down there. Evil is rising, deads are not sleep eternal sleep anymore they are...WALKING." Tomb is in sewers of Hawks haven and has locked door.
+   * Beatrice Silvershield, cleric/Healer partymember
+ * Thieves Guild at Sea Legs tavern
+  * Test before meeting the leader, find evidence that Galley owner Magnus is cheating  
+  the guild.
+  * Leader wants to get magical item called master key.
+    * It is in Mage Guild's cellar. Archmage(Rodor Moonwind) has key in his chambers
+    * Cellar is guarded by animated objects
+ * Mage Guild at Hawks Haven Arcane district (Guild master Hamar)
+  * Cannot join if joined thieves' guild
+  * Has simple test to check that PC knows something about magic.
+  * First quest Guild Beast Master Willo
+    * Needs to be Mage Guild member
+    * Some magical experiment has gone awfully wrong and magical
+    beasts are unleashed. Beast queen needs to be taken care of.
+
+  * Second quest
+    * Mage guild wants Master key to be destroyed. Hamar gives a key
+    which opens the Cellar door. See Thieves' Guild second quest
+
+Hawks Haven Castle
+ * High counsilor tells that Empire has lot's of trouble:
+   * Emperor has no heir(Actually has and he is leading the
+     rebels)
+   * Rebels want to overwhelm empire
+   * Emperor itself has been poisoned(Actually High Counsilor
+     just has drugged emperor and is plotting PCs to get
+     Aconitum.   
+ * High Counsilor(Vicster Arborshate) registers diploma and
+says that Emperor Cyriacus is being poisoned. 
+   * Quest: Get antidote from Crystal Lake in north of Hawks Haven
+      * Hermit living at Crystal Lake know more about Aconitum
+   * When antidote is at Vicster's hand Emperor dies from poisoning.
+   * High Counsilor takes over the empire.
+     * Quest: Find the rebel camp and their leader
+ * Stable boy Quest
+   * Stable boy's dog has run into Emperial Crypt
+ * Carpenter's Quest
+   * Help carpenter and he will provide bridge repair kit when
+    needed.
+ * Gumbert Nightbeard
+   * If PC has completed "Raiding Hobgoblins" quest then Gumbert is
+    in the castle and pays reward.
+
+Road to Crystal Lake
+* Small village full of minor quest
+  * Troll has occupied bridge leading to Crystal Lake
+  * Larek Fishmaster has lost his best fishing rod
+* Last npc to join party(Should be female)
+
+Mystery Island
+* Nehess Battlehawk personal quest
+  * Ship trip from Hawks Haven Arcane District
+  * Map tells to find first head on string and rope ladders
+  * Rope ladders are used to get down the chasm
+  * Head on string show that poor pirates tongue where that thing is buried
+  Along with that tongue key is also buried
+  * With that key treasure chamber door is opened
+  * Last piece to puzzle is put the treasure map inside the coffin where treasure should be.
+  Treasure map tells that voodoo witch lies in that coffin but when map is slide inside
+  Black Rudolf actually wakes up. Two choices let him go or kill him and claim the treasure.
+
+Crystal Lake
+ * Contains Aconitum(Wolf's bane, Monkshood) for making antidote.
+ * Hermit will tell how to get Aconutim but has quest
+ * Battle between Good spirit(Forest) and Evil Spirit(Castle)
+   Solutions Good wins, Balanced or Evil Wins
+
+Rebel Camp
+ * Learn the true nature of High Counsilor.
+ * Quest find proof of Rebel leader(Marcus Agnius) is emperor's true son. 
+   Emperor has sealed Empress tomb at Cloud Top Monastery
+ * Marcus has seen a dream where true emperor rises back into throne.
+ In the dream Cyriacus tells that there is another son.
+ * Fairy inn: Knows fairy from Cloud Top, Needs helping cleaning the
+ brain monsters from one level below.
+ * Minotaur cave, no quest just for adventuring and equipments
+   
+
+Cloud Top Monaster
+ * Empress(Anthess) ghost tells her son(Marcus Agnius) has a locket which opens with magic word 
+   * Quest: Inform Marcus and defeat High Counsilor
+ * Crulamin Tigersoul wants to participate Cloud Top Monaster monk challenge
+
+   

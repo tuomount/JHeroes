@@ -1,0 +1,169 @@
+= Script help =
+
+script is divided into two parts:
+If-clause and command parts. These are separated by ; as are commands.
+If-clause is not mandatory. Then script will be executed every time.
+
+= IF Clause =
+Starts always with if, otherwise not if. All conditions are combined
+by logical AND. OR is not possible.
+What can be checked:
+day : is Day?
+
+night : is Night?
+
+every : Something happens in every x mins/hours
+every XX mins/hours
+
+story : Check story variable
+story[x] NN yy
+x is story variable
+NN is sign, which can be == > >= < <= !=
+yy is value where to check
+Notice that there are spaces between story[x] NN and yy
+
+playerHas : Check if active player has certain item
+playerHas(item_name) notice that spaces in item name must be _
+
+playerHasNot : Check if active player has not certain item
+playerHasNot(item_name) notice that spaces in item name must be _
+
+solo : is solo mode
+
+playerIs : Check if active player name is certain name
+playerIs(Hero_name) notice that spaces in name name must be _
+
+= Commands =
+addJournal(Quest name#Journal Entry#Active/Done/Failed)
+# is separator here between parameters
+
+story[0] = 1
+Set the story variables. Notice spaces again.
+
+shareExp(500)
+Share experience to party
+
+removeEvent()
+Removes event after triggering. Event is then oneshot
+
+giveItem(Item name)
+Give active character item. Spaces can be used in name
+
+removeItem(Item name)
+Remove item from active character. Spaces can be used in name
+
+turnChar(UP/DOWN/LEFT/RIGHT)
+Turn speaking character into direction
+
+playSound(Sound name)
+Play sound effect
+
+passTurns(Number of turn)
+Number of turns should be passed when script is
+run
+
+showImage(/res/images/ship.png)
+Shows image instead of map
+
+removeNPC(NPC long name)
+Remove NPC from the map
+
+runModifyMap(Event name)
+Run modify map event by event name, modifies tiles and place graphical effect
+Effects:
+//Graphical effects
+  public final static int GRAPH_EFFECT_REMOVE_EFFECT = 0;
+  public final static int GRAPH_EFFECT_LOOK_CURSOR = 1;
+  public final static int GRAPH_EFFECT_BUBBLE_SLEEP = 5;
+  public final static int GRAPH_EFFECT_SWEAT = 12;
+  public final static int GRAPH_EFFECT_BUBBLE_SELL = 15;
+  public final static int GRAPH_EFFECT_ATTACK_CURSOR = 20;
+  public final static int GRAPH_EFFECT_ATTACK_HIT = 21;
+  public final static int GRAPH_EFFECT_ATTACK_MISS_NORTH = 27;
+  public final static int GRAPH_EFFECT_ATTACK_MISS_EAST = 30;
+  public final static int GRAPH_EFFECT_ATTACK_MISS_SOUTH = 33;
+  public final static int GRAPH_EFFECT_ATTACK_MISS_WEST = 36;
+  public final static int GRAPH_EFFECT_RANGED_ATTACK_MISS = 39;
+  public final static int GRAPH_EFFECT_SPELL_CURSOR = 42;
+  public final static int GRAPH_EFFECT_SPELL_MINOR_ATTACK = 43;
+  public final static int GRAPH_EFFECT_SPELL_POSITIVE = 47;
+  public final static int GRAPH_EFFECT_SPELL_POISON = 54;
+  public final static int GRAPH_EFFECT_SPELL_FLAME = 59;
+  public final static int GRAPH_EFFECT_TALK_CURSOR = 67;
+  public final static int GRAPH_EFFECT_USE_CURSOR = 71;
+  public final static int GRAPH_EFFECT_BUBBLE_WORK = 72;
+  public final static int GRAPH_EFFECT_SPELL_MINDAFFECTING = 85;
+  public final static int GRAPH_EFFECT_SPELL_CURSE = 91;
+
+moveNPC(NPC Name#Target WP)
+Move NPC immediately to certain WP. Clears also NPC's current task list.
+
+activateSFX(SFXName,Command)
+Change NotActive SFX something else for example Loop, Day, Night, Day#NN,
+Night#NN or NN where NN is number bigger than zero.
+
+endGame()
+Ends game immediately
+
+= NPC Waypoint tasks =
+May have multiple parameters, separated by #
+List have | as separator
+First parameter is always a NPC description.
+TASK_JUMP_TO_WP, may have optional parameter #sound
+TASK_KEEP_SHOP, Bubble with coins and exclamation mark
+                Second parameter is item generation list
+                Third one is list of sounds
+TASK_WORK,      Bubble with hammer and sweat
+                Second parameter is item generation list
+                Third one is list of sounds 
+               
+
+= SKILL LIST =
+SKILL_UNARMED             = 0;
+SKILL_MELEE               = 1;
+SKILL_RANGED_WEAPONS      = 2;
+SKILL_DODGING             = 3;
+SKILL_WIZARDRY            = 4;
+SKILL_SORCERY             = 5;
+SKILL_QI_MAGIC            = 6;
+SKILL_BARTERING           = 7;
+SKILL_DIPLOMACY           = 8;
+SKILL_LOCK_PICKING        = 9;
+
+= Attribute list =
+ATTRIBUTE_STRENGTH        = 0;
+ATTRIBUTE_AGILITY         = 1;
+ATTRIBUTE_ENDURANCE       = 2;
+ATTRIBUTE_INTELLIGENCE    = 3;
+ATTRIBUTE_WISDOM          = 4;
+ATTRIBUTE_CHARISMA        = 5;
+ATTRIBUTE_LUCK            = 6;
+
+= Character list =
+Rat                  Lvl 1
+Sheep                Lvl 1
+Witch's Cat          Lvl 1
+Zombie               Lvl 2
+Small waterelemental Lvl 2
+Giant Bee            Lvl 2
+Snake                Lvl 2
+Bandit               Lvl 2
+Giant Spider         Lvl 3
+Hobgoblin            Lvl 4
+Thug                 Lvl 4
+Slimey Snail         Lvl 4
+Brutal bookshelf     Lvl 4
+Water elemental      Lvl 4
+Troll                Lvl 5
+Skeleton Warrior     Lvl 5
+Rotting zombie       Lvl 5
+Guardian of Key      Lvl 6
+Wolfman              Lvl 6
+Rebel soldier        Lvl 6
+Rebel archer         Lvl 6
+Skeleton Mage        Lvl 7
+Brain horror         Lvl 7
+Pirate zombie        Lvl 7
+Undead king          Lvl 8
+Treant               Lvl 8
+Minotaur             Lvl 12
