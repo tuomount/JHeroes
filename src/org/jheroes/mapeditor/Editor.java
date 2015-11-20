@@ -70,15 +70,15 @@ public class Editor extends JFrame implements ActionListener {
      */
     private static final long serialVersionUID = 1L;
 
-    private static String ACTION_CHARACTER_EDITOR = "characterEditor";
-    private static String ACTION_ADD_CHARACTER = "addCharacter";
-    private static String ACTION_REMOVE_CHARACTER = "removeCharacter";
-    private static String ACTION_COPY_CHARACTER = "copyCharacter";
-    private static String ACTION_SAVE_MAP = "saveMap";
-    private static String ACTION_LOAD_MAP = "loadMap";
-    private static String ACTION_REMOVE_EVENT ="removeEvent";
-    private static String ACTION_TALK_EDITOR ="talkEditor";
-    private static String ACTION_EXPORT_WHOLE_MAP ="ExportMap";
+    private final static String ACTION_CHARACTER_EDITOR = "characterEditor";
+    private final static String ACTION_ADD_CHARACTER = "addCharacter";
+    private final static String ACTION_REMOVE_CHARACTER = "removeCharacter";
+    private final static String ACTION_COPY_CHARACTER = "copyCharacter";
+    private final static String ACTION_SAVE_MAP = "saveMap";
+    private final static String ACTION_LOAD_MAP = "loadMap";
+    private final static String ACTION_REMOVE_EVENT ="removeEvent";
+    private final static String ACTION_TALK_EDITOR ="talkEditor";
+    private final static String ACTION_EXPORT_WHOLE_MAP ="ExportMap";
     
     
     private MapPanel panelMap;
@@ -126,8 +126,8 @@ public class Editor extends JFrame implements ActionListener {
     private JCheckBoxMenuItem itemEnableMusic;
     private JMenuItem itemExit;
     
-    private static int smallMapSizeX=2;
-    private static int smallMapSizeY=2;
+    private final static int SMALL_MAP_SIZE_X=2;
+    private final static int SMALL_MAP_SIZE_Y=2;
     private int[][] smallMapWall;
     private int[][] smallMapObject;
     private int[][] smallMapDecoration;
@@ -188,10 +188,10 @@ public class Editor extends JFrame implements ActionListener {
           index = 0;
           myTile = mapTileset.getTile(index);
           myTileInfo = mapTileset.getTileInfo(index);
-          smallMapWall = new int[smallMapSizeX][smallMapSizeY];
-          smallMapObject = new int[smallMapSizeX][smallMapSizeY];
-          smallMapDecoration = new int[smallMapSizeX][smallMapSizeY];
-          smallMapTop = new int[smallMapSizeX][smallMapSizeY];
+          smallMapWall = new int[SMALL_MAP_SIZE_X][SMALL_MAP_SIZE_Y];
+          smallMapObject = new int[SMALL_MAP_SIZE_X][SMALL_MAP_SIZE_Y];
+          smallMapDecoration = new int[SMALL_MAP_SIZE_X][SMALL_MAP_SIZE_Y];
+          smallMapTop = new int[SMALL_MAP_SIZE_X][SMALL_MAP_SIZE_Y];
           smallMapReady = false;
           try {
             myMap = new Map(100, 100, 0);
@@ -559,8 +559,8 @@ public class Editor extends JFrame implements ActionListener {
           }
           if ((key == KeyEvent.VK_F)) {
             if ((cursorX < myMap.getMaxX()-1)&& (cursorY < myMap.getMaxY()-1)) {
-              for (int i=0;i<smallMapSizeX;i++) {
-                for (int j=0;j<smallMapSizeY;j++) {
+              for (int i=0;i<SMALL_MAP_SIZE_X;i++) {
+                for (int j=0;j<SMALL_MAP_SIZE_Y;j++) {
                   smallMapWall[i][j] = myMap.getFloor(cursorX+i, cursorY+j);
                   smallMapObject[i][j] = myMap.getObjects(cursorX+i, cursorY+j);
                   smallMapDecoration[i][j] = myMap.getDecoration(cursorX+i, cursorY+j);
@@ -597,8 +597,8 @@ public class Editor extends JFrame implements ActionListener {
           if ((key == KeyEvent.VK_J)) {
             if (smallMapReady) {
               if ((cursorX < myMap.getMaxX()-1)&& (cursorY < myMap.getMaxY()-1)) {
-                for (int i=0;i<smallMapSizeX;i++) {
-                  for (int j=0;j<smallMapSizeY;j++) {
+                for (int i=0;i<SMALL_MAP_SIZE_X;i++) {
+                  for (int j=0;j<SMALL_MAP_SIZE_Y;j++) {
                     myMap.setMap(cursorX+i, cursorY+j, smallMapWall[i][j],
                         TileInfo.TILE_PLACE_WALL_OR_FLOOR);
                     myMap.setMap(cursorX+i, cursorY+j, smallMapObject[i][j],

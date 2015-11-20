@@ -45,39 +45,39 @@ import org.jheroes.map.character.Character;
  */
 public class GameMaps {
 
-  public static String MAPS_IN_JAR = "/res/maps/";
-  public static String MAP_FILE_START = "start.map";
-  public static String MAP_FILE_ADVENTURE_SCHOOL = "AdventurerSchool.map"; // Village
-  public static String MAP_FILE_RAVENROW = "Ravenrow.map"; // Village
-  public static String MAP_FILE_RAVENROW_WELL = "RavenrowWell.map"; // Ruin&Cave
-  public static String MAP_FILE_RAVENWOODS= "Ravenwoods.map"; // Forest
-  public static String MAP_FILE_RAVENWOODS_CAVE= "RavenwoodsCave.map"; // Ruin&Cave
-  public static String MAP_FILE_ROAD_TO_HAWKS_HAVEN= "RoadToHawksHaven.map"; // Village
-  public static String MAP_FILE_OLD_RUINS= "OldRuins.map"; // Ruin&Cave
-  public static String MAP_FILE_SHADOW_WOODS= "ShadowWoods.map"; //Forest
-  public static String MAP_FILE_HOBGOBLIN_CAVES= "HobgoblinCaves.map"; // Ruin&Cave
-  public static String MAP_FILE_HAWKS_HAVEN_MARKET_DISTRICT = "HawksHavenMarketDistrict.map"; // City
-  public static String MAP_FILE_HAWKS_HAVEN_ARCANE_DISTRICT = "HawksHavenArcaneDistrict.map"; // City
-  public static String MAP_FILE_HAWKS_HAVEN_SEWERS = "HawksHavenSewers.map"; // Ruin&Cave
-  public static String MAP_FILE_MAGE_GUILD_CELLAR_LEVEL = "MageGuildCellarLevel.map"; // City
-  public static String MAP_FILE_HAWKS_HAVEN_CASTLE = "HawksHavenCastle.map"; // City
-  public static String MAP_FILE_ROAD_TO_CRYSTAL_LAKE = "RoadToCrystalLake.map"; // Village
-  public static String MAP_FILE_WOLFMEN_CAVE = "WolfmenCave.map"; // Ruin&Cave
-  public static String MAP_FILE_THE_ISLAND = "theisland.map"; // Forest
-  public static String MAP_FILE_CRYSTAL_LAKE = "CrystalLake.map"; // Forest
-  public static String MAP_FILE_CASTLE_OF_EVIL = "CastleOfEvil.map"; // Ruin&Cave
-  public static String MAP_FILE_ROAD_TO_CLOUDTOP = "RoadToCloudTop.map"; // Village
-  public static String MAP_FILE_CLOUDTOP = "CloudTop.map"; // City
-  public static String MAP_FILE_DEEPER_SHADOWWOODS = "DeeperShadowWoods.map"; // Forest
+  public final static String MAPS_IN_JAR = "/res/maps/";
+  public final static String MAP_FILE_START = "start.map";
+  public final static String MAP_FILE_ADVENTURE_SCHOOL = "AdventurerSchool.map"; // Village
+  public final static String MAP_FILE_RAVENROW = "Ravenrow.map"; // Village
+  public final static String MAP_FILE_RAVENROW_WELL = "RavenrowWell.map"; // Ruin&Cave
+  public final static String MAP_FILE_RAVENWOODS= "Ravenwoods.map"; // Forest
+  public final static String MAP_FILE_RAVENWOODS_CAVE= "RavenwoodsCave.map"; // Ruin&Cave
+  public final static String MAP_FILE_ROAD_TO_HAWKS_HAVEN= "RoadToHawksHaven.map"; // Village
+  public final static String MAP_FILE_OLD_RUINS= "OldRuins.map"; // Ruin&Cave
+  public final static String MAP_FILE_SHADOW_WOODS= "ShadowWoods.map"; //Forest
+  public final static String MAP_FILE_HOBGOBLIN_CAVES= "HobgoblinCaves.map"; // Ruin&Cave
+  public final static String MAP_FILE_HAWKS_HAVEN_MARKET_DISTRICT = "HawksHavenMarketDistrict.map"; // City
+  public final static String MAP_FILE_HAWKS_HAVEN_ARCANE_DISTRICT = "HawksHavenArcaneDistrict.map"; // City
+  public final static String MAP_FILE_HAWKS_HAVEN_SEWERS = "HawksHavenSewers.map"; // Ruin&Cave
+  public final static String MAP_FILE_MAGE_GUILD_CELLAR_LEVEL = "MageGuildCellarLevel.map"; // City
+  public final static String MAP_FILE_HAWKS_HAVEN_CASTLE = "HawksHavenCastle.map"; // City
+  public final static String MAP_FILE_ROAD_TO_CRYSTAL_LAKE = "RoadToCrystalLake.map"; // Village
+  public final static String MAP_FILE_WOLFMEN_CAVE = "WolfmenCave.map"; // Ruin&Cave
+  public final static String MAP_FILE_THE_ISLAND = "theisland.map"; // Forest
+  public final static String MAP_FILE_CRYSTAL_LAKE = "CrystalLake.map"; // Forest
+  public final static String MAP_FILE_CASTLE_OF_EVIL = "CastleOfEvil.map"; // Ruin&Cave
+  public final static String MAP_FILE_ROAD_TO_CLOUDTOP = "RoadToCloudTop.map"; // Village
+  public final static String MAP_FILE_CLOUDTOP = "CloudTop.map"; // City
+  public final static String MAP_FILE_DEEPER_SHADOWWOODS = "DeeperShadowWoods.map"; // Forest
   
-  public static String PARTY_DATA_FILE = "party.dat";
-  public static String DEBUG_DATA_FILE = "debug.dat";
+  public final static String PARTY_DATA_FILE = "party.dat";
+  public final static String DEBUG_DATA_FILE = "debug.dat";
   
-  public static String SCREEN_FILE = "screen.png";
+  public final static String SCREEN_FILE = "screen.png";
   
   public final static String CHARACTER_LIST_FILE = "/res/characterlist.res";
   
-  private static String[] GAMEMAPS = {MAP_FILE_ADVENTURE_SCHOOL,
+  private final static String[] GAMEMAPS = {MAP_FILE_ADVENTURE_SCHOOL,
     MAP_FILE_RAVENROW,MAP_FILE_RAVENROW_WELL,MAP_FILE_RAVENWOODS,
     MAP_FILE_RAVENWOODS_CAVE,MAP_FILE_ROAD_TO_HAWKS_HAVEN,
     MAP_FILE_OLD_RUINS,MAP_FILE_SHADOW_WOODS,MAP_FILE_HOBGOBLIN_CAVES,
