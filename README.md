@@ -75,6 +75,7 @@ is it blocked from certain direction, does it create light or cast shadow.
 
 * src/org.jheroes.game.Game.java:
   Change the GAME_TITLE and GAME_VERSION attributes.
+  Change the starting map in actionPerformedNewGame()
 * src/org.jheroes.game.GameMaps.java:
   Contains list of game maps: GAMEMAPS this list must match list
   of used game maps.
