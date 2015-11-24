@@ -53,17 +53,12 @@ public class StartStory extends StoryScreen {
     switch (index) {
     case 0: {
       screenData.setImage(GuiStatics.loadImage(Screens.START_SCREEN_1));
-      screenData.setText("Empire of Hawks Haven is in great danger. Emperor is sick" +
-         " and there is no heir for the throne. Rebels are also gathering to overthrow" +
-         " empire and his reign. Dangerous beasts and monsters are living in the Empire...");
+      screenData.setText("This tutorial for JHeroes! JHeroes need tutorial story...");
       break;
     }
     case 1: {
       screenData.setImage(GuiStatics.loadImage(Screens.CROWN_IMAGE));
-      screenData.setText("Fear not since there is new hero to proctect the crown. " +
-      "You are about the graduate from Nerisella Songsteel School of Adventurers. " +
-      "You just need to decide what you have learned while studying. " +
-      "Who know what kind of adventurers are waiting for you...");
+      screenData.setText("New adventurer is arriving and adventure begins...");
       break;
     }
     default: {

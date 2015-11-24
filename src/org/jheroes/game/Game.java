@@ -124,8 +124,8 @@ public class Game extends JFrame implements ActionListener {
   public static final int GAME_STATE_OPTIONS = 254;
   public static final int GAME_STATE_DEBUGMODE = 255;
   
-  public static final String GAME_TITLE = "Heroes of The Hawks Haven";
-  public static final String GAME_VERSION ="1.0.0";
+  public static final String GAME_TITLE = "JHeroes Tutorial";
+  public static final String GAME_VERSION ="0.1.0Alpha";
  
   /**
    * Is running in debug mode
@@ -2223,9 +2223,9 @@ public class Game extends JFrame implements ActionListener {
             }
           }          
           party = new Party(newChar);
-          party.setCurrentMapName(GameMaps.MAP_FILE_ADVENTURE_SCHOOL);
+          party.setCurrentMapName(GameMaps.MAP_FILE_TUTORIAL);
           journal = new Journal();
-          InputStream is = GameMaps.class.getResourceAsStream(GameMaps.MAPS_IN_JAR+GameMaps.MAP_FILE_ADVENTURE_SCHOOL);
+          InputStream is = GameMaps.class.getResourceAsStream(GameMaps.MAPS_IN_JAR+GameMaps.MAP_FILE_TUTORIAL);
           DataInputStream dis = new DataInputStream(is);
           try {
             map = new Map(dis);

@@ -633,34 +633,14 @@ public class GameTalk extends GamePanel {
         if (index != -1) {
           party.setPartyChar(index, newMember);
           //Set base roles for joining characters
-          if (newMember.getLongName().equalsIgnoreCase("Elnora Tanolian")) {
-            party.setRolesForCharacter(index, 0, 2, 0);
-            newMember.setExperience(0);
-          }
-          if (newMember.getLongName().equalsIgnoreCase("Crulamin Tigersoul")) {
-            party.setRolesForCharacter(index, 0, 0, 2);
-            newMember.setExperience(0);
-          }
+          party.setRolesForCharacter(index, 0, 0, 0);
+          newMember.setExperience(0);
+          /* Keeping one as example for later use
           if (newMember.getLongName().equalsIgnoreCase("Werdinor Blackbone")) {
             party.setRolesForCharacter(index, 0, 0, 4);
             newMember.setExperience(4500);
             newMember.setLevel(4);
-          }
-          if (newMember.getLongName().equalsIgnoreCase("Brunor Whitebeard")) {
-            party.setRolesForCharacter(index, 4, 0, 0);
-            newMember.setExperience(10000);
-            newMember.setLevel(6);
-          }
-          if (newMember.getLongName().equalsIgnoreCase("Beatrice Silvershield")) {
-            party.setRolesForCharacter(index, 3, 0, 0);
-            newMember.setExperience(4500);
-            newMember.setLevel(4);
-          }
-          if (newMember.getLongName().equalsIgnoreCase("Nehess Battlehawk")) {
-            party.setRolesForCharacter(index, 0, 4, 0);
-            newMember.setExperience(10000);
-            newMember.setLevel(6);
-          }
+          }*/
           removeNPC = true;
         }
         break;
