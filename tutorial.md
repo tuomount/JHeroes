@@ -215,3 +215,30 @@ This is all what is needed for simplest map. Save the map to following folder:
     
 If you are using Eclipse remember to refresh your project before actually running
 the JHeroes since Eclipse needs to copy new map to bin folder before running.
+
+### Let's make a road
+
+Select road tile with + or - from numpad, * or / numpad or insert and delete. Select
+index between 15 and 28. Any of these tiles can be used to make a road. You can use
+H key to place 2x2 area of same tiles and B to place 3x3 area of same tiles. When you
+have finished one screen you can smooth with S key. Smoothing affect usually walls and
+floor tiles. Sometimes you have to be careful with smoothing since smooth can
+also break some tiles if you have manually placed those. That's why smoothing only 
+affects tiles which are currently visible.
+
+![Road](tutorial-pictures/road.png)
+
+Let's add woods next the roads. First let's pick tile number 110. Place it one
+tile away from road. Then select tile number 111 and place it right from previous one.
+Move one down and place there tile number 112 and finally move one left and place tile 113.
+Then move to upper-left corner of woods and press 3 and then lower-right corner and
+press 4. These are now corners where copying is done. Now pressing P will paste
+this buffer around.
+
+![Road](tutorial-pictures/road_woods1.png)
+
+Then place woods around the road using P key.
+![Road](tutorial-pictures/road_woods2.png)
+
+And finally smooth manually woods to make them look pretty.
+![Road](tutorial-pictures/road_woods3.png)
