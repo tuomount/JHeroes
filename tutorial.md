@@ -242,3 +242,24 @@ Then place woods around the road using P key.
 
 And finally smooth manually woods to make them look pretty.
 ![Road](tutorial-pictures/road_woods3.png)
+
+### Let's make a house
+
+Pick a good looking position from next to the road.
+Place couple wall tiles (Tile index 251 for example) for walls. B Key is faster.
+Then pick a roof you like (Tile index 278 for example) for roof. Also B key is faster.
+
+![House](tutorial-pictures/house1.png)
+
+When house looks about size you wanted just press S and smoothing is done.
+
+![House](tutorial-pictures/house2.png)
+
+Then do final touches manually. You can put the road next to the door.
+Add the door(294-297), windows(298 and 299) and maybe chimney(300).
+You can move faster to next complete tileseries using Home and End keys or
+from numpad press / or *. Eaxmple you are looking door 294 and you press Home
+it moves to 296 skipping the bottom part of door since that is belonging to first
+door series.
+
+![House](tutorial-pictures/house3.png)
