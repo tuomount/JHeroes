@@ -263,3 +263,22 @@ it moves to 296 skipping the bottom part of door since that is belonging to firs
 door series.
 
 ![House](tutorial-pictures/house3.png)
+
+#### Create a sign
+
+Creating a sign is easy. Move to sign tile and press 1 and 2( Makes the event rectangle)
+and press E to create Event. Pick command for sign and parameter 1 is used as
+sign's text. Event editor has built in help on right hand side. When everything
+is done just press OK.
+
+![Sign](tutorial-pictures/create_sign.png)
+
+Sign is shown as white text on Map Editor. Events have following color coding:
+ * White is for information events like Clock, Look info, signs
+ * Blue is for waypoints
+ * Green is for someone or something is going to say something.
+ * Magenta is for encounters
+ * Cyan is for Travel events
+ * Red is for locked doors
+ * Yellow is for events that modify map or play sound effects
+
