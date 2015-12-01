@@ -282,3 +282,70 @@ Sign is shown as white text on Map Editor. Events have following color coding:
  * Red is for locked doors
  * Yellow is for events that modify map or play sound effects
 
+#### Create interior for the house
+
+Let's do next an interior for the house.
+First let's do a way point just outside of the door. I used 3x2 regions
+for traveling waypoints. These should be contain at least 4 tiles
+that maximum size of party can fit into tiles. Couple of extra tiles
+won't hurt if there is an NPC nearby.
+
+![Exterior](tutorial-pictures/houseExterior1.png)
+
+EventName must be unique so it can be used as a waypoint. Type is region and
+command is waypoint. Remember event is created by using keys 1 and 2 to make
+the region and E key is used to edit the event.
+
+Next thing is select which sector is for interior. Now let's pick sector 2.
+
+![Settings](tutorial-pictures/sector2Settings.png)
+
+Sector 2 has North direction up so it is 180 degreess compared to sector 1.
+I selected one darker day shade for sector two just making it a bit darker.
+Musics are just the same as sector one.
+
+Next thing is to move to sector 2. Move to X coordinate 100 and Y coordinate 35.
+Select tile 318(It is the center piece of wooden wall top, but looks black). Then
+press C key to fill whole sector with that tile. Then select a floor tile(For example 307)
+and Make 8x4 floor couple of tiles from the left border of sector. Then pick
+a wall tile(251 for example). Make a 8x3 wall. And finally press S to smooth.
+Try doing smooth so that sector border is in visible in screen since smoothing
+may try do edging also for border. You should get something like this:
+
+![Interior](tutorial-pictures/houseInterior1.png)
+
+Next thing is to add door and couple furnitures. General store could look something
+like this:
+
+![Interior](tutorial-pictures/houseInterior2.png)
+
+After this let's add way point to inside. Again 3x2 region with unique name.
+
+![Interior](tutorial-pictures/houseInterior3.png)
+
+Then next thing to add is door functionality.
+
+![Door](tutorial-pictures/houseDoor.png)
+
+So make on tile event on top door tile.(Marked with cyan color on map)
+Name can be anything and does not need to be unique in doors.
+Command is now quick travel. Quick travel is travel event which does not
+ask confirmation about the travel it happens immediately when player enters
+on the tile.
+
+* Parameter1 could contain the target map name where the travel is going to happen.
+It can be empty if travelling inside the same map. 
+
+* Parameter2 is the target waypoint name. There is a dropdown menu where target
+waypoint can be selected or just type the waypoint name. Also middle column lists
+the waypoints on this map.
+
+* Parameter3 is the possible sound effect name. Doors usually have door. If
+quick travel is just a door way it can be empty. List of possible sounds
+can be found from source code see SoundPlayer.java method playSoundBySoundName()
+After this everything should be done. 
+
+You can test travel events inside same map just moving on top of event and 
+press Q button. It should take you just outside of the general store. Next thing
+ is to do similar event on outside door just change the waypoint to insideGeneralStore.
+
