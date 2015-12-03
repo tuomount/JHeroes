@@ -18,7 +18,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.jheroes.map.character.Faces;
 import org.jheroes.tileset.Tile;
 import org.jheroes.tileset.Tileset;
 
@@ -48,11 +47,42 @@ public class TileSelection extends JDialog implements ActionListener, Adjustment
    * 
    */
   private static final long serialVersionUID = 1L;
+  
+  /**
+   * How many tiles are draw on X axel
+   */
+  private final static int NUMBER_TILES_X = 20;
+  /**
+   * How many tiles are draw on y axel
+   */
+  private final static int NUMBER_TILES_Y = 20;
+  /**
+   * What is the total number of tile to draw
+   */
+  private final static int TOTAL_TILES = NUMBER_TILES_X*NUMBER_TILES_Y;
+  /**
+   * Original tiles screen
+   */
   private BufferedImage originalImage;
+  /**
+   * Used as buffer to draw white rectangle
+   */
   private BufferedImage screen;
+  /**
+   * Image panel where tiles are drawn
+   */
   private ImagePanel imagePane;
+  /**
+   * Starting tile index
+   */
   private int startTile;
+  /**
+   * Current index
+   */
   private int index;
+  /**
+   * Current tileset
+   */
   private Tileset tileset;
   
   /**
@@ -65,11 +95,15 @@ public class TileSelection extends JDialog implements ActionListener, Adjustment
     super(parent, "Select Tile", true);
     this.tileset = tileset;
     index = currentIndex;
-    startTile = index-200;
+    // About half of tiles should be before current index
+    // and about another half after
+    startTile = index-TOTAL_TILES/2;
     if (startTile < 0) {
       startTile = 0;
     }
-    originalImage = new BufferedImage(20*Tile.MAX_WIDTH,20*Tile.MAX_HEIGHT,
+    index = startTile;
+    originalImage = new BufferedImage(NUMBER_TILES_X*Tile.MAX_WIDTH,
+                        NUMBER_TILES_Y*Tile.MAX_HEIGHT,
                         BufferedImage.TYPE_4BYTE_ABGR);
     drawTiles();
     screen = originalImage;
@@ -113,8 +147,8 @@ public class TileSelection extends JDialog implements ActionListener, Adjustment
     g.setColor(new Color(0, 0, 0));
     g.fillRect(0, 0, originalImage.getWidth(), originalImage.getHeight());
     int k=startTile;
-    for (int i=0;i<20;i++) {
-      for (int j=0;j<20;j++) {
+    for (int i=0;i<NUMBER_TILES_Y;i++) {
+      for (int j=0;j<NUMBER_TILES_X;j++) {
         Tile tile = tileset.getTile(k);
         if (tile != null) {
           tile.putFast(g, j*Tile.MAX_WIDTH, i*Tile.MAX_HEIGHT);
@@ -145,11 +179,14 @@ public class TileSelection extends JDialog implements ActionListener, Adjustment
           startTile = 0;
         }
         drawTiles();
+        screen = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), 
+            originalImage.getType());
+        screen.createGraphics().drawImage(originalImage,0,0,null);
         update(getGraphics());
       }
     }
     if (e.getActionCommand().equalsIgnoreCase("+100")) {
-      if (index+400 < tileset.size()) {
+      if (index+TOTAL_TILES < tileset.size()) {
         index = index +100;
         if (index > tileset.size()) {
           index = tileset.size()-1;
@@ -159,6 +196,9 @@ public class TileSelection extends JDialog implements ActionListener, Adjustment
           startTile = 0;
         }
         drawTiles();
+        screen = new BufferedImage(originalImage.getWidth(), originalImage.getHeight(), 
+            originalImage.getType());
+        screen.createGraphics().drawImage(originalImage,0,0,null);
         update(getGraphics());
       }
       
@@ -173,7 +213,7 @@ public class TileSelection extends JDialog implements ActionListener, Adjustment
   public void mouseClicked(MouseEvent arg0) {        
     int mouseX = arg0.getPoint().x / Tile.MAX_WIDTH;
     int mouseY = arg0.getPoint().y / Tile.MAX_HEIGHT;
-    int selected = mouseY*20+mouseX+startTile;
+    int selected = mouseY*NUMBER_TILES_X+mouseX+startTile;
     if ((selected >= 0) && (selected < tileset.size())) {
       index = selected;
     } else {
