@@ -175,6 +175,60 @@ Let's do new starting intro, but keeping the end and lose screen as it is for a 
          }
          default: {
      
+## The Map Editor
+
+Map Editor in JHeroes is the tool to make new maps, talks and characters.
+Editor has couple of modes:
+
+ * Map editing mode which is the common mode when editing the maps itself.
+ * Character Editor mode, this editor allows to create new characters
+ which can be placed on the map.
+ * Talk Editor, this editor allows to make talks that are used by characters
+ made in character editor.
+ 
+### Map Editor keys
+
+In map editing mode almost every thing is done with keyboard.
+Here is the list of keys:
+
+*  Arrow keys: Move the cursor/Character
+
+* 1: Set current position as upperleft corner of event
+* 2: Set current position as lowerright corner of event
+* E: Edit/Add new event. 
+* Q: Quick travel, Useful check that Door event really do work
+
+* 3: Set current position as upperleft corner of copy tilearray 
+* 4: Set current position as lowerright corner of copy tilearray
+* P: Paste copy tilearray. Note copied data is not copied into buffer but directly taking copy from the map.
+
+* PageUp: Go to next item 
+* PageDown: Go to previous item
+* I: Place item to map
+* Backspace: Remove all the items from current map coordinates. Remove all the objects, decorations and top
+from current coordinates. 
+
+* Insert or Numpad +: Go to next tile
+* Delete or Numpad -: Go to previous tile
+* Home or Numpad *: Go to next tile series(For example walls that belong same series)
+* End or Numpad /: Go to previous tile series(For example walls that belong same series)
+* Space: Place tile into it's default layer/position  in tileset.
+* D: Place tile into decoration layer/position.
+* T: Place tile into top layer/position.
+* O: Place tile into object layer/position.
+
+* F: Copy all 4 layers into 2x2 buffer. Current position is upperleft corner.
+* J: Paste all 4 layer from 2x2 buffer. Current position is upperleft corner.
+* G: Get the tile from most top of layers in current position.
+* H: Place 2x2 tiles into it's default layer/position in tileset. 
+* B: Place 3x3 tiles into it's default layer/position in tileset.
+ 
+* C: Fill whole sector with selected tile. Only if tile default position is floor or wall.
+
+* S: Smooth visible part of the map. Smooth walls and floor which belong in same series.
+* V: Recalculate lighting. This should be done at least before saving the map.
+* N: Toggle between night and day lighting.
+
 ## Let's create the tutorial.map
 
 Start up the Map Editor. Click File->New Map
