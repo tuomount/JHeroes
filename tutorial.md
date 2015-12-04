@@ -342,10 +342,36 @@ the waypoints on this map.
 
 * Parameter3 is the possible sound effect name. Doors usually have door. If
 quick travel is just a door way it can be empty. List of possible sounds
-can be found from source code see SoundPlayer.java method playSoundBySoundName()
+can be found from source code (See SoundPlayer.java method playSoundBySoundName())
 After this everything should be done. 
 
 You can test travel events inside same map just moving on top of event and 
 press Q button. It should take you just outside of the general store. Next thing
  is to do similar event on outside door just change the waypoint to insideGeneralStore.
 
+### Addings sounds
+
+Adding sounds is very important for atmosphere of the game. Adding sounds
+is actually pretty easy. All you need to add event. It can be single tile or
+region. If any of sound event tiles is drawn on screen there sound might be played.
+
+So event command needs to be "Play sound". Parameter1 is sound name. List of possible sounds
+can be found from source code (See SoundPlayer.java method playSoundBySoundName())
+Parameter2 is when sounds is played. There are couple of options:
+ 
+ * NN or a number between 1-99. This means that each time tile with play sound 
+ effect is draw there is a possibility play the sound. There is randomize number up to
+ set number and if result is zero then sound effect is played. So bigger the number
+ less often sound is player
+ * Loop, sound is looped
+ * Day, sound is looped on day time
+ * Night, sound is looped on night time
+ * Day#NN, Sound is played by similar chance as in NN but only day time.
+ * Night#NN, Sound is played by similar chance as in NN but only night time.
+ 
+ Example of playing cricket sound on night:
+ ![Cricket](tutorial-pictures/cricket_sfx.png)
+ 
+ Another example of fireplace sound effect:
+ ![Fireplace](tutorial-pictures/fireplace_sfx.png)
+ 
