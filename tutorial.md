@@ -375,3 +375,20 @@ Parameter2 is when sounds is played. There are couple of options:
  Another example of fireplace sound effect:
  ![Fireplace](tutorial-pictures/fireplace_sfx.png)
  
+### Adding clocks
+ 
+Clocks are even easy to add. Just add new event with single tile. Select commadn clock.
+Parameter1 tells what kind of clock it is. There are two options:
+ 
+ * sun, Sun clock which give current hour but works only on day light.
+ * clock, Gives current time with hours and minutes.
+
+Regular clocks might also have sound effect. Default sound effect for clock is called
+Clock and it should be looping. Notice that there can be only one even per tile unless
+events are regions and regions are overlapping. So clock even should be directly on the 
+clock since that is the tile which player are going to look if they look a clock.
+Sound effect tile could be one below.
+
+Here is an example picture:
+ ![Clock](tutorial-pictures/clock.png)
+ 
