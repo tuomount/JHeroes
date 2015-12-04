@@ -182,6 +182,12 @@ from current coordinates.
 * V: Recalculate lighting. This should be done at least before saving the map.
 * N: Toggle between night and day lighting.
 
+## Tutorial
+
+There is tutorial in branch tutorial.(https://github.com/tuomount/JHeroes/tree/tutorial)
+In tutorial branch there is file tutorial.md which is the tutorial file.
+
+
 ## Future plans with JHeroes
 
 * First to have tutorial how to use JHeroes engine to create a new adventure.

@@ -79,6 +79,7 @@ public class Editor extends JFrame implements ActionListener {
     private final static String ACTION_REMOVE_EVENT ="removeEvent";
     private final static String ACTION_TALK_EDITOR ="talkEditor";
     private final static String ACTION_EXPORT_WHOLE_MAP ="ExportMap";
+    private final static String ACTION_TILE_SELECT ="TileSelect";
     
     
     private MapPanel panelMap;
@@ -122,6 +123,7 @@ public class Editor extends JFrame implements ActionListener {
     private JMenuItem itemRemoveCharater;
     private JMenuItem itemCopyCharater;
     private JMenuItem itemEditTalk;
+    private JMenuItem itemSelectTile;
     private JCheckBoxMenuItem itemEditorMode;
     private JCheckBoxMenuItem itemEnableMusic;
     private JMenuItem itemExit;
@@ -284,6 +286,10 @@ public class Editor extends JFrame implements ActionListener {
           itemEnableMusic.setActionCommand("enableMusic");
           itemEnableMusic.addActionListener(this);          
           menuMap.add(itemEnableMusic);
+          itemSelectTile = new JMenuItem("Select Tile");
+          itemSelectTile.setActionCommand(ACTION_TILE_SELECT);
+          itemSelectTile.addActionListener(this);
+          menuMap.add(itemSelectTile);
           menuCharacter = new JMenu("Character");
           itemEditCharater = new JMenuItem("Character Editor");
           itemEditCharater.setActionCommand(ACTION_CHARACTER_EDITOR);
@@ -785,6 +791,12 @@ public class Editor extends JFrame implements ActionListener {
       if (ACTION_TALK_EDITOR.equalsIgnoreCase(arg0.getActionCommand())) {
         TalkEditor talkEdit = new TalkEditor(this);
         talkEdit.dispose();
+      }
+      if (ACTION_TILE_SELECT.equalsIgnoreCase(arg0.getActionCommand())) {
+        TileSelection tileSelection = new TileSelection(this, mapTileset,index );
+        index = tileSelection.getSelected();
+        myTile = mapTileset.getTile(index);
+        tileSelection.dispose();
       }
       if (ACTION_SAVE_MAP.equalsIgnoreCase(arg0.getActionCommand())) {
         DataOutputStream os;        
