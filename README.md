@@ -3,6 +3,9 @@ JHeroes CRPG engine and Heroes of the Hawks Haven.
 Code is licensed under GPL2, graphics is under CC-BY-SA, music is under CC-BY
 and sound effects are either under CC-BY or public domain from OpenGameArt.org
 
+Binary version of latest stable Heroes of the Hawks Haven is available on
+[my home page:](https://tuomount.kapsi.fi/).
+
 ## The project
 
 This projects contains open sourced Heroes of the Hawks Haven and
