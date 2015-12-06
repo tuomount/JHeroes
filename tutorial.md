@@ -1,7 +1,7 @@
 # JHeroes Tutorial
 
 This document descbribes how to make a simple adventure with JHeroes engine.
-
+All the changes are done already in tutorial branch.
 
 ## First thing first
 
@@ -446,3 +446,74 @@ Sound effect tile could be one below.
 Here is an example picture:
  ![Clock](tutorial-pictures/clock.png)
  
+### Inn with stairs and locked doors
+
+Let's do an two story inn. Downstairs is the tavern and beds upstairs.
+Basic house is done similar as creating a house just a little bit bigger one.
+Creating door is also similar as were when general store was created. Just remember
+that waypoints need to have unique names.
+
+#### Downstairs
+
+Let's make a stairs and add a waypoint next to them. 
+ ![Downstairs](tutorial-pictures/innstairs1.png)
+ 
+Let's take a full copy from whole down stairs. Press 3 on upper left corner of
+the inn and 4 on down right corner. Then move on free space you can fit the
+second floor too. Press P to paste it there.
+
+After copying it should look like this:
+ ![copied](tutorial-pictures/inncopy.png)
+ 
+As you notice all the tiles are just copied not the events.
+
+#### Upstairs
+
+Let's try to make upstairs with stairs and two rooms.
+But first let's start with the stairs. Stairs are actually same as doors
+they are simple put Quick Travel event but a different sound effect. They
+use sound effect name "ladder".
+Here is an example of upstairs quick travel:
+ ![upstairs](tutorial-pictures/innstairs2.png)
+ 
+So all you need is two way points and two quick travel events and you
+got a stairs. Now do the similar ones in to down stairs you got
+fully working stairs.
+
+Next let's do the locked doors. Let's make two rooms with bed and table.
+I'll do also 4 waypoints. 2 for each rooms. I call them "InnRoom1Inside" and
+"InnRoom1Outside" and similar once also for room 2.
+ 
+ ![InnRooms](tutorial-pictures/innrooms.png)
+ 
+Then let's add Locked Door on the door. Command is locked door.
+
+Parameter 1 contains two parts. First part is the key to unlock the door. Key name
+must match key's item name. Second part is the difficulty to pick the lock. So each
+roll is between 1-100 + Pick lock skill. So anything above 110 is pretty
+much impossible unless character has good skills or tools. These two part are separated
+by "/" character. Example: "Bronze key/70".
+
+Parameter 2 is the Map where to travel after opening the lock. This can be empty
+if travel happens in same map.
+
+Parameter 3 is the waypoint name where to travel.
+
+When locked door event is picked or unlock it actually changes to quick travel
+event just change the Parameter 2 to Parameter 1 and Parameter 3 to parameter 2.
+Parameter 3 gets value door since it was locked door event.
+
+ ![LockedDoor](tutorial-pictures/innroom1.png)
+ 
+Now inside the room all we need is regular Quick travel event and all is done.
+Expect same evenst needs to be done for room2. Locked doors can be tested
+same way as quick travels if travelling happens inside same map. To test travel
+events simply press Q key.
+
+##### Looting
+
+Behind locked doors you kind hide treasures. In this example map table is done
+from two tiles: table and the bowl. Table is object and bowl is decoration.
+If item is placed on that same spot it won't be visible in the map. Instead
+it can be found when player searches the place. So let's place couple of coppers
+on another one and minor random item on the another.
