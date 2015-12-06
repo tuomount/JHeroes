@@ -431,7 +431,7 @@ Parameter2 is when sounds is played. There are couple of options:
  
 ### Adding clocks
  
-Clocks are even easy to add. Just add new event with single tile. Select commadn clock.
+Clocks are even easy to add. Just add new event with single tile. Select command clock.
 Parameter1 tells what kind of clock it is. There are two options:
  
  * sun, Sun clock which give current hour but works only on day light.
@@ -517,3 +517,71 @@ from two tiles: table and the bowl. Table is object and bowl is decoration.
 If item is placed on that same spot it won't be visible in the map. Instead
 it can be found when player searches the place. So let's place couple of coppers
 on another one and minor random item on the another.
+
+### First NPC shopkeeper
+
+Let's do the first NPC and he should be a shopkeeper. First let's make sure
+we have all the waypoints we need. Waypoints should have almost straight line
+between them to make sure that NPCs can walk between them.
+
+In this example I use three waypoints and NPC stays whole time inside the building.
+
+ ![Shopkeeper](tutorial-pictures/shopkeeper1.png)
+ 
+After this click Character menu and click Character Editor. This is now the
+character editor. You can create unique characters for the map or save into
+commonly used file which contains list of characters. That list can be called
+on Encounter events. But now let's do just unique character for the map.
+Pick the face and looks. Put a good name or use the built-in name generators. Since
+this is a shopkeeper it should have some coppers. Description is a text which is shown
+when player looks the NPC. 
+
+Then there are three behaviours but only two of them are used: avoid and aggressive.
+Avoid means that NPC tries to avoid combat and does not fight with players. 
+Aggressive means that it attacks immediately on players of other characters with
+avoid behaviour. Guard is something which is not tested yet and most likely does not work. 
+
+Then attributes and skills works like with player characters. Since this NPC is
+going to be shopkeeper only thing that matters is the bartering.
+
+ ![Shopkeeper](tutorial-pictures/shopkeeper2.png)
+ 
+Perks also work as with player characters. Since this is an shopkeeper we just skip
+the perks. Then on inventory just pick items shopkeeper should have. Shopkeepers
+sell all the items in their inventory. Only equipments they are wear are not for
+sale. Pick items you think would be good for general store. Notice button
+"update shopkeeper list". This will autogenerate list of items in a format
+that can be used timetable to shopkeeper to full his or her stock.
+
+ ![Shopkeeper](tutorial-pictures/shopkeeper3.png)
+
+Next tab is the time table. Time table is list of jobs and doings for whole day. Remember
+that day begins from hour 0 and first task should be on top of the list. When adding
+task make sure that there is one extra line that just means previous ones are really
+in use. Time column means when particular task ends. So for example 06:00 sleeping means
+that NPC sleeps till that time. - in time means that continue this task as soon you have
+finished previous task.
+
+So this shopkeeper will sleep till 06:00 and move to eat breakfast next to table and
+eat it till 7:00 and then move to working. He is going to work till 18:00.
+After working he will go back to table and eat the dinner and finally he goes back to sleep.
+!Work task and !Shop task is a bit different from other task. Since these two can have three
+parameters in description field. They are separated with #-character. First one is
+the description, then is the shopkeepers list of items that is going to be restocked.
+Items in list are separated with |-character. Third parameter is sound effect list.
+List of possible sounds can be found from source code (See SoundPlayer.java method playSoundBySoundName())
+This is an example of shopkeeper description field:
+
+    #Bronze axe|Bronze helmet|Bronze gauntlets|Studded leather armor|Leather armor|Bronze kite shield|Short bow|Bronze spear|Bronze mace|Picklocks|Crudge leather armor|Padded cloth jacket|Bronze short sword|Bronze dagger|Torch|Lantern#Smith1|Smith2
+
+So the description is empty so it is using the default from common tab. Then is the items list and finally
+Sound effect list. Items are restocked once per work or shop task. If there are less 25 items
+new items is generated and if more then one is randomly sold and new is generated. Difference between !work and
+!shop task is the animation. !Work has hammering animation and !shop has money and exclamation marks.
+
+![Shopkeeper](tutorial-pictures/shopkeeper4.png)
+
+Final tab is for spell but this can be left empty. Aggressive NPC would cast these spells when in combat if
+right skill is high enough. When you exit the character editor you just changed your "moving" character
+you still need to place charater on the map. This is done from Character menu -> Add/Edit.
+Later on if you need to edit character simply move on top of it and Select same Add/Edit from the menu.
