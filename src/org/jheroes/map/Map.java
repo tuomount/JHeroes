@@ -68,9 +68,13 @@ import org.jheroes.utilities.StreamUtilities;
 public class Map {
   
   /**
+   * Original map version 1.0
+   */
+  public final static String MAP_VERSION_1_0 = "MAP1.0";
+  /**
    * Current MAP version. This string is also in map files
    */
-  public final static String CURRENT_MAP_VERSION = "MAP1.0";
+  public final static String CURRENT_MAP_VERSION = MAP_VERSION_1_0;
   
   /**
    * Engine Name
@@ -5338,8 +5342,8 @@ public int getEventY2() {
    * @throws IOException
    */
   public Map(DataInputStream is) throws IOException {
-    String tmpStr = StreamUtilities.readString(is);
-    if (!CURRENT_MAP_VERSION.equals(tmpStr)) {
+    String mapVersion = StreamUtilities.readString(is);
+    if (!CURRENT_MAP_VERSION.equals(mapVersion)) {
       throw new IOException("Not map file!");
     }
     this.party = null;
@@ -5480,7 +5484,7 @@ public int getEventY2() {
     size = is.readInt();
     boolean isPosSet = false;
     for (int i=0;i<size;i++) {
-      Event event = new Event(is);
+      Event event = new Event(is, mapVersion);
       if ((event.isWaypoint()) && (!isPosSet)) {
         myChar.setPosition(event.getX(), event.getY());
         isPosSet = true;
@@ -5489,7 +5493,7 @@ public int getEventY2() {
     }
     size = is.readInt();
     for (int i=0;i<size;i++) {
-      Item item = ItemFactory.readMapItem(is);
+      Item item = ItemFactory.readMapItem(is,mapVersion);
       listItems.add(item);
     }
     size = is.readInt();

@@ -3358,7 +3358,14 @@ public class ItemFactory {
     return item;
   }
   
-  public static Item readMapItem(DataInputStream is) throws IOException {
+  /**
+   * Read Map item from Input stream
+   * @param is DataInputStream which was used to read the map
+   * @param mapVersion Map Version currently reading
+   * @return Item
+   * @throws IOException
+   */
+  public static Item readMapItem(DataInputStream is,String mapVersion) throws IOException {
     Item item = readItem(is);
     int x = is.readInt();
     int y = is.readInt();
