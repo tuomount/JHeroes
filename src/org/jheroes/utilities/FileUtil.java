@@ -61,5 +61,26 @@ public class FileUtil {
             return null;
         }
     }
-	
+
+    /**
+     * Check that two byte buffers have same bytes or both are null
+     * @param buf1 Byte buffer 1
+     * @param buf2 Byte buffer 2
+     * @return boolean, true if all bytes are equal in both buffers
+     */
+    public static boolean equalByteArray(byte[] buf1, byte[] buf2) {
+      if (buf1 == null && buf2 == null) {
+        return true;
+      }
+      if (buf1 != null && buf2 != null && buf1.length == buf2.length) {
+        for (int i=0;i<buf1.length;i++) {
+          if (buf1[i] != buf2[i]) {
+            return false;
+          }
+        }
+        return true;
+      } else {
+        return false;
+      }
+    }
 }

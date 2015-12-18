@@ -9,12 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -38,6 +36,7 @@ import org.jheroes.map.Party;
 import org.jheroes.map.character.CharTask;
 import org.jheroes.map.character.Character;
 import org.jheroes.map.character.CharacterAnimation;
+import org.jheroes.map.character.CharacterList;
 import org.jheroes.map.character.Perks;
 import org.jheroes.map.character.SpellFactory;
 import org.jheroes.map.item.Item;
@@ -105,7 +104,7 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
   private CharacterEditorCommonPanel basicCharTopPanel;
   private boolean selectCharacterClicked = false;
   
-  private JComboBox cbHostilityLevel;
+  private JComboBox<String> cbHostilityLevel;
   
   private final static String[] HOSTILITY_LEVEL_STRINGS 
          = {"Avoid", "Aggressive","Guard"};
@@ -258,43 +257,14 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
    * Read save characters for character list file
    */
   private void readSavedCharacters() {
-    DataInputStream is;
-    InputStream tmpIs = CharacterEditor.class.getResourceAsStream(CHARACTER_LIST_FILE);
-    if (tmpIs != null) {
-	    is = new DataInputStream(tmpIs);
-	    try {
-	      byte[] magicBytes = {67,72,82,76,73,83,84};
-	      for (int i = 0;i<7;i++) {
-	       byte byt = is.readByte();
-	       if (byt != magicBytes[i]) {
-	         is.close();
-	         throw new IOException("Not character list!");
-	       }
-	      }
-	      int size = is.readInt();
-	      if (size > 0) {
-	        characterList.clear();
-	        for (int i=0;i<size;i++) {
-	          Character tmpChr = new Character(0);
-	          tmpChr.loadCharacter(is);
-	          characterList.add(tmpChr);
-	          lastCharIndex=i;
-	        }
-	        currentChar = characterList.get(0);
-	      } else {
-	        is.close();
-	        throw new IOException("No characters in list!");
-	      }
-	      
-	      is.close();
-	    } catch (IOException e) {
-	      e.printStackTrace();
-	      currentChar = new Character(0);
-	      characterList.add(currentChar);
-	    }
+    characterList = CharacterList.readCharacterList(CHARACTER_LIST_FILE);
+    if (characterList != null) {
+      currentChar = characterList.get(0);
+      lastCharIndex = characterList.size()-1;
     } else {
-	    currentChar = new Character(0);
-	    characterList.add(currentChar);    	
+      currentChar = new Character(0);
+      lastCharIndex=0;
+      characterList.add(currentChar);
     }
   }
   
@@ -1171,23 +1141,17 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
       int returnVal = fcSave.showSaveDialog(this);
       if (returnVal == JFileChooser.OPEN_DIALOG) {
           String saveStr = fcSave.getSelectedFile().getAbsolutePath();
-        try {
-          os = new DataOutputStream(new FileOutputStream(saveStr));
-          try {
-            os.writeBytes("CHRLIST");
-            os.writeInt(characterList.size());
-            for (int i=0;i<characterList.size();i++) {
-              Character tmpChr = characterList.get(i);
-              tmpChr.saveCharacter(os);
+          ArrayList<Character> tmpList = new ArrayList<Character>();
+          // Only save non-default characters, so no more Joe Does with empty
+          // descriptions
+          for (int i =0;i<characterList.size();i++) {
+            Character chr = characterList.get(i);
+            if (!chr.getLongName().equalsIgnoreCase("Joe Doe") || 
+                (chr.getDescription() != null && !chr.getDescription().isEmpty())) {
+              tmpList.add(chr);
             }
-            
-            os.close();
-          } catch (IOException e) {
-            e.printStackTrace();
-          }  
-        } catch (FileNotFoundException e) {
-          e.printStackTrace();
-        }
+          }
+          CharacterList.writeCharacterList(saveStr, tmpList);
       }
     }
     if (arg0.getActionCommand().equalsIgnoreCase("AddItem")) {

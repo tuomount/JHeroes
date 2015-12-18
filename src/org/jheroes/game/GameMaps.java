@@ -19,6 +19,7 @@ import org.jheroes.journal.Journal;
 import org.jheroes.map.Map;
 import org.jheroes.map.Party;
 import org.jheroes.map.character.Character;
+import org.jheroes.map.character.CharacterList;
 
 
 
@@ -102,48 +103,8 @@ public class GameMaps {
    */
   public static ArrayList<Character> getCharacterList() {
     if (characterList == null) {
-      DataInputStream is;
-      characterList = new ArrayList<Character>();
-      InputStream tmpIs = GameMaps.class.getResourceAsStream(CHARACTER_LIST_FILE);
-      if (tmpIs != null) {
-        is = new DataInputStream(tmpIs);
-        try {
-          DebugOutput.debugLog("Reading character list...");
-          // CHRLIST
-          byte[] magicBytes = {67,72,82,76,73,83,84};
-          for (int i = 0;i<7;i++) {
-           byte byt = is.readByte();
-           if (byt != magicBytes[i]) {
-             is.close();
-             DebugOutput.debugLog("Character list is empty!");
-             return null;
-           }
-          }
-          int size = is.readInt();
-          if (size > 0) {
-            characterList.clear();
-            for (int i=0;i<size;i++) {
-              Character tmpChr = new Character(0);
-              tmpChr.loadCharacter(is);
-              characterList.add(tmpChr);
-            }
-          } else {
-            is.close();
-            DebugOutput.debugLog("Character list is empty!");
-            return null;
-          }
-          
-          is.close();
-          return characterList;
-        } catch (IOException e) {
-          e.printStackTrace();
-          DebugOutput.debugLog("Failed reading it...");
-          return null;
-        }
-      } else {
-        DebugOutput.debugLog("Character list not found");     
-        return null;
-      }
+      characterList = CharacterList.readCharacterList(CHARACTER_LIST_FILE);
+      return characterList;
     } else {
       return characterList;
     }
