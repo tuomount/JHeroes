@@ -585,3 +585,143 @@ Final tab is for spell but this can be left empty. Aggressive NPC would cast the
 right skill is high enough. When you exit the character editor you just changed your "moving" character
 you still need to place charater on the map. This is done from Character menu -> Add/Edit.
 Later on if you need to edit character simply move on top of it and Select same Add/Edit from the menu.
+
+### Creating the first talk
+
+NPCs can be divided into three categories: Enemies which do not talk, friendly NPC whom talk and friendly NPC whom
+talk. Also friendly NPCs can turned into enemies if needed. Talks consist greetings and states. Each
+greeting has a condition and if condition is met than greeting is shown to player and state has been selected.
+If condition is not met then next greeting is checked and so on. Final greeting should be something that is
+always true.
+
+Each state has number of lines which player can choose. Each of these may have a condition and if that
+condition is true then true branch is selected. If condition is false then false branch is selected.
+Each branch can have multiple actions which can change state of story variables, state of talk, give experience,
+start a shop and so on. Talk is continued between these state until there is line which does not have any action.
+
+JHeroes is bundled with 4 talk templates: commoner.tlk, shopkeeper.tlk, innkeeper.tlk and magicshop.tlk.
+ * Commoner.tkl player can ask what commoner's name, what he or she is doing and rumors.
+ * Shopkeeper.tlk player can ask same as above it has two greetings and if it is day time player can
+start shopping.
+ * innkeeper.tlk player can do same as above but it if is night player can pay for a night sleep.
+ * magicshop.tlk is identical to shopkeeper.tlk but player can pay of identification of magic items.
+ 
+Each of these templates should be modified before taking in use. In previous chapter we created a shopkeeper
+so let's do him a talk. Let's open talk editor and open the shopkeeper.tlk.
+
+![talkedit](tutorial-pictures/talkedit1.png)
+
+In top of panel there are the greetings. Each greeting has the greeting text, condition, two parameters, itemname and nextstate. Middle part there are the lines. All lines are shown in left hand side. On right hand side there is shown
+which state line is possible to select. True and false branch texts, condition, two parameters and itemname. These
+conditions are identical to ones in greetings. Then there are buttons for true and false branch actions. If you made
+changes on line then accept those clicking OK and click cancel if you wan to cancel them.
+Bottom of panel is testing the talk. You can select any state of the talk from a number spinner. Left hand side
+you can try out the lines and right handside you can see the texts on both true and false branch. You there
+manually simulate the talk by looking the states and changing it from the spinner.
+
+On another dialog you can see special words which are in side < > markings. These words are replaced with new one
+when shown in the game. For example <NPC> is replace with first name of the NPC and so on.
+
+There can be 254 different states. Going to state 255 is a special one. It means that
+goes back what ever was the current state. This helps creating looping lines which can
+be used from different states.
+
+Each talk must be saved into res/talks/ folder and having matching name to NPC name but without spaces.
+In this tutorial shopkeeper name was Brucus Strongriver so talk file should be "BrucusStrongriver.tlk".
+
+#### Conditions
+
+Storyvariable is an array of bytes. Array size is 256 and starting index is 0. So one
+adventure can have 256 different variables each of containing one value. Heroes of Hawkshaven contained
+slightly over 40 story variables so there is quite much room to make a bigger adventure.
+
+Let's go trough the conditions used in lines and greetings. If condition is true it means
+that greeting is selected if condtion is in greeting or true branch is selected if condition was
+in line:
+ * Always true: This selectes always true branch of the greeting line
+ * Player has item: If player character who is talking has item matching to itemname then this is true.
+ * Story variable equals: Storyvariable param1 equals to param2 then condition is true. 
+ * Story variable less than: Storyvariable[param1] < param2 then condition is true.
+ * Story variable greater than: Storyvariable[param1] > param2 then condition is true.
+ * Player level equals: Player character who is talking has a level  equal to param1 then condition is true. 
+ * Player level less than: Player level < param1 the condition is true
+ * Player level greater than: Player level > param1 the condition is true
+ * Player gold equals: Player character who is talking has gold  equal to param1 then condition is true. 
+ * Player gold less than: Player gold < param1 the condition is true
+ * Player gold greater than: Player gold > param1 the condition is true
+ * Skill greater than: Player character who is talking has skill(param1, see A Skill list.) greater than param2 then condition is true.
+ * Skill check against NPC: Player character who is talking makes a skill check(param1) against NPC. If successful
+this gives experience to player and condtion is true.
+ * Time hour equals: In game hour equals to param1 then condition is true.
+ * Time hour greater than: In game hour > param1 then condition is true.
+ * Time hour less than: In game hour < param1 then condition is true.
+ * Time is day?: In game hour is from 06:00 to 18:00 then condition is true.
+ * Time is night?: In game hour is from 00:00-06:00 or 18:00-00:00 then condition is true.
+ * Is party member?: If NPC who is talking is party member then condition is true.
+ * Is room in party?: If party has still place for one player character then condition is true.
+ * Player name is: Player character who is talking name matches to itemname then condition is true.
+ * Story = and Player =: Player character who is talking name matches to itemname and storyvariable[param1] = param2 then condition is true.
+ * Is solo mode?: If party has only one member or current player character is on solo mode then condition is true.
+ * Time hour is between: If game hour is between param1 and param2 then condition is true.
+  
+So shopkeeper has two greetings one for day and one for night. Then it has line "Have you heard any rumors?" which has
+condition that storyvariable[8] equals 2. This allows NPC comment quest that player has completed. Since this tutorial does not have any quests yet let's change this always true and put NPC say that He hasn't heard any rumors.
+  
+#### Skill list
+ Skills have following table:
+   - SKILL UNARMED             = 0;
+   - SKILL MELEE               = 1;
+   - SKILL RANGED WEAPONS      = 2;
+   - SKILL DODGING             = 3;
+   - SKILL WIZARDRY            = 4;
+   - SKILL SORCERY             = 5;
+   - SKILL QI MAGIC            = 6;
+   - SKILL BARTERING           = 7;
+   - SKILL DIPLOMACY           = 8;
+   - SKILL LOCKPICKING         = 9;
+   
+
+#### Actions
+
+Actions are equally important as are conditions. They allow story to move forward, gain quests and complete quests.
+On one true or false branch there can be multiple actions which are all done. Usually they only change talk state.
+![talkedit](tutorial-pictures/talkedit2.png)
+
+Each action can have couple of parameters value, storyvariable, itemname/questname and journal entry.
+ * No action: This Action does not do anything. If line does not have action then conversation ends there.
+ You should have separate "End conversation" line to end the conversation.
+ * Change talk state: Change talk state to value.
+ * Remove item: Remove item from player character which name is matching to itemname. Only one item is removed.
+ * Give item: Give item with itemname to player character.
+ * Set story variable: Set storyvariable to value.
+ * Share experience: Share experience to whole party. If in solo mode in that character gains experience.
+ * Change money: Adjust or decrease money on current player character. Negative value decreases and positive increases.
+ * Pass turns: Pass value amount of turns. One turn is 30 seconds.
+ * Heal party: Heal whole party to full health and stamina.
+ * Add journal: Add journal entry. Quest name is the quest name which will be added to journal and journal entry is the
+ journal entry in text.
+ * Start shop: NPC starts shop with current player character.
+ * RP reward: Give roleplaying reward to current character. Storyvariable is the role. There are 3 different roles:
+ Paladin 0, Mercenary 1, Bully 2. Value is amount of experience gain if player character has played previous roles
+ in same role. Otherwise he or she will get only fraction of experience. Example PC has Paladin at level 4, Mercenary
+ at level 1 and Bully at level 1. RP Reward is for paladin 100 experience. Player will get 4/6*100 which equals 66.
+ * Join party: NPC joins the party assuming that there is still room.
+ * Cast identify: NPC casts identify to identify all the items all the player characters are carrying.
+ * Start trade: Trade items with NPC. This could be used between party members.
+ * Run exit(0,1,2,3): When this talk ends NPC runs direction set by value. When NPC is not on screen he or she
+ will be removed from the map. Directions are 0: Up, 1 Right, 2 Down and 3 Left.
+ * Fight: When this talk end NPC starts fighting against party.
+ * Start solo: If NPC is party member then this character is set to solo mode.
+ * Take item: Take item matching to item name from player character. This item is placed on NPC's inventory.
+ * Leave party: If NPC is party member then this character leaves the party.
+ * Move away(0,1,2,3): When this talk ends NPC moves direction set by value until he or she is blocked. Then he or
+ she returns to normal day routine. Directions are 0: Up, 1 Right, 2 Down and 3 Left.
+ * Teleport to exit: NPC teleports to waypoint name matching to item name. This creates a teleport effect.
+ * Move to WP: When this talk ends NPC walks to direction set by value. When NPC is not on screen he or she
+ will moved to waypoint matching to itemname. Directions are 0: Up, 1 Right, 2 Down and 3 Left.
+ * Travel WP: Makes party to make a travel to Waypoint matching to itemname when talk ends.
+ * Travel map: Makes travel to change map. Map name is set with itemname. Notice this Travel map must have Travel WP action too to work.
+ * Die: When this talk ends NPC dies immediately.
+ * Change deadline: This change game deadline. Value 0 disabled deadline other value sets it if deadline hasn't
+ set before. If it has set before then positive value increases deadline and negative decreases it.
+ * End game: When this talk ends also Game ends and end story is shown.
