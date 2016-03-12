@@ -145,6 +145,7 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
   private JList inventoryList;
   private JList spellList;
   private JComboBox spellCB;
+  private JComboBox subtypeCB;
   private JLabel newItemLabel;
   private JLabel mainAttackLabel;
   private JLabel secondaryAttackLabel;
@@ -700,7 +701,15 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
     nameBtn.addActionListener(this);
     nameBtn.setActionCommand(ACTION_RANDOMFEMALE);
     basicCharTopPanel.add(nameBtn);
-    
+
+    //FIXME Character SubType selection
+    // This is not done yet so commented out
+    /*basicCharTopPanel.add(Box.createRigidArea(new Dimension(10,20)));
+    subtypeCB = new JComboBox<>();
+    basicCharTopPanel.add(new JLabel("Type:"));
+    basicCharTopPanel.add(subtypeCB);
+    basicCharTopPanel.add(Box.createRigidArea(new Dimension(10,20)));*/
+
     JPanel center = new JPanel();
     center.setLayout(new GridLayout(1, 0));
     center.add(attributePanel());

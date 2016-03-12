@@ -391,7 +391,7 @@ public class SpellFactory {
           1, CharEffect.EFFECT_ON_HEALTH, Character.SKILL_DODGING, 1, 50);
       result.setEffect(eff);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
-      result.setCastingCost(4);      result.setTargetType(Spell.SPELL_TARGET_TARGET);
+      result.setCastingCost(4);
       result.setCastingCost(10);
       result.setSkill(Character.SKILL_WIZARDRY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_POSITIVE);

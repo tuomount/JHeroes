@@ -176,8 +176,17 @@ public class Map {
     return 0;
   }
   
+  /**
+   * Full attack with both hands
+   */
   public final static int ATTACK_TYPE_FULL_ATTACK = 0;
+  /**
+   * Single attack with main weapon
+   */
   public final static int ATTACK_TYPE_SINGLE_ATTACK = 1;
+  /**
+   * Throwing attack
+   */
   public final static int ATTACK_TYPE_THROW_ATTACK = 2;
   
   private static BufferedImage IMAGE_ATTACK=null;
@@ -1323,7 +1332,8 @@ public class Map {
    * Make character to attack against another with selectable attack style
    * @param attacker Character
    * @param defenser Character
-   * @param attackType int
+   * @param attackType int ATTACK_TYPE_FULL_ATTACK, ATTACK_TYPE_SINGLE_ATTACK,
+   * ATTACK_TYPE_THROW_ATTACK
    * @return experience points if attack was PC
    */
   public int doAttack(Character attacker, Character defenser, int attackType) {
