@@ -28,14 +28,27 @@ import org.jheroes.map.character.CombatModifiers.DamageModifier;
 public enum CharacterRace {
   
   DEFAULT(0,"Default","",false,false),
-  HUMAN(1,"Human","",true,false),
-  ZOMBIE(2,"Zombie","",false,true),
-  RAT(3,"Rat","",false,false);
+  HUMAN(1,"Human","Humans do not have any special weakneses or strength.",true,false),
+  ELF(2,"Elf","Elves have better dodging skill but have weakness against ice attacks.",true,false),
+  ZOMBIE(3,"Zombie","Zombies are undead creatures which are immune to poison and"
+      + "mind affecting but have weakness against electricity.",false,true),
+  RAT(4,"Rat","Rats are immune to poison but have weakness against fire.",false,false),
+  LIVESTOCK(5,"Livestock","Livestock is animal that can be herded. Livestock has weakness"
+      + "against non lethat and fire attacks.",false,false),
+  WATERELEMENTAL(6,"Waterelemental","Waterelementals are magical creatures "
+      + "consisting of water. They are immune to fire, poison attacks but have weakness"
+      + "against electric and ice attacks.",false,false),
+  INSECT(7,"Insect","Insects are animals with three bodies and six legs. They "
+      + "weakness against blunt and fire attacks. Insects are immune to mind "
+      + "affecting attacks.",false,false);
   
   CharacterRace(int index,String name, String description, boolean isPlayerRace,
       boolean isUndead) {
     this.playableRace =isPlayerRace;
     this.undead = isUndead;
+    this.index = index;
+    this.name = name;
+    this.description = description;
   }
   
   
@@ -57,7 +70,30 @@ public enum CharacterRace {
     return undead;
   }
 
-
+  /**
+   * Get race index for saving characters.
+   * @return int
+   */
+  public int getIndex() {
+    return index;
+  }
+  
+  /**
+   * Get name as string
+   * @return String
+   */
+  public String getName() {
+    return name;
+  }
+  
+  /**
+   * Get race description as a string.
+   * @return String without any view modifications
+   */
+  public String getDescription() {
+    return description;
+  }
+  
   /**
    * Is race selectable for player character in character creation
    */
@@ -100,6 +136,7 @@ public enum CharacterRace {
    */
   public DamageModifier damageModifierForBlunt() {
     switch (this) {
+    case INSECT: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -110,7 +147,12 @@ public enum CharacterRace {
    * @return DamageModifier
    */
   public DamageModifier damageModifierForNonLethal() {
+    if (this.isUndead()) {
+      // Undeads are immune to non lethal
+      return DamageModifier.IMMUNITY;
+    }
     switch (this) {
+    case LIVESTOCK: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -123,6 +165,7 @@ public enum CharacterRace {
   public DamageModifier damageModifierForElectricity() {
     switch (this) {
     case ZOMBIE: {return DamageModifier.WEAKNESS;}
+    case WATERELEMENTAL: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -134,6 +177,8 @@ public enum CharacterRace {
    */
   public DamageModifier damageModifierForIce() {
     switch (this) {
+    case ELF: {return DamageModifier.WEAKNESS;}
+    case WATERELEMENTAL: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -146,6 +191,9 @@ public enum CharacterRace {
   public DamageModifier damageModifierForFire() {
     switch (this) {
     case RAT: {return DamageModifier.WEAKNESS;}
+    case LIVESTOCK: {return DamageModifier.WEAKNESS;}
+    case WATERELEMENTAL: {return DamageModifier.IMMUNITY;}
+    case INSECT: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -159,6 +207,7 @@ public enum CharacterRace {
     switch (this) {
     case ZOMBIE: {return DamageModifier.IMMUNITY;}
     case RAT: {return DamageModifier.RESISTANCE;}
+    case WATERELEMENTAL: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -171,6 +220,7 @@ public enum CharacterRace {
   public DamageModifier damageModifierForMindAffecting() {
     switch (this) {
     case ZOMBIE: {return DamageModifier.IMMUNITY;}
+    case INSECT: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
