@@ -51,12 +51,27 @@ public enum CharacterRace {
       + "againts mind-affecting attacks. They do have good resistance against ice attacks.",false,false),
   TROLL(12,"Troll","Trolls are big and strong humanoid like creatures. Trolls have weakness "
       + "againts fire and magic attacks. They have resistance against non-lethal and ice attacks.",false,false),
-  SKELETON(13,"Skeleton","Skeletons are undead creatures which are immune to poison and "
-      + "mind affecting but have weakness against blunt-weapons.",false,true),
+  SKELETON(13,"Skeleton","Skeletons are undead creatures which are immune to "
+      + "poison, ice and mind affecting but have weakness against blunt-weapons.",false,true),
   IMP(14,"Imp","Imp are flying evil creatures which are immune to fire and "
       + "magic attacks but have weakness against electricty and mind-affecting attacks.",false,false),
   BRAINHORROR(15,"Brain horror","Brain horrors are walking brain creatures which are immune to "
-      + "mind-affecting and magic attacks but have weakness against poison and normal attacks.",false,false);
+      + "mind-affecting and magic attacks but have weakness against poison and normal attacks.",false,false),
+  SNAIL(16,"Snail","Snails are creatures carrying heavy shell on top their body."
+      + "They have weakness against ice and electric attacks. Snails have "
+      + "resistance against fire attacks and they are immune to poison.",false,false),
+  ANIMATEDOBJECT(17,"Animated object","Animated objects are magically created creatures. They "
+      + "usually act as a guards in certain area. They are immune to "
+      + "mind-affecting, magic, ice, non-lethal, poison and electric attacks. "
+      + "They have weakness against fire attacks.",false,false),
+  WOLFMAN(18,"Wolfman","Wolfmen are humanoid like creatures with wolf head and paws as legs. Wolfmen have weakness "
+      + "againts poison attacks. They do have good resistance against ice attacks.",false,false),
+  PLANT(19,"Plant","Plants is sentient type of plant which have some humanoid like features."
+      + "Plants have weakness againts fire and ice attacks. They have resistance against blunt-attacks and"
+      + "are immune againts electric and poison attacks.",false,false),
+  MINOTAUR(20,"Minotaur","Minotaurs are humanoid like creatures with taurus "
+      + "head and hoofs as legs. Minotaurs have weakness against magic and "
+      + "poison attacks. They have resistance against non-lethal and fire attacks.",false,false);
   
   CharacterRace(int index,String name, String description, boolean isPlayerRace,
       boolean isUndead) {
@@ -155,6 +170,7 @@ public enum CharacterRace {
     case INSECT: {return DamageModifier.WEAKNESS;}
     case SPIDER: {return DamageModifier.WEAKNESS;}
     case SKELETON: {return DamageModifier.WEAKNESS;}
+    case PLANT: {return DamageModifier.RESISTANCE;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -172,6 +188,8 @@ public enum CharacterRace {
     switch (this) {
     case LIVESTOCK: {return DamageModifier.WEAKNESS;}
     case TROLL: {return DamageModifier.RESISTANCE;}
+    case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
+    case MINOTAUR: {return DamageModifier.RESISTANCE;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -186,6 +204,9 @@ public enum CharacterRace {
     case ZOMBIE: {return DamageModifier.WEAKNESS;}
     case WATERELEMENTAL: {return DamageModifier.WEAKNESS;}
     case IMP: {return DamageModifier.WEAKNESS;}
+    case SNAIL: {return DamageModifier.WEAKNESS;}
+    case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
+    case PLANT: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -199,12 +220,17 @@ public enum CharacterRace {
     switch (this) {
     case ELF: {return DamageModifier.WEAKNESS;}
     case WATERELEMENTAL: {return DamageModifier.WEAKNESS;}
+    case SKELETON: {return DamageModifier.IMMUNITY;}
     case INSECT: {return DamageModifier.WEAKNESS;}
     case SPIDER: {return DamageModifier.WEAKNESS;}
     case CAT: {return DamageModifier.WEAKNESS;}
     case SNAKE: {return DamageModifier.WEAKNESS;}
     case HOBGOBLIN: {return DamageModifier.RESISTANCE;}
     case TROLL: {return DamageModifier.RESISTANCE;}
+    case SNAIL: {return DamageModifier.WEAKNESS;}
+    case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
+    case WOLFMAN: {return DamageModifier.RESISTANCE;}
+    case PLANT: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -224,6 +250,10 @@ public enum CharacterRace {
     case SNAKE: {return DamageModifier.RESISTANCE;}
     case TROLL: {return DamageModifier.WEAKNESS;}
     case IMP: {return DamageModifier.IMMUNITY;}
+    case SNAIL: {return DamageModifier.RESISTANCE;}
+    case ANIMATEDOBJECT: {return DamageModifier.WEAKNESS;}
+    case PLANT: {return DamageModifier.WEAKNESS;}
+    case MINOTAUR: {return DamageModifier.RESISTANCE;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -242,6 +272,11 @@ public enum CharacterRace {
     case SNAKE: {return DamageModifier.IMMUNITY;}
     case SKELETON: {return DamageModifier.IMMUNITY;}
     case BRAINHORROR: {return DamageModifier.WEAKNESS;}
+    case SNAIL: {return DamageModifier.IMMUNITY;}
+    case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
+    case WOLFMAN: {return DamageModifier.WEAKNESS;}
+    case PLANT: {return DamageModifier.IMMUNITY;}
+    case MINOTAUR: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -261,6 +296,7 @@ public enum CharacterRace {
     case SKELETON: {return DamageModifier.IMMUNITY;}
     case IMP: {return DamageModifier.WEAKNESS;}
     case BRAINHORROR: {return DamageModifier.IMMUNITY;}
+    case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -275,6 +311,8 @@ public enum CharacterRace {
     case TROLL: {return DamageModifier.WEAKNESS;}
     case IMP: {return DamageModifier.IMMUNITY;}
     case BRAINHORROR: {return DamageModifier.IMMUNITY;}
+    case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
+    case MINOTAUR: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
