@@ -283,7 +283,7 @@ public enum CharacterRace {
   }
 
   /**
-   * Damage modifier for mindaffecting damage.
+   * Damage modifier for mind-affecting damage.
    * @return DamageModifier
    */
   public DamageModifier damageModifierForMindAffecting() {
@@ -414,4 +414,30 @@ public enum CharacterRace {
     return result;
   }
 
+  /**
+   * Get race by index
+   * @param index Index between 0 and maximum race number
+   * @return Race if found if not then default is returned
+   */
+  public static CharacterRace getRaceByIndex(int index) {
+    if (index > -1 && index < CharacterRace.values().length) {
+      return CharacterRace.values()[index];
+    } else {
+      return DEFAULT;
+    }
+  }
+  
+  /**
+   * Get race by name
+   * @param name, race name to search
+   * @return Race if found if not then default is returned
+   */
+  public static CharacterRace getRaceByName(String name) {
+    for (int i=0;i<CharacterRace.values().length;i++) {
+      if (name.equalsIgnoreCase(CharacterRace.values()[i].getName())) {
+        return CharacterRace.values()[i];
+      }
+    }
+    return DEFAULT;
+  }
 }

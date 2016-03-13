@@ -37,6 +37,7 @@ import org.jheroes.map.character.CharTask;
 import org.jheroes.map.character.Character;
 import org.jheroes.map.character.CharacterAnimation;
 import org.jheroes.map.character.CharacterList;
+import org.jheroes.map.character.CharacterRace;
 import org.jheroes.map.character.Perks;
 import org.jheroes.map.character.SpellFactory;
 import org.jheroes.map.item.Item;
@@ -146,6 +147,7 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
   private JList spellList;
   private JComboBox spellCB;
   private JComboBox subtypeCB;
+  private JLabel raceDescLabel;
   private JLabel newItemLabel;
   private JLabel mainAttackLabel;
   private JLabel secondaryAttackLabel;
@@ -171,6 +173,11 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
   
   
   private String[] wayPoints;
+  
+  /**
+   * list of selectable races
+   */
+  private String[] racesList;
   
   private Party party;
   
@@ -254,6 +261,19 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
     this.setVisible(true);    
   }
 
+  private String[] getRacesList() {
+    if (racesList != null) {
+      return racesList;
+    } else {
+      racesList = new String[CharacterRace.values().length];
+      for (int i=0;i<CharacterRace.values().length;i++) {
+        racesList[i] = CharacterRace.values()[i].getName();
+      }
+      return racesList;
+    }
+    
+  }
+  
   /**
    * Read save characters for character list file
    */
@@ -704,12 +724,13 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
 
     //FIXME Character SubType selection
     // This is not done yet so commented out
-    /*basicCharTopPanel.add(Box.createRigidArea(new Dimension(10,20)));
-    subtypeCB = new JComboBox<>();
+/*    basicCharTopPanel.add(Box.createRigidArea(new Dimension(10,20)));
+    subtypeCB = new JComboBox<String>(getRacesList());
     basicCharTopPanel.add(new JLabel("Type:"));
     basicCharTopPanel.add(subtypeCB);
-    basicCharTopPanel.add(Box.createRigidArea(new Dimension(10,20)));*/
-
+    basicCharTopPanel.add(Box.createRigidArea(new Dimension(10,20)));
+    raceDescLabel = new JLabel(CharacterRace.SNAKE.getDescription());
+    basicCharTopPanel.add(raceDescLabel);*/
     JPanel center = new JPanel();
     center.setLayout(new GridLayout(1, 0));
     center.add(attributePanel());
