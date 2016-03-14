@@ -21,9 +21,14 @@ import org.jheroes.map.character.CombatModifiers.DamageModifier;
  * along with this program; if not, see http://www.gnu.org/licenses/
  * 
  * 
- * Information of character race
+ * Information of character race which are the weakness of race, what resistance
+ * it might have or even immunity. Race name could also used as default sound
+ * in combat. Race could also give bonus to certain skills.
  * 
  */
+
+//TODO: Use race name as sound name in combat.
+//TODO: Add skill bonuses based on race.
 
 public enum CharacterRace {
   
