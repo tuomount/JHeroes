@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.jheroes.map.DiceGenerator;
 import org.jheroes.map.character.CharEffect;
 import org.jheroes.map.character.Character;
+import org.jheroes.map.character.CombatModifiers.AttackType;
 import org.jheroes.map.item.Item;
 
 
@@ -2310,6 +2311,7 @@ public class ItemFactory {
       tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
       tmp.setTwoHandedWeapon(false);
       tmp.setCriticalMultiplier(2);
+      tmp.setAttackType(AttackType.MAGIC);
     }
     if (index == 235) {
       tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Ranger's axe",1);
@@ -2650,6 +2652,7 @@ public class ItemFactory {
       tmp.setEffect(CharEffect.EFFECT_ON_SKILL);
       tmp.setEffectAttrOrSkill(Character.SKILL_WIZARDRY);
       tmp.setEffectValue(10);
+      tmp.setAttackType(AttackType.MAGIC);
     }
     if (index == 271) {
       tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Sickle of Health",147);

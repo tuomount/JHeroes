@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.jheroes.map.character.CharEffect;
 import org.jheroes.map.character.Character;
+import org.jheroes.map.character.CombatModifiers.AttackType;
 import org.jheroes.map.character.Spell;
 import org.jheroes.map.character.SpellFactory;
 
@@ -32,6 +33,8 @@ import org.jheroes.map.character.SpellFactory;
  * 
  *
  */
+//TODO: Add attack type into item information if it is something else than 
+//normal or blunt
 public class Item {
   
   
@@ -341,6 +344,11 @@ public class Item {
    */
   private int effectLasting;
   
+  /**
+   * Attack type with current item
+   */
+  private AttackType attackType;
+  
   public Item(int index,byte type, String name, int tileNumber) {
     this.index = index;
     this.tileNumber = tileNumber;
@@ -369,6 +377,7 @@ public class Item {
     this.setEffectLasting(0);
     this.setDroppable(true);
     this.setThrowableWeapon(false);
+    this.setAttackType(AttackType.NORMAL);
   }
 
   /**
@@ -527,8 +536,16 @@ public class Item {
     return (int) maxDamage;
   }
 
+  /**
+   * Is weapon blunt weapon or not. If this is set
+   * then attack type is also changed to blunt attack
+   * @param bluntWeapon Boolean
+   */
   public void setBluntWeapon(boolean bluntWeapon) {
     this.bluntWeapon = bluntWeapon;
+    if (bluntWeapon) {
+      this.setAttackType(AttackType.BLUNT);
+    }
   }
 
   public boolean isBluntWeapon() {
@@ -1124,5 +1141,13 @@ public class Item {
 
   public void setThrowableWeapon(boolean throwableWeapon) {
     this.throwableWeapon = throwableWeapon;
+  }
+
+  public AttackType getAttackType() {
+    return attackType;
+  }
+
+  public void setAttackType(AttackType attackType) {
+    this.attackType = attackType;
   }
 }
