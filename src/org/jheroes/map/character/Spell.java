@@ -1,6 +1,7 @@
 package org.jheroes.map.character;
 
 import org.jheroes.map.Map;
+import org.jheroes.map.character.CombatModifiers.AttackType;
 /**
  * 
  * JHeroes CRPG Engine and Game
@@ -85,7 +86,15 @@ public class Spell {
    */
   private int spellRadius;
   
+  /**
+   * Is spell mind affecting spell
+   */
   private boolean mindEffecting;
+  
+  /**
+   * Spell's attack type
+   */
+  private AttackType attackType;
   
   public Spell(String name) {
     spellName = name;
@@ -99,6 +108,7 @@ public class Spell {
     spellRadius = SPELL_RADIUS_NEED_HIT;
     mindEffecting = false;
     minimumSkill = 10;
+    setAttackType(AttackType.MAGIC);
   }
   
   /**
@@ -143,6 +153,14 @@ public class Spell {
   public void setAttack(Attack spellAttack) {
     this.spellAttack = spellAttack;
   }
+  public AttackType getAttackType() {
+    return attackType;
+  }
+
+  public void setAttackType(AttackType attackType) {
+    this.attackType = attackType;
+  }
+
   public int getCastingCost() {
     return spellCastingCost;
   }
@@ -223,8 +241,17 @@ public class Spell {
     return mindEffecting;
   }
 
+  /**
+   * Set mind affecting flag to spell if true
+   * If spell is mind affecting changes also attack type to
+   * mind affecting
+   * @param isMindEffecting
+   */
   public void setMindEffecting(boolean isMindEffecting) {
     this.mindEffecting = isMindEffecting;
+    if (this.isMindEffecting()) {
+      this.setAttackType(AttackType.MINDAFFECTING);
+    }
   }
 
   public int getMinimumSkill() {

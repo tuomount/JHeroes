@@ -164,6 +164,11 @@ public class Attack {
     return sb.toString();
   }
   
+  /**
+   * Generate spell's attack information as a string
+   * @return String
+   */
+  //TODO: Add attack type to spells
   public String getAttackAsSpell() {
     StringBuilder sb = new StringBuilder();
     sb.append("Damage: ");

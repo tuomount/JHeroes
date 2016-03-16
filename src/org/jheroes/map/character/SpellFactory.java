@@ -1,6 +1,7 @@
 package org.jheroes.map.character;
 
 import org.jheroes.map.Map;
+import org.jheroes.map.character.CombatModifiers.AttackType;
 
 /**
  * 
@@ -431,6 +432,7 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINOR_ATTACK);
       result.setMinimumSkill(15);
+      result.setAttackType(AttackType.MAGIC);
     }
     if (SPELL_NAME_POISON_SPIT.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -449,6 +451,7 @@ public class SpellFactory {
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_POISON);      
       result.setMinimumSkill(15);
+      result.setAttackType(AttackType.POISON);
     }
     if (SPELL_NAME_FEAR_OF_DARKNESS.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -487,6 +490,7 @@ public class SpellFactory {
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_DROWNING);      
       result.setMinimumSkill(25);
+      result.setAttackType(AttackType.MINDAFFECTING);
     }
     if (SPELL_NAME_MAGIC_ARROW.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -499,6 +503,7 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINOR_ATTACK);
       result.setMinimumSkill(15);
+      result.setAttackType(AttackType.MAGIC);
     }
     if (SPELL_NAME_PACIFISM.equalsIgnoreCase(spellName)) {
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
@@ -554,6 +559,7 @@ public class SpellFactory {
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FROST);      
       result.setMinimumSkill(50);
+      result.setAttackType(AttackType.ICE);
     }
     if (SPELL_NAME_SHOCK_BURST.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -572,6 +578,7 @@ public class SpellFactory {
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_SHOCK);      
       result.setMinimumSkill(50);
+      result.setAttackType(AttackType.ELECTRIC);
     }
     if (SPELL_NAME_FLAME_BURST.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -587,6 +594,7 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FLAME);      
       result.setMinimumSkill(50);
+      result.setAttackType(AttackType.FIRE);
     }
     if (SPELL_NAME_ILLUSIONARY_DEATH.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -620,6 +628,7 @@ public class SpellFactory {
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_POISON);      
       result.setMinimumSkill(75);
+      result.setAttackType(AttackType.POISON);
     }
     if (SPELL_NAME_ICE_BREATH.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -639,6 +648,7 @@ public class SpellFactory {
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FROST);      
       result.setMinimumSkill(75);
+      result.setAttackType(AttackType.ICE);
     }
     if (SPELL_NAME_RAY_OF_ICE.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -657,6 +667,7 @@ public class SpellFactory {
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FROST);      
       result.setMinimumSkill(75);
+      result.setAttackType(AttackType.ICE);
     }
     if (SPELL_NAME_FIREBALL.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -672,6 +683,7 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FLAME);
       result.setMinimumSkill(75);
+      result.setAttackType(AttackType.FIRE);
     }
     if (SPELL_NAME_RAY_OF_FIRE.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -687,6 +699,7 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FLAME);
       result.setMinimumSkill(75);
+      result.setAttackType(AttackType.FIRE);
     }
     if (SPELL_NAME_FIRESTORM.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -702,6 +715,7 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FLAME);
       result.setMinimumSkill(100);
+      result.setAttackType(AttackType.FIRE);
     }
     if (SPELL_NAME_THUNDER_STRIKE.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -720,6 +734,7 @@ public class SpellFactory {
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_SHOCK);      
       result.setMinimumSkill(100);
+      result.setAttackType(AttackType.ELECTRIC);
     }
     // Wizardy Spells
     if (SPELL_NAME_MINOR_HEAL.equalsIgnoreCase(spellName)) {
@@ -913,6 +928,7 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_WIZARDRY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_SMITE);
       result.setMinimumSkill(50);
+      result.setAttackType(AttackType.MAGIC);
     }
     // QI magic spells
     if (SPELL_NAME_HAZE.equalsIgnoreCase(spellName)) {
