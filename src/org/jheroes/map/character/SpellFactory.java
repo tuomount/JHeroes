@@ -426,13 +426,14 @@ public class SpellFactory {
     if (SPELL_NAME_MAGIC_DART.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
       attack.setPiercing(3);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setCastingCost(1);
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINOR_ATTACK);
       result.setMinimumSkill(15);
       result.setAttackType(AttackType.MAGIC);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_POISON_SPIT.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -441,7 +442,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(10);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_NEED_HIT);
       result.setCastingCost(3);
@@ -452,6 +452,9 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_POISON);      
       result.setMinimumSkill(15);
       result.setAttackType(AttackType.POISON);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
+
     }
     if (SPELL_NAME_FEAR_OF_DARKNESS.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -460,7 +463,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(20);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setMindEffecting(true);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_NEED_HIT);
@@ -471,6 +473,8 @@ public class SpellFactory {
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FEAR);      
       result.setMinimumSkill(25);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_DROWNING.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -479,7 +483,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(0);
       attack.setMinStaminaDamage(5);
       attack.setMaxStaminaDamage(5);
-      result.setAttack(attack);
       result.setMindEffecting(true);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_NEED_HIT);
@@ -491,19 +494,22 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_DROWNING);      
       result.setMinimumSkill(25);
       result.setAttackType(AttackType.MINDAFFECTING);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_MAGIC_ARROW.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
       attack.setPiercing(1);
       attack.setMinLethalDamage(1);
       attack.setMaxLethalDamage(5);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setCastingCost(2);
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINOR_ATTACK);
       result.setMinimumSkill(15);
       result.setAttackType(AttackType.MAGIC);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_PACIFISM.equalsIgnoreCase(spellName)) {
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
@@ -521,26 +527,28 @@ public class SpellFactory {
       attack.setPiercing(0);
       attack.setMinLethalDamage(1);
       attack.setMaxLethalDamage(6);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setCastingCost(2);
       result.setMindEffecting(true);
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);
       result.setMinimumSkill(25);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_MENTAL_SPEAR.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
       attack.setPiercing(0);
       attack.setMinLethalDamage(2);
       attack.setMaxLethalDamage(9);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setCastingCost(3);
       result.setMindEffecting(true);
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);
       result.setMinimumSkill(50);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_FROST_BITE.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -549,7 +557,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(6);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_1_TILE);
       result.setCastingCost(4);
@@ -560,6 +567,8 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FROST);      
       result.setMinimumSkill(50);
       result.setAttackType(AttackType.ICE);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_SHOCK_BURST.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -568,7 +577,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(8);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_5_TILE);
       result.setCastingCost(6);
@@ -576,9 +584,11 @@ public class SpellFactory {
       CharEffect eff = new CharEffect(SPELL_NAME_SHOCK_BURST, CharEffect.TYPE_CURSE,
           5, CharEffect.EFFECT_ON_STAMINA, Character.SKILL_DODGING, -1, 50);
       result.setEffect(eff);
-      result.setAnimation(Map.GRAPH_EFFECT_SPELL_SHOCK);      
+      result.setAnimation(Map.GRAPH_EFFECT_SPELL_SHOCK);
       result.setMinimumSkill(50);
       result.setAttackType(AttackType.ELECTRIC);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_FLAME_BURST.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -587,7 +597,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(6);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_1_TILE);
       result.setCastingCost(4);
@@ -595,6 +604,8 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FLAME);      
       result.setMinimumSkill(50);
       result.setAttackType(AttackType.FIRE);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_ILLUSIONARY_DEATH.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -603,13 +614,14 @@ public class SpellFactory {
       attack.setMaxLethalDamage(10);
       attack.setMinStaminaDamage(10);
       attack.setMaxStaminaDamage(10);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setCastingCost(6);
       result.setMindEffecting(true);
       result.setSkill(Character.SKILL_SORCERY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_CURSE);
       result.setMinimumSkill(75);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_POISON_CLOUD.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -618,7 +630,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(0);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_13_TILE);
       result.setCastingCost(10);
@@ -629,6 +640,8 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_POISON);      
       result.setMinimumSkill(75);
       result.setAttackType(AttackType.POISON);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_ICE_BREATH.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -637,7 +650,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(24);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_5_TILE);
       result.setCastingCost(8);
@@ -649,6 +661,8 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FROST);      
       result.setMinimumSkill(75);
       result.setAttackType(AttackType.ICE);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_RAY_OF_ICE.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -657,7 +671,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(16);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setCastingCost(6);
       result.setSkill(Character.SKILL_SORCERY);
@@ -668,6 +681,8 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FROST);      
       result.setMinimumSkill(75);
       result.setAttackType(AttackType.ICE);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_FIREBALL.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -676,7 +691,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(30);
       attack.setMinStaminaDamage(6);
       attack.setMaxStaminaDamage(12);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_9_TILE);
       result.setCastingCost(10);
@@ -684,6 +698,8 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FLAME);
       result.setMinimumSkill(75);
       result.setAttackType(AttackType.FIRE);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_RAY_OF_FIRE.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -692,7 +708,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(20);
       attack.setMinStaminaDamage(2);
       attack.setMaxStaminaDamage(15);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_NEED_HIT);
       result.setCastingCost(6);
@@ -700,6 +715,8 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FLAME);
       result.setMinimumSkill(75);
       result.setAttackType(AttackType.FIRE);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_FIRESTORM.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -708,7 +725,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(40);
       attack.setMinStaminaDamage(9);
       attack.setMaxStaminaDamage(18);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_13_TILE);
       result.setCastingCost(15);
@@ -716,6 +732,8 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_FLAME);
       result.setMinimumSkill(100);
       result.setAttackType(AttackType.FIRE);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_THUNDER_STRIKE.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -724,7 +742,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(35);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_13_TILE);
       result.setCastingCost(15);
@@ -735,6 +752,8 @@ public class SpellFactory {
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_SHOCK);      
       result.setMinimumSkill(100);
       result.setAttackType(AttackType.ELECTRIC);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     // Wizardy Spells
     if (SPELL_NAME_MINOR_HEAL.equalsIgnoreCase(spellName)) {
@@ -834,7 +853,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(6);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       CharEffect eff = new CharEffect(SPELL_NAME_FAIRY_FLAME, CharEffect.TYPE_CURSE,
           15, CharEffect.EFFECT_ON_LIGHT, Character.SKILL_MELEE, 2, 50);
       result.setEffect(eff);
@@ -844,6 +862,8 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_WIZARDRY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);
       result.setMinimumSkill(50);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_MAGIC_ARMOR.equalsIgnoreCase(spellName)) {
       CharEffect eff = new CharEffect(SPELL_NAME_MAGIC_ARMOR, CharEffect.TYPE_ENCHANT,
@@ -922,13 +942,14 @@ public class SpellFactory {
       attack.setMaxLethalDamage(6);
       attack.setMinStaminaDamage(0);
       attack.setMaxStaminaDamage(0);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setCastingCost(8);
       result.setSkill(Character.SKILL_WIZARDRY);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_SMITE);
       result.setMinimumSkill(50);
       result.setAttackType(AttackType.MAGIC);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     // QI magic spells
     if (SPELL_NAME_HAZE.equalsIgnoreCase(spellName)) {
@@ -974,13 +995,14 @@ public class SpellFactory {
       attack.setMaxLethalDamage(3);
       attack.setMinStaminaDamage(1);
       attack.setMaxStaminaDamage(3);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setCastingCost(4);
       result.setMindEffecting(true);
       result.setSkill(Character.SKILL_QI_MAGIC);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);
       result.setMinimumSkill(25);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_WARRIOR_S_WILL.equalsIgnoreCase(spellName)) {
       CharEffect eff = new CharEffect(SPELL_NAME_WARRIOR_S_WILL, CharEffect.TYPE_ENCHANT,
@@ -1050,7 +1072,6 @@ public class SpellFactory {
       attack.setMaxLethalDamage(0);
       attack.setMinStaminaDamage(1);
       attack.setMaxStaminaDamage(12);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setRadius(Spell.SPELL_RADIUS_NEED_HIT);
       result.setCastingCost(5);
@@ -1059,8 +1080,11 @@ public class SpellFactory {
       CharEffect eff = new CharEffect(SPELL_NAME_WICKED_FATIQUE, CharEffect.TYPE_CURSE,
           15, CharEffect.EFFECT_ON_STAMINA, Character.SKILL_DODGING, -1, 50);
       result.setEffect(eff);
-      result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);      
+      result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);
       result.setMinimumSkill(75);
+      result.setAttackType(AttackType.NONLETHAL);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_QI_BLAST.equalsIgnoreCase(spellName)) {
       Attack attack = new Attack();      
@@ -1069,13 +1093,15 @@ public class SpellFactory {
       attack.setMaxLethalDamage(12);
       attack.setMinStaminaDamage(3);
       attack.setMaxStaminaDamage(12);
-      result.setAttack(attack);
       result.setTargetType(Spell.SPELL_TARGET_TARGET);
       result.setCastingCost(8);
       result.setMindEffecting(true);
       result.setSkill(Character.SKILL_QI_MAGIC);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);
       result.setMinimumSkill(75);
+      result.setAttackType(AttackType.BLUNT);
+      attack.setAttackType(result.getAttackType());
+      result.setAttack(attack);
     }
     if (SPELL_NAME_QI_REGENERATION.equalsIgnoreCase(spellName)) {
       CharEffect eff = new CharEffect(SPELL_NAME_QI_REGENERATION, CharEffect.TYPE_ENCHANT,

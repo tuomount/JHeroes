@@ -1,5 +1,7 @@
 package org.jheroes.map.character;
 
+import org.jheroes.map.character.CombatModifiers.AttackType;
+
 /**
  * 
  * JHeroes CRPG Engine and Game
@@ -24,20 +26,69 @@ package org.jheroes.map.character;
  */
 public class Attack {
 
+  /**
+   * Minimum non lethal damage
+   */
   private int minStaminaDamage;
+  /**
+   * Maximum non lethal damage
+   */
   private int maxStaminaDamage;
+  /**
+   * Minimum lethal damage
+   */
   private int minLethalDamage;
+  /**
+   * Maximum lethal damage
+   */
   private int maxLethalDamage;
+  /**
+   * Attack bonus to skill
+   */
   private int attackBonus;
+  /**
+   * If hit is critical then what multiplier is used to calculate
+   * higher damage
+   */
   private int criticalMultiplier;
+  /**
+   * How much stamina one attack requires
+   */
   private int staminaCost;
+  /**
+   * Armor piercing damage. This is amount damage always passes through the
+   * armor.
+   */
   private int piercing;
+  /**
+   * Is attack ranged or melee
+   */
   private boolean isRangedAttack;
+  /**
+   * Is attack done with throwable weapon
+   */
   private boolean isThrowingAttackPossible;
+  /**
+   * Successful hit drains health from target to attacker
+   */
   private boolean drainHealth;
+  /**
+   * Successful hit drains stamina from target to attacker
+   */
   private boolean drainStamina;
+  /**
+   * Successful hit drains health and stamina from target to attacker
+   */
   private boolean drainVigor;
+  /**
+   * Is attack so called slayer? If hit is critical then
+   * attack deals extra slaying damage which is 10*attacker's levels.
+   */
   private boolean slayer;
+  /**
+   * Attack type for attack. This should be get from weapon or spell
+   */
+  private AttackType attackType;
   
   public Attack() {
     setMinStaminaDamage(0);
@@ -54,6 +105,7 @@ public class Attack {
     setDrainStamina(false);
     setDrainVigor(false);
     setSlayer(false);
+    setAttackType(AttackType.NORMAL);
   }
   
   public int getMinStaminaDamage() {
@@ -252,6 +304,14 @@ public class Attack {
 
   public void setSlayer(boolean slayer) {
     this.slayer = slayer;
+  }
+
+  public AttackType getAttackType() {
+    return attackType;
+  }
+
+  public void setAttackType(AttackType attackType) {
+    this.attackType = attackType;
   }
 
    
