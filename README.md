@@ -6,6 +6,11 @@ and sound effects are either under CC-BY or public domain from OpenGameArt.org
 Binary version of latest stable Heroes of the Hawks Haven is available on
 [my home page:](https://tuomount.kapsi.fi/).
 
+## Latest changes in master
+
+* Fixed spell name Wicked Fatique -> Wicked Fatigue
+* Added new graphical effect for QI spells.
+
 ## The project
 
 This projects contains open sourced Heroes of the Hawks Haven and

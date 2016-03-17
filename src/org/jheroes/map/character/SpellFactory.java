@@ -339,7 +339,7 @@ public class SpellFactory {
    * Wicked Fatigue, target get stamina damage 1-12 and -1 stamina for 15 turns
    * Qi Magic
    */
-  public static final String SPELL_NAME_WICKED_FATIQUE = "Wicked Fatique";
+  public static final String SPELL_NAME_WICKED_FATIQUE = "Wicked Fatigue";
   /**
    * Heals caster 2 hp each turn. Duration 15 turns. casting cost is 15.
    * Qi Magic
@@ -999,8 +999,9 @@ public class SpellFactory {
       result.setCastingCost(4);
       result.setMindEffecting(true);
       result.setSkill(Character.SKILL_QI_MAGIC);
-      result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);
+      result.setAnimation(Map.GRAPH_EFFECT_SPELL_QI_FIST);
       result.setMinimumSkill(25);
+      result.setAttackType(AttackType.BLUNT);
       attack.setAttackType(result.getAttackType());
       result.setAttack(attack);
     }
@@ -1080,7 +1081,7 @@ public class SpellFactory {
       CharEffect eff = new CharEffect(SPELL_NAME_WICKED_FATIQUE, CharEffect.TYPE_CURSE,
           15, CharEffect.EFFECT_ON_STAMINA, Character.SKILL_DODGING, -1, 50);
       result.setEffect(eff);
-      result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);
+      result.setAnimation(Map.GRAPH_EFFECT_SPELL_QI_FIST);
       result.setMinimumSkill(75);
       result.setAttackType(AttackType.NONLETHAL);
       attack.setAttackType(result.getAttackType());
@@ -1097,7 +1098,7 @@ public class SpellFactory {
       result.setCastingCost(8);
       result.setMindEffecting(true);
       result.setSkill(Character.SKILL_QI_MAGIC);
-      result.setAnimation(Map.GRAPH_EFFECT_SPELL_MINDAFFECTING);
+      result.setAnimation(Map.GRAPH_EFFECT_SPELL_QI_FIST);
       result.setMinimumSkill(75);
       result.setAttackType(AttackType.BLUNT);
       attack.setAttackType(result.getAttackType());
