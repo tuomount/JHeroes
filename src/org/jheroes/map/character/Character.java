@@ -13,6 +13,7 @@ import java.util.Iterator;
 import org.jheroes.map.DiceGenerator;
 import org.jheroes.map.MapUtilities;
 import org.jheroes.map.Party;
+import org.jheroes.map.character.CombatModifiers.AttackType;
 import org.jheroes.map.item.Item;
 import org.jheroes.map.item.ItemFactory;
 import org.jheroes.soundplayer.SoundPlayer;
@@ -1970,6 +1971,7 @@ public class Character extends CharacterAnimation {
     int maxDamage = 0;
     Attack result = new Attack();
     if (target != null) {
+     result.setAttackType(target.getAttackType()); 
      if (target.getWeaponSkill() == SKILL_MELEE) {
        // Calculate bonus damage for melee weapons from perks
        if (target.isTwoHandedWeapon() &&(bonusDamage > 0)) {
@@ -2062,6 +2064,7 @@ public class Character extends CharacterAnimation {
     } else {
       // Unarmed damage, which is calculate using perks
       if (perks.isPerkActive(Perks.PERK_KUNG_FU_MASTER)) {
+        result.setAttackType(AttackType.BLUNT);
         minDamage = 6+bonusDamage*2;
         maxDamage = 12+bonusDamage*2;
         if (minDamage < 1) {
@@ -2096,6 +2099,7 @@ public class Character extends CharacterAnimation {
         result.setMaxLethalDamage(maxDamage);
         result.setPiercing(2);        
       } else if (perks.isPerkActive(Perks.PERK_QI_STRIKE)) {
+        result.setAttackType(AttackType.BLUNT);
         minDamage = 4+bonusDamage;
         maxDamage = 10+bonusDamage;
         if (minDamage < 1) {
@@ -2130,6 +2134,7 @@ public class Character extends CharacterAnimation {
         result.setMaxLethalDamage(maxDamage);
         result.setPiercing(1);        
       } else if (perks.isPerkActive(Perks.PERK_QI_FISTS)) {
+        result.setAttackType(AttackType.BLUNT);
         minDamage = 2+bonusDamage*2;
         maxDamage = 8+bonusDamage*2;
         if (minDamage < 1) {
@@ -2163,6 +2168,7 @@ public class Character extends CharacterAnimation {
         result.setMinLethalDamage(minDamage);
         result.setMaxLethalDamage(maxDamage);
       }else if (perks.isPerkActive(Perks.PERK_LETHAL_FISTS)) {
+        result.setAttackType(AttackType.BLUNT);
         minDamage = 2+bonusDamage*2;
         maxDamage = 6+bonusDamage*2;
         if (minDamage < 1) {
@@ -2196,6 +2202,7 @@ public class Character extends CharacterAnimation {
         result.setMinLethalDamage(minDamage);
         result.setMaxLethalDamage(maxDamage);
       } else {
+        result.setAttackType(AttackType.NONLETHAL);
         minDamage = 1+bonusDamage;
         maxDamage = 3+bonusDamage;
         if (minDamage < 1) {

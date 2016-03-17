@@ -1231,7 +1231,7 @@ public class Map {
       case GRAPH_EFFECT_SPELL_SMITE: SoundPlayer.playSoundBySoundName("SMITE"); break;
       case GRAPH_EFFECT_SPELL_FEAR: SoundPlayer.playSoundBySoundName("MAGIC4"); break;
       case GRAPH_EFFECT_SPELL_DROWNING: SoundPlayer.playSoundBySoundName("WATERSPLASH"); break;
-      //TODO: Make sure SFX fist for effect
+      //TODO: Make sure SFX fits for effect
       case GRAPH_EFFECT_SPELL_QI_FIST: SoundPlayer.playSoundBySoundName("MAGIC3"); break;
       }
     }
