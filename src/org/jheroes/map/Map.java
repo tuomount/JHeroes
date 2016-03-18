@@ -5512,7 +5512,7 @@ public int getEventY2() {
     size = is.readInt();
     for (int i=0;i<size;i++) {
       Character chr = new Character(0);
-      chr.loadCharacter(is);
+      chr.loadCharacter(is,mapVersion);
       npcList.add(chr);
     }
     is.close();

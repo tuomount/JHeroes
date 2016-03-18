@@ -1,5 +1,6 @@
 package org.jheroes.map.character;
 
+import org.jheroes.map.character.CombatModifiers.AttackType;
 import org.jheroes.map.character.CombatModifiers.DamageModifier;
 
 /**
@@ -154,6 +155,26 @@ public enum CharacterRace {
    */
   private String description;
 
+  /**
+   * Get damage modifier for certain attack type
+   * @param attackType AttackType
+   * @return DamageModifier
+   */
+  public DamageModifier damageModifierFor(AttackType attackType) {
+    switch (attackType) {
+    case NORMAL: return this.damageModifierForNormal();
+    case BLUNT: return this.damageModifierForBlunt();
+    case NONLETHAL: return this.damageModifierForNonLethal();
+    case MAGIC: return this.damageModifierForMagic();
+    case FIRE: return this.damageModifierForFire();
+    case ICE: return this.damageModifierForIce();
+    case ELECTRIC: return this.damageModifierForElectricity();
+    case MINDAFFECTING: return this.damageModifierForMindAffecting();
+    case POISON: return this.damageModifierForPoison();
+    }
+    return DamageModifier.NORMAL;
+  }
+  
   /**
    * Damage modifier for normal damage.
    * @return DamageModifier

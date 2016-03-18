@@ -170,6 +170,11 @@ public class Character extends CharacterAnimation {
   
   private int lastDirection;
   
+  /**
+   * Character Race information
+   */
+  private CharacterRace race;
+  
   
   public Character(int tileOffset) {
     super(CharacterAnimation.ANIMATION_TYPE_NORMAL,1,1,tileOffset);
@@ -200,6 +205,9 @@ public class Character extends CharacterAnimation {
     setCurrentHP(getMaxHP());
     setCurrentSP(getMaxStamina());
     setHostilityLevel(HOSTILITY_LEVEL_AVOID);
+    
+    // Set default race as default 
+    setRace(CharacterRace.DEFAULT);
   }  
   
   /**
@@ -2994,7 +3002,7 @@ public class Character extends CharacterAnimation {
     os.write(digest.digest(data));
   }
   
-  public void loadCharacter(DataInputStream is) throws IOException {
+  public void loadCharacter(DataInputStream is, String MapVersion) throws IOException {
     // Used for hashing
     StringBuilder sb = new StringBuilder(64);
     // First attributes    
@@ -3947,5 +3955,13 @@ public class Character extends CharacterAnimation {
 
   public void setLastDirection(int lastDirection) {
     this.lastDirection = lastDirection;
+  }
+
+  public CharacterRace getRace() {
+    return race;
+  }
+
+  public void setRace(CharacterRace race) {
+    this.race = race;
   }
 }

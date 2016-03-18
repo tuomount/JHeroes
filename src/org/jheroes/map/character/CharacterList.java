@@ -88,7 +88,7 @@ public class CharacterList {
           characterList.clear();
           for (int i=0;i<size;i++) {
             Character tmpChr = new Character(0);
-            tmpChr.loadCharacter(is);
+            tmpChr.loadCharacter(is,mapVersion);
             characterList.add(tmpChr);
           }
         } else {
