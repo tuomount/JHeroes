@@ -359,8 +359,8 @@ public class Party {
    * @throws IOException
    */
   public void saveParty(DataOutputStream os) throws IOException {
-    StreamUtilities.writeString(os, PARTY_FILE_VERSION12);
-    //TODO Party file version 1.3 is not in use yet.
+    StreamUtilities.writeString(os, PARTY_FILE_VERSION13);
+    StreamUtilities.writeString(os, Map.CURRENT_MAP_VERSION);
     os.writeByte(this.getPartySize());
     for (int i =0;i<this.getPartySize();i++) {
       partyChars[i].saveCharacter(os);

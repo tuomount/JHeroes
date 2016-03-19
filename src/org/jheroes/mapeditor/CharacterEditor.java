@@ -29,6 +29,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.jheroes.map.MapUtilities;
@@ -43,6 +44,7 @@ import org.jheroes.map.character.SpellFactory;
 import org.jheroes.map.item.Item;
 import org.jheroes.map.item.ItemFactory;
 import org.jheroes.tileset.Tileset;
+
 
 /**
  * JHeroes CRPG Engine and Game
@@ -146,8 +148,8 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
   private JList inventoryList;
   private JList spellList;
   private JComboBox spellCB;
-  private JComboBox subtypeCB;
-  private JLabel raceDescLabel;
+  private JComboBox raceCB;
+  private JTextArea raceDescLabel;
   private JLabel newItemLabel;
   private JLabel mainAttackLabel;
   private JLabel secondaryAttackLabel;
@@ -724,13 +726,18 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
 
     //FIXME Character SubType selection
     // This is not done yet so commented out
-/*    basicCharTopPanel.add(Box.createRigidArea(new Dimension(10,20)));
-    subtypeCB = new JComboBox<String>(getRacesList());
-    basicCharTopPanel.add(new JLabel("Type:"));
-    basicCharTopPanel.add(subtypeCB);
     basicCharTopPanel.add(Box.createRigidArea(new Dimension(10,20)));
-    raceDescLabel = new JLabel(CharacterRace.SNAKE.getDescription());
-    basicCharTopPanel.add(raceDescLabel);*/
+    raceCB = new JComboBox<String>(getRacesList());
+    basicCharTopPanel.add(new JLabel("Type:"));
+    basicCharTopPanel.add(raceCB);
+    basicCharTopPanel.add(Box.createRigidArea(new Dimension(50,20)));
+    raceDescLabel = new JTextArea(CharacterRace.DEFAULT.getDescription());
+    raceDescLabel.setEditable(false);
+    raceDescLabel.setWrapStyleWord(true);
+    raceDescLabel.setLineWrap(true);
+    raceDescLabel.setPreferredSize(new Dimension(500, 50));
+    raceDescLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    basicCharTopPanel.add(raceDescLabel);
     JPanel center = new JPanel();
     center.setLayout(new GridLayout(1, 0));
     center.add(attributePanel());
@@ -813,6 +820,8 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
       skillLabel[i].setText("Total:"+currentChar.getEffectiveSkill(i));
     }
     cbHostilityLevel.setSelectedIndex(currentChar.getHostilityLevel());
+    raceCB.setSelectedIndex(currentChar.getRace().getIndex());
+    raceDescLabel.setText(currentChar.getRace().getDescription());
     updateTimeTablePanel();
     updateInventoryList();
     updateSpellList();
@@ -835,6 +844,8 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
       Perks charPerks = currentChar.getPerks();
       charPerks.setPerk(i, cbPerks[i].isSelected());
     }
+    currentChar.setRace(CharacterRace.getRaceByName((String)raceCB.getSelectedItem()));
+    raceDescLabel.setText(currentChar.getRace().getDescription());
     currentChar.setName(nameText.getText());
     currentChar.setLongName(longNameText.getText());
     currentChar.setDescription(characterDescField.getText());

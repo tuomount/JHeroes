@@ -36,22 +36,22 @@ public enum CharacterRace {
   DEFAULT(0,"Default","",false,false),
   HUMAN(1,"Human","Humans do not have any special weakneses or strength.",true,false),
   ELF(2,"Elf","Elves have better dodging skill but have weakness against ice attacks.",true,false),
-  ZOMBIE(3,"Zombie","Zombies are undead creatures which are immune to poison and"
+  ZOMBIE(3,"Zombie","Zombies are undead creatures which are immune to poison and "
       + "mind affecting but have weakness against electricity.",false,true),
   RAT(4,"Rat","Rats are immune to poison but have weakness against fire.",false,false),
-  LIVESTOCK(5,"Livestock","Livestock is animal that can be herded. Livestock has weakness"
+  LIVESTOCK(5,"Livestock","Livestock is animal that can be herded. Livestock has weakness "
       + "against non lethal and fire attacks.",false,false),
   WATERELEMENTAL(6,"Waterelemental","Waterelementals are magical creatures "
-      + "consisting of water. They are immune to fire, poison attacks but have weakness"
+      + "consisting of water. They are immune to fire, poison attacks but have weakness "
       + "against electric and ice attacks.",false,false),
   INSECT(7,"Insect","Insects are animals with three bodies and six legs. They have "
       + "weakness against blunt, fire attacks and ice attacks. Insects are immune to mind "
       + "affecting attacks.",false,false),
-  SPIDER(8,"Spider","Spiders are animals with two bodies and eight legs. They have"
+  SPIDER(8,"Spider","Spiders are animals with two bodies and eight legs. They have "
       + "weakness against blunt, fire attacks and ice attacks. Insects are immune to mind "
       + "affecting attacks and poison.",false,false),
   CAT(9,"Cat","Cats are immune to mind-affecting but have weakness against ice.",false,false),
-  SNAKE(10,"Snake","Snakes are carnivours serpents. They have weakness against ice attacks and"
+  SNAKE(10,"Snake","Snakes are carnivours serpents. They have weakness against ice attacks and "
       + "resistance against fire attacks. Snakes are immune to poison.",false,false),
   HOBGOBLIN(11,"Hobgoblin","Hobgoblins are humanoid like creatures. Hobgoblins have weakness "
       + "againts mind-affecting attacks. They do have good resistance against ice attacks.",false,false),
@@ -72,8 +72,8 @@ public enum CharacterRace {
       + "They have weakness against fire attacks.",false,false),
   WOLFMAN(18,"Wolfman","Wolfmen are humanoid like creatures with wolf head and paws as legs. Wolfmen have weakness "
       + "againts poison attacks. They do have good resistance against ice attacks.",false,false),
-  PLANT(19,"Plant","Plants is sentient type of plant which have some humanoid like features."
-      + "Plants have weakness againts fire and ice attacks. They have resistance against blunt-attacks and"
+  PLANT(19,"Plant","Plants is sentient type of plant which have some humanoid like features. "
+      + "Plants have weakness againts fire and ice attacks. They have resistance against blunt-attacks and "
       + "are immune againts electric and poison attacks.",false,false),
   MINOTAUR(20,"Minotaur","Minotaurs are humanoid like creatures with taurus "
       + "head and hoofs as legs. Minotaurs have weakness against magic and "

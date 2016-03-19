@@ -73,9 +73,13 @@ public class Map {
    */
   public final static String MAP_VERSION_1_0 = "MAP1.0";
   /**
+   * Map version 1.1, characters have race information
+   */
+  public final static String MAP_VERSION_1_1 = "MAP1.1";
+  /**
    * Current MAP version. This string is also in map files
    */
-  public final static String CURRENT_MAP_VERSION = MAP_VERSION_1_0;
+  public final static String CURRENT_MAP_VERSION = MAP_VERSION_1_1;
   
   /**
    * Engine Name
@@ -5400,7 +5404,8 @@ public int getEventY2() {
    */
   public Map(DataInputStream is) throws IOException {
     String mapVersion = StreamUtilities.readString(is);
-    if (!CURRENT_MAP_VERSION.equals(mapVersion)) {
+    if (!CURRENT_MAP_VERSION.equals(mapVersion) &&
+        !MAP_VERSION_1_0.equals(mapVersion)) {
       throw new IOException("Not map file!");
     }
     this.party = null;

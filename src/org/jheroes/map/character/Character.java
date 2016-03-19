@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.jheroes.map.DiceGenerator;
+import org.jheroes.map.Map;
 import org.jheroes.map.MapUtilities;
 import org.jheroes.map.Party;
 import org.jheroes.map.character.CombatModifiers.AttackType;
@@ -509,6 +510,7 @@ public class Character extends CharacterAnimation {
       setHeading(copyFrom.getHeading());
       setPosition(copyFrom.getX(), copyFrom.getY());
       
+      setRace(copyFrom.getRace());
       setName(copyFrom.getName());
       setLongName(copyFrom.getLongName());
       setDescription(copyFrom.getDescription());
@@ -659,7 +661,7 @@ public class Character extends CharacterAnimation {
     base=base+bonus;
     return base;
   }
-  
+
   public void calculateNPCLevelAndExperience() {
     int totalSkill = 0;
     int skillPointsPerLvl = 10+attributes[ATTRIBUTE_INTELLIGENCE]+attributes[ATTRIBUTE_WISDOM];
@@ -690,6 +692,8 @@ public class Character extends CharacterAnimation {
     expmod = expmod *attributeModifier/100;
     exp = exp +expmod+calculateEquipmentValue()/10;
     exp = exp +calculateSpellListValue()*10;
+    expmod = exp;
+    exp =expmod*this.getRace().getExpModifier()/100;
     setExperience(exp);
   }
   
@@ -801,6 +805,8 @@ public class Character extends CharacterAnimation {
     expmod = expmod *attributeModifier/100;
     exp = exp +expmod+calculateEquipmentValue()/10;
     exp = exp +calculateSpellListValue()*10;
+    expmod = exp;
+    exp =expmod*this.getRace().getExpModifier()/100;
     String result = "<html>"+"SkillLvl:"+String.valueOf(skillLvl)+" PerkLvl:" +
     		String.valueOf(perkLvl)+" Lvl:"+String.valueOf(lvl)+"<br>" +
     				"Attribute Mod:"+String.valueOf(attributeModifier)+"% Exp:" 
@@ -2891,6 +2897,8 @@ public class Character extends CharacterAnimation {
       os.write(skills[i]);
       sb.append(skills[i]);
     }
+    // Writing race index
+    os.writeByte(this.getRace().getIndex());
     // Name written, 4 octet length of unicode characters and then written
     // with characters
     StreamUtilities.writeString(os, name);
@@ -3014,6 +3022,10 @@ public class Character extends CharacterAnimation {
     for (int i=0;i<MAX_NUMBERS_OF_SKILL;i++) {
       skills[i] = is.read();
       sb.append(skills[i]);
+    }
+    if (MapVersion.equals(Map.MAP_VERSION_1_1)) {
+      int raceIndex = is.read();
+      this.setRace(CharacterRace.getRaceByIndex(raceIndex));
     }
     // Name written, 4 octet length of unicode characters and then written
     // with characters
