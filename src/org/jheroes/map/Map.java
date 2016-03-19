@@ -25,6 +25,7 @@ import org.jheroes.map.character.Attack;
 import org.jheroes.map.character.CharEffect;
 import org.jheroes.map.character.CharTask;
 import org.jheroes.map.character.Character;
+import org.jheroes.map.character.CharacterRace;
 import org.jheroes.map.character.CombatModifiers.DamageModifier;
 import org.jheroes.map.character.Defense;
 import org.jheroes.map.character.Perks;
@@ -1375,7 +1376,11 @@ public class Map {
                             defenser.getX(), defenser.getY());
     attacker.setHeading(direction);
     if (!attacker.isPlayer()) {
-      SoundPlayer.playEnemySoundsByName(attacker.getName());
+      if (attacker.getRace()==CharacterRace.DEFAULT) {
+        SoundPlayer.playEnemySoundsByName(attacker.getName());
+      } else {
+        SoundPlayer.playEnemySoundsByName(attacker.getRace().getName());
+      }
     }
     for (int i=0;i<attacker.getNumberOfAttacks();i++) {
       if (i>0 && attackType!=ATTACK_TYPE_FULL_ATTACK) {
@@ -1794,7 +1799,11 @@ public class Map {
       direction = AIPath.getDirectionToMove(npc.getX(), npc.getY(),
        target.getX(), target.getY());
       if (DiceGenerator.getRandom(10)==0) {
-        SoundPlayer.playEnemySoundsByName(npc.getName());
+        if (npc.getRace()==CharacterRace.DEFAULT) {
+          SoundPlayer.playEnemySoundsByName(npc.getName());
+        } else {
+          SoundPlayer.playEnemySoundsByName(npc.getRace().getName());
+        }
       }
     } 
     shouldCombatContinue = combatContinue;

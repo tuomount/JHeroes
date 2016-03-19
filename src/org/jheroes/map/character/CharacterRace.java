@@ -28,8 +28,7 @@ import org.jheroes.map.character.CombatModifiers.DamageModifier;
  * 
  */
 
-//TODO: Use race name as sound name in combat.
-//TODO: Add skill bonuses based on race.
+ //TODO: Add skill bonuses based on race.
 
 public enum CharacterRace {
   
@@ -41,7 +40,7 @@ public enum CharacterRace {
   RAT(4,"Rat","Rats are immune to poison but have weakness against fire.",false,false),
   LIVESTOCK(5,"Livestock","Livestock is animal that can be herded. Livestock has weakness "
       + "against non lethal and fire attacks.",false,false),
-  WATERELEMENTAL(6,"Waterelemental","Waterelementals are magical creatures "
+  WATERELEMENTAL(6,"Water elemental","Waterelementals are magical creatures "
       + "consisting of water. They are immune to fire, poison attacks but have weakness "
       + "against electric and ice attacks.",false,false),
   INSECT(7,"Insect","Insects are animals with three bodies and six legs. They have "
@@ -77,7 +76,12 @@ public enum CharacterRace {
       + "are immune againts electric and poison attacks.",false,false),
   MINOTAUR(20,"Minotaur","Minotaurs are humanoid like creatures with taurus "
       + "head and hoofs as legs. Minotaurs have weakness against magic and "
-      + "poison attacks. They have resistance against non-lethal and fire attacks.",false,false);
+      + "poison attacks. They have resistance against non-lethal and fire attacks.",false,false),
+  LICH(21,"Lich","Liches are ancient undead creatures which are immune to "
+      + "poison, ice and mind affecting but have weakness against blunt-weapons. "
+      + "They also have resistance against magic.",false,true),
+  WITCH(22,"Witch","Witches are old hags whom posses magical powers. They have resistance "
+      + "againts magic but weakness against poisons.",false,false);
   
   CharacterRace(int index,String name, String description, boolean isPlayerRace,
       boolean isUndead) {
@@ -197,6 +201,7 @@ public enum CharacterRace {
     case SPIDER: {return DamageModifier.WEAKNESS;}
     case SKELETON: {return DamageModifier.WEAKNESS;}
     case PLANT: {return DamageModifier.RESISTANCE;}
+    case LICH: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -257,6 +262,7 @@ public enum CharacterRace {
     case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
     case WOLFMAN: {return DamageModifier.RESISTANCE;}
     case PLANT: {return DamageModifier.WEAKNESS;}
+    case LICH: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -303,6 +309,8 @@ public enum CharacterRace {
     case WOLFMAN: {return DamageModifier.WEAKNESS;}
     case PLANT: {return DamageModifier.IMMUNITY;}
     case MINOTAUR: {return DamageModifier.WEAKNESS;}
+    case LICH: {return DamageModifier.IMMUNITY;}
+    case WITCH: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -323,6 +331,7 @@ public enum CharacterRace {
     case IMP: {return DamageModifier.WEAKNESS;}
     case BRAINHORROR: {return DamageModifier.IMMUNITY;}
     case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
+    case LICH: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -339,6 +348,8 @@ public enum CharacterRace {
     case BRAINHORROR: {return DamageModifier.IMMUNITY;}
     case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
     case MINOTAUR: {return DamageModifier.WEAKNESS;}
+    case LICH: {return DamageModifier.RESISTANCE;}
+    case WITCH: {return DamageModifier.RESISTANCE;}
     default:
       return DamageModifier.NORMAL;
     }

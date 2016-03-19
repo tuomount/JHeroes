@@ -3,6 +3,7 @@ package org.jheroes.soundplayer;
 import java.util.ArrayList;
 
 import org.jheroes.map.DiceGenerator;
+import org.jheroes.map.character.CharacterRace;
 
 /**
  * 
@@ -676,14 +677,16 @@ public class SoundPlayer {
       case 1: playSound(SOUND_FILE_BRAIN_MONSTER2); break;
       }
     }
-    if (name.equalsIgnoreCase("Brutal bookshelf")) {
+    if (name.equalsIgnoreCase("Brutal bookshelf")||
+        name.equalsIgnoreCase(CharacterRace.ANIMATEDOBJECT.getName())) {
       switch (DiceGenerator.getRandom(1)) {
       case 0: playSound(SOUND_FILE_ANIMATED_OBJECT1); break;
       case 1: playSound(SOUND_FILE_ANIMATED_OBJECT2); break;
       }
     }
     if (name.equalsIgnoreCase("Skeleton Warrior")||
-        name.equalsIgnoreCase("Skeleton Mage")) {
+        name.equalsIgnoreCase("Skeleton Mage")||
+        name.equalsIgnoreCase(CharacterRace.SKELETON.getName())) {
       switch (DiceGenerator.getRandom(1)) {
       case 0: playSound(SOUND_FILE_SKELETON1); break;
       case 1: playSound(SOUND_FILE_SKELETON2); break;
@@ -697,21 +700,24 @@ public class SoundPlayer {
     }
     if (name.equalsIgnoreCase("WATER ELEMENTAL") ||
         name.equalsIgnoreCase("SMALL WATERELEMENTAL") ||
-        name.equalsIgnoreCase("SLIMEY SNAIL")) {
+        name.equalsIgnoreCase("SLIMEY SNAIL")||
+        name.equalsIgnoreCase(CharacterRace.SNAIL.getName())) {
       switch (DiceGenerator.getRandom(2)) {
       case 0: playSound(SOUND_FILE_SLIME1); break;
       case 1: playSound(SOUND_FILE_SLIME2); break;
       case 2: playSound(SOUND_FILE_SLIME3); break;
       }     
     }
-    if (name.equalsIgnoreCase("GIANT SPIDER")) {
+    if (name.equalsIgnoreCase("GIANT SPIDER")||
+        name.equalsIgnoreCase(CharacterRace.SPIDER.getName())) {
       switch (DiceGenerator.getRandom(2)) {
       case 0: playSound(SOUND_FILE_BITE_SMALL); break;
       case 1: playSound(SOUND_FILE_BITE_SMALL2); break;
       case 2: playSound(SOUND_FILE_BITE_SMALL3); break;
       }     
     }
-    if (name.equalsIgnoreCase("GIANT BEE")) {
+    if (name.equalsIgnoreCase("GIANT BEE")||
+        name.equalsIgnoreCase(CharacterRace.INSECT.getName())) {
       playSound(SOUND_FILE_GIANT_BEE);
     }
     if (name.equalsIgnoreCase("HOBGOBLIN")) {

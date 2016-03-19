@@ -15,6 +15,7 @@ import org.jheroes.map.Map;
 import org.jheroes.map.MapUtilities;
 import org.jheroes.map.Party;
 import org.jheroes.map.character.CombatModifiers.AttackType;
+import org.jheroes.map.character.CombatModifiers.DamageModifier;
 import org.jheroes.map.item.Item;
 import org.jheroes.map.item.ItemFactory;
 import org.jheroes.soundplayer.SoundPlayer;
@@ -3542,6 +3543,13 @@ public class Character extends CharacterAnimation {
    * @param damage
    */
   public void receiveNonLethalDamage(int damage) {
+    DamageModifier mod = this.getRace().damageModifierForNonLethal();
+    switch (mod) {
+    case IMMUNITY: {damage = 0; break; }
+    case RESISTANCE: {damage = damage /2; break; }
+    case WEAKNESS: {damage = damage *2; break; }
+    case NORMAL: {break; }
+    }
     if (currentSP > damage) {
       currentSP = currentSP -damage;
     } else {
