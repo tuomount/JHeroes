@@ -25,6 +25,7 @@ import org.jheroes.map.character.Attack;
 import org.jheroes.map.character.CharEffect;
 import org.jheroes.map.character.CharTask;
 import org.jheroes.map.character.Character;
+import org.jheroes.map.character.CombatModifiers.DamageModifier;
 import org.jheroes.map.character.Defense;
 import org.jheroes.map.character.Perks;
 import org.jheroes.map.character.Spell;
@@ -1072,6 +1073,16 @@ public class Map {
       if (check > Character.CHECK_FAIL) {
         int lethalDamage = DiceGenerator.getRandom(att.getMinLethalDamage(), att.getMaxLethalDamage());
         int nonLethalDamage = DiceGenerator.getRandom(att.getMinStaminaDamage(), att.getMaxStaminaDamage());
+        switch ( (target.getRace().damageModifierFor(att.getAttackType()))) {
+        case IMMUNITY: { lethalDamage = 0; nonLethalDamage = 0; break;}
+        case NORMAL: { /*DO nothing*/ break;}
+        case RESISTANCE: { lethalDamage = lethalDamage / 2; 
+                            nonLethalDamage = nonLethalDamage /2; break;
+        }
+        case WEAKNESS: { lethalDamage = lethalDamage * 2; 
+        nonLethalDamage = nonLethalDamage *2; break;}
+        }
+
         if (check == Character.CHECK_CRITICAL_SUCCESS) {
           party.addLogText(caster.getName()+" hits critically "+target.getName());
           lethalDamage = lethalDamage*att.getCriticalMultiplier();
@@ -1098,7 +1109,13 @@ public class Map {
           totalDamage = totalDamage+att.getPiercing();
         }        
         if ((totalDamage==0) && (nonLethalDamage==0)) {
-          party.addLogText("but deals no damage.");
+          if (target.getRace().damageModifierFor(att.getAttackType())
+              ==DamageModifier.IMMUNITY) {
+            party.addLogText("but "+target.getName()+" has immunity against "+
+              att.getAttackType().toString()+" attacks.");
+          } else {
+            party.addLogText("but deals no damage.");
+          }
           SoundPlayer.playSound(SoundPlayer.SOUND_FILE_BLOCK);
         } else {
           StringBuilder sb = new StringBuilder();
@@ -1112,6 +1129,12 @@ public class Map {
             sb.append("and deals "+nonLethalDamage+" points of non-lethal damage");
           }
           party.addLogText(sb.toString()+".");
+          switch (target.getRace().damageModifierFor(att.getAttackType())) {
+          case RESISTANCE: {party.addLogText("Hit was not that effective!"); break;}
+          case WEAKNESS: {party.addLogText("Hit was very effective!"); break;}
+          default: // Do nothing
+          break;
+          }
           if (target.isDead()) {
             party.addLogText(target.getName()+" is dead.");
             if (caster.isPlayer()) {
@@ -1462,6 +1485,15 @@ public class Map {
       if (check != Character.CHECK_FAIL) {
         int lethalDamage = DiceGenerator.getRandom(att.getMinLethalDamage(), att.getMaxLethalDamage());
         int nonLethalDamage = DiceGenerator.getRandom(att.getMinStaminaDamage(), att.getMaxStaminaDamage());
+        switch ( (defenser.getRace().damageModifierFor(att.getAttackType()))) {
+        case IMMUNITY: { lethalDamage = 0; nonLethalDamage = 0; break;}
+        case NORMAL: { /*DO nothing*/ break;}
+        case RESISTANCE: { lethalDamage = lethalDamage / 2; 
+                            nonLethalDamage = nonLethalDamage /2; break;
+        }
+        case WEAKNESS: { lethalDamage = lethalDamage * 2; 
+        nonLethalDamage = nonLethalDamage *2; break;}
+        }
         if (check == Character.CHECK_CRITICAL_SUCCESS) {
           party.addLogText(attacker.getName()+" hits critically "+defenser.getName());
           lethalDamage = lethalDamage*att.getCriticalMultiplier();
@@ -1498,7 +1530,13 @@ public class Map {
         }
         
         if ((totalDamage==0) && (nonLethalDamage==0)) {
-          party.addLogText("but deals no damage.");
+          if (defenser.getRace().damageModifierFor(att.getAttackType())
+              ==DamageModifier.IMMUNITY) {
+            party.addLogText("but "+defenser.getName()+" has immunity against "+
+              att.getAttackType().toString()+" attacks.");
+          } else {
+            party.addLogText("but deals no damage.");
+          }
           SoundPlayer.playSound(SoundPlayer.SOUND_FILE_BLOCK);
         } else {
           StringBuilder sb = new StringBuilder();
@@ -1512,6 +1550,12 @@ public class Map {
             sb.append("and deals "+nonLethalDamage+" points of non-lethal damage");
           }
           party.addLogText(sb.toString()+".");
+          switch (defenser.getRace().damageModifierFor(att.getAttackType())) {
+            case RESISTANCE: {party.addLogText("Hit was not that effective!"); break;}
+            case WEAKNESS: {party.addLogText("Hit was very effective!"); break;}
+          default: // Do nothing
+            break;
+          }
           if ((defenser.isDead()) && (!isAlreadyDead)) {
             isAlreadyDead = true;
             party.addLogText(defenser.getName()+" is dead.");

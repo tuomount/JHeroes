@@ -40,7 +40,25 @@ public class CombatModifiers {
    *
    */
   public enum AttackType {
-    NORMAL,BLUNT, FIRE, ICE, ELECTRIC, MINDAFFECTING, POISON, MAGIC, NONLETHAL
+    NORMAL,BLUNT, FIRE, ICE, ELECTRIC, MINDAFFECTING, POISON, MAGIC, NONLETHAL;
+
+    @Override
+    public String toString() {
+      switch (this) {
+      case NORMAL: {return "normal";}
+      case BLUNT: {return "blunt";}
+      case FIRE: {return "fire";}
+      case ICE: {return "ice";}
+      case ELECTRIC: {return "electric";}
+      case MINDAFFECTING: {return "mindaffecting";}
+      case POISON: {return "poison";}
+      case MAGIC: {return "magic";}
+      case NONLETHAL: {return "non-lethal";}
+      }
+      return "normal";
+    }
+    
+    
   }
 
 }
