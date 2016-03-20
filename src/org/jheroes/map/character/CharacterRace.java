@@ -88,7 +88,10 @@ public enum CharacterRace {
       + "mind affecting and magic attacks but have weakness against poison attacks.",false,false),
   GHOST(25,"Ghost","Ghost are undead spirits creature whom body is partially transparent. Thus "
       + "they have immunity to normal and blunt attacks. They are also immune to poison and mind-affecting. "
-      + "Ghost have weakness against magical attacks.",false,true);
+      + "Ghost have weakness against magical attacks.",false,true),
+  RAVEN(26,"Raven","Ravens are bird animals. They have weakness against electric attacks.",false,false),
+  SEAGULL(27,"Seagull","Seagulls are bird animals. They have weakness against electric attacks.",false,false),
+  DOG(28,"Dog","Dogs have resistance against ice attacks but have weakness against fire attacks.",false,false);
   
   CharacterRace(int index,String name, String description, boolean isPlayerRace,
       boolean isUndead) {
@@ -248,6 +251,8 @@ public enum CharacterRace {
     case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
     case PLANT: {return DamageModifier.IMMUNITY;}
     case VAMPIRE: {return DamageModifier.WEAKNESS;}
+    case RAVEN: {return DamageModifier.WEAKNESS;}    
+    case SEAGULL: {return DamageModifier.WEAKNESS;}    
     default:
       return DamageModifier.NORMAL;
     }
@@ -274,6 +279,7 @@ public enum CharacterRace {
     case PLANT: {return DamageModifier.WEAKNESS;}
     case LICH: {return DamageModifier.IMMUNITY;}
     case VAMPIRE: {return DamageModifier.IMMUNITY;}
+    case DOG: {return DamageModifier.RESISTANCE;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -298,6 +304,7 @@ public enum CharacterRace {
     case PLANT: {return DamageModifier.WEAKNESS;}
     case MINOTAUR: {return DamageModifier.RESISTANCE;}
     case VAMPIRE: {return DamageModifier.WEAKNESS;}
+    case DOG: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
