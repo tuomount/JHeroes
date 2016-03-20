@@ -81,7 +81,14 @@ public enum CharacterRace {
       + "poison, ice and mind affecting but have weakness against blunt-weapons. "
       + "They also have resistance against magic.",false,true),
   WITCH(22,"Witch","Witches are old hags whom posses magical powers. They have resistance "
-      + "againts magic but weakness against poisons.",false,false);
+      + "againts magic but weakness against poisons.",false,false),
+  VAMPIRE(23,"Vampire","Vampires are bloodlusting undead creatures. They have immunity to poison, "
+      + "mind affecting and ice attacks but have weakness against fire and electric attacks.",false,true),
+  FAIRY(24,"Fairy","Fairies are small creatures with wings. They have resistance against "
+      + "mind affecting and magic attacks but have weakness against poison attacks.",false,false),
+  GHOST(25,"Ghost","Ghost are undead spirits creature whom body is partially transparent. Thus "
+      + "they have immunity to normal and blunt attacks. They are also immune to poison and mind-affecting. "
+      + "Ghost have weakness against magical attacks.",false,true);
   
   CharacterRace(int index,String name, String description, boolean isPlayerRace,
       boolean isUndead) {
@@ -186,6 +193,7 @@ public enum CharacterRace {
   public DamageModifier damageModifierForNormal() {
     switch (this) {
     case BRAINHORROR: {return DamageModifier.WEAKNESS;}
+    case GHOST: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -202,6 +210,7 @@ public enum CharacterRace {
     case SKELETON: {return DamageModifier.WEAKNESS;}
     case PLANT: {return DamageModifier.RESISTANCE;}
     case LICH: {return DamageModifier.WEAKNESS;}
+    case GHOST: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -238,6 +247,7 @@ public enum CharacterRace {
     case SNAIL: {return DamageModifier.WEAKNESS;}
     case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
     case PLANT: {return DamageModifier.IMMUNITY;}
+    case VAMPIRE: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -263,6 +273,7 @@ public enum CharacterRace {
     case WOLFMAN: {return DamageModifier.RESISTANCE;}
     case PLANT: {return DamageModifier.WEAKNESS;}
     case LICH: {return DamageModifier.IMMUNITY;}
+    case VAMPIRE: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -286,6 +297,7 @@ public enum CharacterRace {
     case ANIMATEDOBJECT: {return DamageModifier.WEAKNESS;}
     case PLANT: {return DamageModifier.WEAKNESS;}
     case MINOTAUR: {return DamageModifier.RESISTANCE;}
+    case VAMPIRE: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -311,6 +323,9 @@ public enum CharacterRace {
     case MINOTAUR: {return DamageModifier.WEAKNESS;}
     case LICH: {return DamageModifier.IMMUNITY;}
     case WITCH: {return DamageModifier.WEAKNESS;}
+    case VAMPIRE: {return DamageModifier.IMMUNITY;}
+    case FAIRY: {return DamageModifier.WEAKNESS;}
+    case GHOST: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -332,6 +347,9 @@ public enum CharacterRace {
     case BRAINHORROR: {return DamageModifier.IMMUNITY;}
     case ANIMATEDOBJECT: {return DamageModifier.IMMUNITY;}
     case LICH: {return DamageModifier.IMMUNITY;}
+    case VAMPIRE: {return DamageModifier.IMMUNITY;}
+    case FAIRY: {return DamageModifier.RESISTANCE;}
+    case GHOST: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -350,6 +368,8 @@ public enum CharacterRace {
     case MINOTAUR: {return DamageModifier.WEAKNESS;}
     case LICH: {return DamageModifier.RESISTANCE;}
     case WITCH: {return DamageModifier.RESISTANCE;}
+    case FAIRY: {return DamageModifier.RESISTANCE;}
+    case GHOST: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
