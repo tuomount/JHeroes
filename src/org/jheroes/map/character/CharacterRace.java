@@ -28,13 +28,12 @@ import org.jheroes.map.character.CombatModifiers.DamageModifier;
  * 
  */
 
- //TODO: Add skill bonuses based on race.
 
 public enum CharacterRace {
   
   DEFAULT(0,"Default","",false,false),
   HUMAN(1,"Human","Humans do not have any special weakneses or strength.",true,false),
-  ELF(2,"Elf","Elves have better dodging skill but have weakness against ice attacks.",true,false),
+  ELF(2,"Elf","Elves have weakness against ice attacks but resistance against mind-affect attacks.",true,false),
   ZOMBIE(3,"Zombie","Zombies are undead creatures which are immune to poison and "
       + "mind affecting but have weakness against electricity.",false,true),
   RAT(4,"Rat","Rats are immune to poison but have weakness against fire.",false,false),
@@ -91,7 +90,10 @@ public enum CharacterRace {
       + "Ghost have weakness against magical attacks.",false,true),
   RAVEN(26,"Raven","Ravens are bird animals. They have weakness against electric attacks.",false,false),
   SEAGULL(27,"Seagull","Seagulls are bird animals. They have weakness against electric attacks.",false,false),
-  DOG(28,"Dog","Dogs have resistance against ice attacks but have weakness against fire attacks.",false,false);
+  DOG(28,"Dog","Dogs have resistance against ice attacks but have weakness against fire attacks.",false,false),
+  DRYAD(29,"Dryad","Dryads are are tree spirits and very magical creatures. They have resistance to "
+      + "magic, blunt and mind affecting attacks. Dryads are immune to electric attakcs but they weakness "
+      + "againts ice, fire and poison attacks.",false,false);
   
   CharacterRace(int index,String name, String description, boolean isPlayerRace,
       boolean isUndead) {
@@ -214,6 +216,7 @@ public enum CharacterRace {
     case PLANT: {return DamageModifier.RESISTANCE;}
     case LICH: {return DamageModifier.WEAKNESS;}
     case GHOST: {return DamageModifier.IMMUNITY;}
+    case DRYAD: {return DamageModifier.RESISTANCE;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -253,6 +256,7 @@ public enum CharacterRace {
     case VAMPIRE: {return DamageModifier.WEAKNESS;}
     case RAVEN: {return DamageModifier.WEAKNESS;}    
     case SEAGULL: {return DamageModifier.WEAKNESS;}    
+    case DRYAD: {return DamageModifier.IMMUNITY;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -280,6 +284,7 @@ public enum CharacterRace {
     case LICH: {return DamageModifier.IMMUNITY;}
     case VAMPIRE: {return DamageModifier.IMMUNITY;}
     case DOG: {return DamageModifier.RESISTANCE;}
+    case DRYAD: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -305,6 +310,7 @@ public enum CharacterRace {
     case MINOTAUR: {return DamageModifier.RESISTANCE;}
     case VAMPIRE: {return DamageModifier.WEAKNESS;}
     case DOG: {return DamageModifier.WEAKNESS;}
+    case DRYAD: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -333,6 +339,7 @@ public enum CharacterRace {
     case VAMPIRE: {return DamageModifier.IMMUNITY;}
     case FAIRY: {return DamageModifier.WEAKNESS;}
     case GHOST: {return DamageModifier.IMMUNITY;}
+    case DRYAD: {return DamageModifier.WEAKNESS;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -344,6 +351,7 @@ public enum CharacterRace {
    */
   public DamageModifier damageModifierForMindAffecting() {
     switch (this) {
+    case ELF: {return DamageModifier.RESISTANCE;}
     case ZOMBIE: {return DamageModifier.IMMUNITY;}
     case INSECT: {return DamageModifier.IMMUNITY;}
     case SPIDER: {return DamageModifier.IMMUNITY;}
@@ -357,6 +365,7 @@ public enum CharacterRace {
     case VAMPIRE: {return DamageModifier.IMMUNITY;}
     case FAIRY: {return DamageModifier.RESISTANCE;}
     case GHOST: {return DamageModifier.IMMUNITY;}
+    case DRYAD: {return DamageModifier.RESISTANCE;}
     default:
       return DamageModifier.NORMAL;
     }
@@ -377,6 +386,7 @@ public enum CharacterRace {
     case WITCH: {return DamageModifier.RESISTANCE;}
     case FAIRY: {return DamageModifier.RESISTANCE;}
     case GHOST: {return DamageModifier.WEAKNESS;}
+    case DRYAD: {return DamageModifier.RESISTANCE;}
     default:
       return DamageModifier.NORMAL;
     }
