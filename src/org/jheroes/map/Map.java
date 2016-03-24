@@ -111,6 +111,7 @@ public class Map {
   public final static int CURSOR_MODE_USE=4;
   public final static int CURSOR_MODE_TALK=5;
   public final static int CURSOR_MODE_SINGLE_ATTACK=6;
+  public final static int CURSOR_MODE_EVALUATE=7;
   
   public final static int VIEW_X_RADIUS = 10;
   public final static int VIEW_Y_RADIUS = 8;
@@ -151,6 +152,7 @@ public class Map {
   public final static int GRAPH_EFFECT_BUBBLE_EAT = 160;
   public final static int GRAPH_EFFECT_BUBBLE_PLAY = 164;
   public final static int GRAPH_EFFECT_SPELL_QI_FIST = 169;
+  public final static int GRAPH_EFFECT_EVALUATE_CURSOR = 174;
 
   private static int getLightEffectForGraphEffect(int effect) {
     if (effect >= 47 && effect < 54) { // Spell positive
@@ -1108,7 +1110,7 @@ public class Map {
           totalDamage = lethalDamage;
         }
         target.receiveLethalDamage(lethalDamage);
-        target.receiveNonLethalDamage(nonLethalDamage);
+        target.receiveNonLethalDamage(nonLethalDamage,true);
         if (att.getPiercing()>0) {
           target.receiveLethalDamage(att.getPiercing());
           totalDamage = totalDamage+att.getPiercing();
@@ -1481,7 +1483,7 @@ public class Map {
       } else {
         SoundPlayer.playSoundBySoundName("BOW");
       }
-      attacker.receiveNonLethalDamage(att.getStaminaCost());
+      attacker.receiveNonLethalDamage(att.getStaminaCost(),false);
       if (attacker.getCurrentSP()<attacker.getMaxStamina()/2) {
         addNewGraphEffect(attacker.getX(), attacker.getY(), GRAPH_EFFECT_SWEAT);
       }
@@ -1523,7 +1525,7 @@ public class Map {
           totalDamage = lethalDamage;
         }
         defenser.receiveLethalDamage(lethalDamage);
-        defenser.receiveNonLethalDamage(nonLethalDamage);
+        defenser.receiveNonLethalDamage(nonLethalDamage,true);
         if (att.isDrainHealth()) {
           attacker.setCurrentHP(attacker.getCurrentHP()+lethalDamage/2);
         }
@@ -1687,7 +1689,7 @@ public class Map {
       doSpell(npc,npc,spell,true);
       combatContinue = true;
       direction = DIRECTION_ATTACK;
-      npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad());
+      npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad(),false);
       if (npc.getCurrentSP()<npc.getMaxStamina()/2) {
         addNewGraphEffect(npc.getX(), npc.getY(), GRAPH_EFFECT_SWEAT);
       }
@@ -1699,7 +1701,7 @@ public class Map {
         doSpell(npc,npc,spell,true);
         combatContinue = true;
         direction = DIRECTION_ATTACK;
-        npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad());
+        npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad(),false);
         if (npc.getCurrentSP()<npc.getMaxStamina()/2) {
           addNewGraphEffect(npc.getX(), npc.getY(), GRAPH_EFFECT_SWEAT);
         }
@@ -1735,7 +1737,7 @@ public class Map {
             direction = DIRECTION_ATTACK;
             combatContinue = true;
             doSpell(npc, target, spell,true);
-            npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad());
+            npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad(),false);
             if (npc.getCurrentSP()<npc.getMaxStamina()/2) {
               addNewGraphEffect(npc.getX(), npc.getY(), GRAPH_EFFECT_SWEAT);
             }
@@ -5694,6 +5696,7 @@ public int getEventY2() {
     case CURSOR_MODE_TALK: this.setCursorTile(GRAPH_EFFECT_TALK_CURSOR); break;
     case CURSOR_MODE_SINGLE_ATTACK: this.setCursorTile(GRAPH_EFFECT_ATTACK_CURSOR); break;
     case CURSOR_MODE_DISABLE: castingSpell = null;setAttackText("No target"); break;
+    case CURSOR_MODE_EVALUATE: this.setCursorTile(GRAPH_EFFECT_EVALUATE_CURSOR); break;
     }
   }
   public int getCursorMode() {

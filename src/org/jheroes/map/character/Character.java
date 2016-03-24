@@ -3541,14 +3541,18 @@ public class Character extends CharacterAnimation {
    * Character receives non lethal damage. If Stamina is less than
    * damage then character receives rest of damage in lethal.
    * @param damage
+   * @param ignoreDamageModifier, this should be true damageModifier is checked
+   * somewhere else. For example in combat.
    */
-  public void receiveNonLethalDamage(int damage) {
-    DamageModifier mod = this.getRace().damageModifierForNonLethal();
-    switch (mod) {
-    case IMMUNITY: {damage = 0; break; }
-    case RESISTANCE: {damage = damage /2; break; }
-    case WEAKNESS: {damage = damage *2; break; }
-    case NORMAL: {break; }
+  public void receiveNonLethalDamage(int damage,boolean ignoreDamageModifier) {
+    if (!ignoreDamageModifier) {
+      DamageModifier mod = this.getRace().damageModifierForNonLethal();
+      switch (mod) {
+      case IMMUNITY: {damage = 0; break; }
+      case RESISTANCE: {damage = damage /2; break; }
+      case WEAKNESS: {damage = damage *2; break; }
+      case NORMAL: {break; }
+      }
     }
     if (currentSP > damage) {
       currentSP = currentSP -damage;

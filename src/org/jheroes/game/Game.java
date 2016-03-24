@@ -2344,7 +2344,7 @@ public class Game extends JFrame implements ActionListener {
           }
         } else {
           if (spell.getTargetType() == Spell.SPELL_TARGET_CASTER) {                
-            chr.receiveNonLethalDamage(spell.getCastingCost()+chr.getStaminaCostFromLoad());
+            chr.receiveNonLethalDamage(spell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
             int exp = map.doSpell(chr, chr, spell,true);
             chr.setExperience(chr.getExperience()+exp);
             if (party.isCombat()) {
@@ -2352,7 +2352,7 @@ public class Game extends JFrame implements ActionListener {
             }
           }
           if (spell.getTargetType() == Spell.SPELL_TARGET_PARTY) {                
-            chr.receiveNonLethalDamage(spell.getCastingCost()+chr.getStaminaCostFromLoad());
+            chr.receiveNonLethalDamage(spell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
             for (int i=0;i<party.getPartySize();i++) {
               Character target = party.getPartyChar(i);
               if (target != null) {
@@ -4049,7 +4049,60 @@ public class Game extends JFrame implements ActionListener {
       map.setCursorMode(Map.CURSOR_MODE_DISABLE);
       
     }
-    
+
+    private void keyEnterInEvaluateMode() {
+      Character chr = party.getActiveChar();
+      int cx = map.getCursorX();
+      int cy = map.getCursorY();
+      int index = map.getCharacterByCoordinates(cx, cy);
+      if (index != -1) {
+        Character npc = map.getNPCbyIndex(index);
+        if (npc != null) {
+          party.addLogText(chr.getName()+" sees "+npc.getLongName()+".");
+          int evaluateSkill =0;
+          switch (chr.getAttribute(Character.ATTRIBUTE_INTELLIGENCE)) {
+          case 1: {evaluateSkill = -2; break;}
+          case 2: {evaluateSkill = -2; break;}
+          case 3: {evaluateSkill = -1; break;}
+          case 4: {evaluateSkill = -1; break;}
+          case 5: {evaluateSkill = 0; break;}
+          case 6: {evaluateSkill = 1; break;}
+          case 7: {evaluateSkill = 2; break;}
+          case 8: {evaluateSkill = 3; break;}
+          case 9: {evaluateSkill = 4; break;}
+          case 10: {evaluateSkill = 5;  break;}
+          default: {evaluateSkill = 0; break; }
+          }
+          evaluateSkill = evaluateSkill +chr.getLevel();
+          if (evaluateSkill>npc.getLevel()) {
+            party.addLogText(npc.getName()+" is "
+                +npc.getRace().getName().toLowerCase()+".");
+            party.addLogText(npc.getRace().getDescription());
+            party.addLogText(npc.getName()+" has "+
+               npc.getCurrentHP()+"/"+npc.getMaxHP()+" HP and "+
+               npc.getCurrentSP()+"/"+npc.getMaxStamina()+" SP.");
+
+          } else  if (evaluateSkill==npc.getLevel()) {
+            party.addLogText(npc.getName()+" is "
+                +npc.getRace().getName().toLowerCase()+".");
+            party.addLogText(npc.getRace().getDescription());
+
+          } else if (evaluateSkill>npc.getLevel()-3) {
+            party.addLogText(npc.getName()+" is "
+                            +npc.getRace().getName().toLowerCase()+".");
+          }   else { 
+            party.addLogText(npc.getName()+" is too difficult to evaluate."); 
+          }
+
+        }
+        playerMakesAMove();
+      } else {
+        party.addLogText("There is no one to evaluate...");
+      }
+      map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+      
+    }
+
     private void keyEnterInTalkMode() {
       int cx = map.getCursorX();
       int cy = map.getCursorY();
@@ -4355,7 +4408,7 @@ public class Game extends JFrame implements ActionListener {
               if (castingSpell.getAttack()!=null) {
                 if (npc.getHostilityLevel() == Character.HOSTILITY_LEVEL_AGGRESSIVE) {
                   int exp = map.doSpell(chr, npc, castingSpell,true);
-                  chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad());
+                  chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
                   if (chr.getCurrentSP()<chr.getMaxStamina()/2) {
                     map.addNewGraphEffect(chr.getX(), chr.getY(), Map.GRAPH_EFFECT_SWEAT);
                   }
@@ -4369,7 +4422,7 @@ public class Game extends JFrame implements ActionListener {
               } else {
                 int exp = map.doSpell(chr, npc, castingSpell,true);
                 chr.setExperience(chr.getExperience()+exp);
-                chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad());
+                chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
                 if (chr.getCurrentSP()<chr.getMaxStamina()/2) {
                   map.addNewGraphEffect(chr.getX(), chr.getY(), Map.GRAPH_EFFECT_SWEAT);
                 }
@@ -4380,7 +4433,7 @@ public class Game extends JFrame implements ActionListener {
               if ((npc != null) && (castingSpell.getAttack()==null)) {
                 int exp = map.doSpell(chr, npc, castingSpell,true);
                 chr.setExperience(chr.getExperience()+exp);
-                chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad());
+                chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
                 if (chr.getCurrentSP()<chr.getMaxStamina()/2) {
                   map.addNewGraphEffect(chr.getX(), chr.getY(), Map.GRAPH_EFFECT_SWEAT);
                 }
@@ -4443,7 +4496,10 @@ public class Game extends JFrame implements ActionListener {
             } // END of Attack
             if ((map.getCursorMode() == Map.CURSOR_MODE_CAST) && (castingSpell != null)) {
               keyEnterInCastingMode();
-            } // END of Casting            
+            } // END of Casting
+            if ((map.getCursorMode() == Map.CURSOR_MODE_EVALUATE)) {
+              keyEnterInEvaluateMode();
+            } // END of Evaluate
           } 
         } else {
           if (spellPanel != null) {
@@ -4529,6 +4585,16 @@ public class Game extends JFrame implements ActionListener {
       if (key == KeyEvent.VK_T) {
         if (!map.isCursorMode()) {
           map.setCursorMode(Map.CURSOR_MODE_TALK);
+          Character chr = party.getActiveChar();
+          map.setCursorX(chr.getX());
+          map.setCursorY(chr.getY());
+        } else {
+          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+        }
+      }
+      if (key == KeyEvent.VK_E) {
+        if (!map.isCursorMode()) {
+          map.setCursorMode(Map.CURSOR_MODE_EVALUATE);
           Character chr = party.getActiveChar();
           map.setCursorX(chr.getX());
           map.setCursorY(chr.getY());
