@@ -143,7 +143,11 @@ public enum CharacterRace {
    * @return String without any view modifications
    */
   public String getDescription() {
-    return description;
+    if (!undead) {
+      return description;
+    } else {
+      return description+" All undead creatures are immune to non-lethal attacks.";
+    }
   }
   
   /**

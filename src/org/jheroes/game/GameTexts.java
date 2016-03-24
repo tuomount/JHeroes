@@ -134,7 +134,7 @@ public class GameTexts {
   public final static String HELP_ATTRIBUTE_ENDURANCE ="Greater endurance gives more hitpoints "+
   "and stamina points. Skills: Melee and unarmed";
   public final static String HELP_ATTRIBUTE_INTELLIGENCE ="Greater intelligence gives more skill points." +
-  		" Skills: Wizardy, Qi Magic and Lock picking.";
+  		" Skills: Wizardy, Qi Magic and Lock picking. High intelligence helps evaluating enemies.";
   public final static String HELP_ATTRIBUTE_WISDOM ="Greater wisdom gives more skill points and" +
       " provides resistance to mind affecting spells." +
       " Skills: Diplomacy, Qi Magic and Sorcery.";
@@ -207,6 +207,7 @@ public class GameTexts {
                                        "C: Cast spell if character is able\n"+
                                        "A: Full Attack\n"+
                                        "Z: Single Attack\n"+
+                                       "E: Evaluate enemy\n"+
                                        "J: View journal\n"+
                                        "T: Talk to someone\n"+
                                        "L: Look something\n"+
@@ -258,5 +259,19 @@ public class GameTexts {
       " maybe the best perk in game and would benefit almost every character. Since this" +
       " allows character gain stamina points more rapidly and stamina points are even saved" +
       " when attacking or casting spells.";
+  public final static String HELP_TEXT_EVALUATE = "Enemies have different race and different "
+      + "races have different weaknesses and strengths. To get to know enemy race enemy must be "
+      + "evaluated. Evaluate does not have a separate skill but high(>5) intelligence gives "
+      + "bonus to evaluate check. Also character level affects evaluate higher is again a better.\n\n"
+      + "If check is slightly less than enemy level evaluate only tells what race enemy is. If it "
+      + "is equal also race description is know. If check is greater than enemy level then "
+      + "hit points and stamina points are also know. Making evaluation in combat always "
+      + "takes one round of action.";
+  public final static String HELP_TEXT_DAMAGE_TYPES = "There are multiple damage types or attacks: "
+      + "normal, blunt, non-lethal, fire, ice, electic, mind-affecting, magic, poison. "
+      + "Race can have weakness, resistance, immunity or normal damage modifier for those attacks. "
+      + "Weakness means that damage is doubled. Resistance means that damage is halved and immunity "
+      + "means that damage is totally ignored. These modifiers can be identified by evaluating "
+      + "enemies.";
 
 }

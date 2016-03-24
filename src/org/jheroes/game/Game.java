@@ -4061,7 +4061,7 @@ public class Game extends JFrame implements ActionListener {
           party.addLogText(chr.getName()+" sees "+npc.getLongName()+".");
           int evaluateSkill =0;
           switch (chr.getAttribute(Character.ATTRIBUTE_INTELLIGENCE)) {
-          case 1: {evaluateSkill = -2; break;}
+          case 1: {evaluateSkill = -3; break;}
           case 2: {evaluateSkill = -2; break;}
           case 3: {evaluateSkill = -1; break;}
           case 4: {evaluateSkill = -1; break;}
