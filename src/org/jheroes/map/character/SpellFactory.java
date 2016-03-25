@@ -583,6 +583,7 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_SORCERY);
       CharEffect eff = new CharEffect(SPELL_NAME_SHOCK_BURST, CharEffect.TYPE_CURSE,
           5, CharEffect.EFFECT_ON_STAMINA, Character.SKILL_DODGING, -1, 50);
+      eff.setAttackType(AttackType.ELECTRIC);
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_SHOCK);
       result.setMinimumSkill(50);
@@ -748,6 +749,7 @@ public class SpellFactory {
       result.setSkill(Character.SKILL_SORCERY);
       CharEffect eff = new CharEffect(SPELL_NAME_THUNDER_STRIKE, CharEffect.TYPE_CURSE,
           10, CharEffect.EFFECT_ON_STAMINA, Character.SKILL_DODGING, -3, 50);
+      eff.setAttackType(AttackType.ELECTRIC);
       result.setEffect(eff);
       result.setAnimation(Map.GRAPH_EFFECT_SPELL_SHOCK);      
       result.setMinimumSkill(100);

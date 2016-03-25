@@ -3215,15 +3215,39 @@ public class Character extends CharacterAnimation {
     while (it.hasNext()) {
       CharEffect eff = it.next();
       if (eff.getEffect() == CharEffect.EFFECT_ON_HEALTH) {
-        setCurrentHP(getCurrentHP()+ eff.getValue());        
+        if (eff.getValue() > 0) {
+          setCurrentHP(getCurrentHP()+ eff.getValue());
+        } else {
+          int damage = eff.getValue();
+          damage=damage*-1;
+          switch (this.getRace().damageModifierFor(eff.getAttackType())) {
+          case IMMUNITY: { damage=0; break;}
+          case RESISTANCE: { damage=damage/2;break;}
+          case WEAKNESS: {damage=damage*2;break;}
+          case NORMAL: {break;}
+          }
+          this.receiveLethalDamage(damage);
+        }
       }
       if (eff.getEffect() == CharEffect.EFFECT_ON_STAMINA) {
-        if (eff.getValue() < 0 && Math.abs(eff.getValue()) > getCurrentSP()) {
-         int i =  Math.abs(eff.getValue())-getCurrentSP();
-         setCurrentSP(0);
-         setCurrentHP(getCurrentHP()-i);
+        int damage = eff.getValue();
+        if (damage < 0) {
+          damage = damage*-1;
+          switch (this.getRace().damageModifierFor(eff.getAttackType())) {
+          case IMMUNITY: { damage=0; break;}
+          case RESISTANCE: { damage=damage/2;break;}
+          case WEAKNESS: {damage=damage*2;break;}
+          case NORMAL: {break;}
+          }          
+          if (damage > getCurrentSP()) {
+            int i =  damage-getCurrentSP();
+            setCurrentSP(0);
+            setCurrentHP(getCurrentHP()-i);
+           } else {
+             setCurrentSP(getCurrentSP()-damage);
+           }
         } else {
-          setCurrentSP(getCurrentSP()+ eff.getValue());
+          setCurrentSP(getCurrentSP()+ eff.getValue());          
         }
       }
       if (eff.getEffect() == CharEffect.EFFECT_ON_HEALTH_AND_STAMINA) {

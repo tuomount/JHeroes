@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.jheroes.map.character.CombatModifiers.AttackType;
 import org.jheroes.utilities.StreamUtilities;
 
 
@@ -73,6 +74,7 @@ public class CharEffect {
   private int value;
   private int difficulty;
   private String name;
+  private AttackType attackType;
   
   
   /**
@@ -100,6 +102,15 @@ public class CharEffect {
      this.difficulty = difficulty;
      if (this.difficulty >= MAX_DIFFICULTY) {
        this.difficulty = MAX_DIFFICULTY-1;
+     }
+     if (type == TYPE_POISON) {
+       setAttackType(AttackType.POISON);
+     } else if (type == TYPE_DISEASE) {
+       setAttackType(AttackType.NORMAL);
+     } else if (type == TYPE_CURSE) {
+       setAttackType(AttackType.MINDAFFECTING);
+     } else {
+       setAttackType(AttackType.MAGIC);
      }
   }
   
@@ -270,6 +281,14 @@ public class CharEffect {
     value = is.readInt();
     difficulty = is.readInt();
     name = StreamUtilities.readString(is);
+  }
+
+  public AttackType getAttackType() {
+    return attackType;
+  }
+
+  public void setAttackType(AttackType attackType) {
+    this.attackType = attackType;
   }
 }
 
