@@ -317,6 +317,19 @@ public class ItemFactory {
     case 271:{ tmp = createWeapon(index); break;} // Sickle of Health
     case 272:{ tmp = createGeneric(index); break;} // Mother's locket
     case 273:{ tmp = createGeneric(index); break;} // Bridge repair kit
+    case 274:{ tmp = createWeapon(index); break;} // Poisoned bronze dagger
+    case 275:{ tmp = createWeapon(index); break;} // Poisoned iron dagger
+    case 276:{ tmp = createWeapon(index); break;} // Poisoned steel dagger
+    case 277:{ tmp = createWeapon(index); break;} // Poisoned bronze mace
+    case 278:{ tmp = createWeapon(index); break;} // Poisoned iron mace
+    case 279:{ tmp = createWeapon(index); break;} // Poisoned steel mace
+    case 280:{ tmp = createWeapon(index); break;} // Poisoned bronze spear
+    case 281:{ tmp = createWeapon(index); break;} // Poisoned iron spear
+    case 282:{ tmp = createWeapon(index); break;} // Poisoned steel spear
+    case 283:{ tmp = createWeapon(index); break;} // Poisoned shurikens
+    case 284:{ tmp = createWeapon(index); break;} // Gauntlets of flame
+    case 285:{ tmp = createWeapon(index); break;} // Gauntlets of electric
+    case 286:{ tmp = createWeapon(index); break;} // Gauntlets of frost
 
     }
     return tmp;
@@ -1441,7 +1454,19 @@ public class ItemFactory {
       tmp.setTwoHandedWeapon(true);
       tmp.setCriticalMultiplier(2);
     }
-    if (index == 18) {
+    if (index == 18) {    if (index == 5) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Steel gauntlets",5);
+      tmp.setPrice(40);
+      tmp.setMinDamage(2);
+      tmp.setMaxDamage(8);
+      tmp.setWeight(10);
+      tmp.setBluntWeapon(true);
+      tmp.setPiercingPower(0);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_UNARMED);
+      tmp.setTwoHandedWeapon(true);
+      tmp.setCriticalMultiplier(2);
+    }
+
       tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Pick axe",18);
       tmp.setPrice(30);
       tmp.setMinDamage(1);
@@ -2673,6 +2698,223 @@ public class ItemFactory {
       tmp.setCriticalMultiplier(4);
       tmp.setEffect(CharEffect.EFFECT_DRAIN_HEALTH);
       tmp.setEffectValue(1);
+    }
+    if (index == 274) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned bronze dagger",149);
+      tmp.setPrice(40);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(3);
+      tmp.setWeight(10);
+      tmp.setBluntWeapon(false);
+      tmp.setPiercingPower(1);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
+      tmp.setTwoHandedWeapon(false);
+      tmp.setCriticalMultiplier(3);
+      tmp.setThrowableWeapon(true);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 275) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned iron dagger",51);
+      tmp.setPrice(44);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(3);
+      tmp.setWeight(15);
+      tmp.setBluntWeapon(false);
+      tmp.setPiercingPower(2);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
+      tmp.setTwoHandedWeapon(false);
+      tmp.setCriticalMultiplier(3);
+      tmp.setThrowableWeapon(true);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 276) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned steel dagger",50);
+      tmp.setPrice(50);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(4);
+      tmp.setWeight(14);
+      tmp.setBluntWeapon(false);
+      tmp.setPiercingPower(2);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
+      tmp.setTwoHandedWeapon(false);
+      tmp.setCriticalMultiplier(3);
+      tmp.setThrowableWeapon(true);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 277) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned bronze mace",150);
+      tmp.setPrice(60);
+      tmp.setMinDamage(2);
+      tmp.setMaxDamage(6);
+      tmp.setWeight(50);
+      tmp.setBluntWeapon(true);
+      tmp.setPiercingPower(0);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
+      tmp.setTwoHandedWeapon(false);
+      tmp.setCriticalMultiplier(2);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 278) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned iron mace",150);
+      tmp.setPrice(80);
+      tmp.setMinDamage(2);
+      tmp.setMaxDamage(8);
+      tmp.setWeight(55);
+      tmp.setBluntWeapon(true);
+      tmp.setPiercingPower(0);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
+      tmp.setTwoHandedWeapon(false);
+      tmp.setCriticalMultiplier(2);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 279) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned steel mace",150);
+      tmp.setPrice(100);
+      tmp.setMinDamage(2);
+      tmp.setMaxDamage(10);
+      tmp.setWeight(55);
+      tmp.setBluntWeapon(true);
+      tmp.setPiercingPower(0);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
+      tmp.setTwoHandedWeapon(false);
+      tmp.setCriticalMultiplier(2);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 280) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned bronze spear",151);
+      tmp.setPrice(70);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(6);
+      tmp.setWeight(30);
+      tmp.setBluntWeapon(false);
+      tmp.setPiercingPower(2);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
+      tmp.setTwoHandedWeapon(true);
+      tmp.setCriticalMultiplier(2);
+      tmp.setThrowableWeapon(true);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 281) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned iron spear",151);
+      tmp.setPrice(80);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(7);
+      tmp.setWeight(35);
+      tmp.setBluntWeapon(false);
+      tmp.setPiercingPower(3);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
+      tmp.setTwoHandedWeapon(true);
+      tmp.setCriticalMultiplier(3);
+      tmp.setThrowableWeapon(true);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 282) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned steel spear",151);
+      tmp.setPrice(90);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(8);
+      tmp.setWeight(35);
+      tmp.setBluntWeapon(false);
+      tmp.setPiercingPower(3);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_MELEE);
+      tmp.setTwoHandedWeapon(true);
+      tmp.setCriticalMultiplier(3);
+      tmp.setThrowableWeapon(true);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 283) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned shurikens",152);
+      tmp.setPrice(80);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(3);
+      tmp.setWeight(10);
+      tmp.setBluntWeapon(false);
+      tmp.setPiercingPower(2);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_RANGED);
+      tmp.setTwoHandedWeapon(true);
+      tmp.setCriticalMultiplier(4);
+      tmp.setEffect(CharEffect.EFFECT_ON_HIT_POISON);
+      tmp.setEffectLasting(3);
+      tmp.setEffectValue(2);
+      tmp.setEffectAttackType(AttackType.POISON);
+    }
+    if (index == 284) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Gauntlets of flame",153);
+      tmp.setUnknownName("Steel gauntlets");
+      tmp.setMagical(true);
+      tmp.setItemStatus(Item.IDENTIFIED_STATUS_UNKNOWN);
+      tmp.setPrice(250);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(4);
+      tmp.setMinMagicDamage(1);
+      tmp.setMaxMagicDamage(6);
+      tmp.setWeight(10);
+      tmp.setPiercingPower(0);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_UNARMED);
+      tmp.setTwoHandedWeapon(true);
+      tmp.setCriticalMultiplier(3);
+      tmp.setAttackType(AttackType.FIRE);
+    }
+    if (index == 285) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Gauntlets of electric",154);
+      tmp.setUnknownName("Steel gauntlets");
+      tmp.setMagical(true);
+      tmp.setItemStatus(Item.IDENTIFIED_STATUS_UNKNOWN);
+      tmp.setPrice(250);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(4);
+      tmp.setMinMagicDamage(1);
+      tmp.setMaxMagicDamage(6);
+      tmp.setWeight(10);
+      tmp.setPiercingPower(0);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_UNARMED);
+      tmp.setTwoHandedWeapon(true);
+      tmp.setCriticalMultiplier(3);
+      tmp.setAttackType(AttackType.ELECTRIC);
+    }
+    if (index == 286) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Gauntlets of frost",155);
+      tmp.setUnknownName("Steel gauntlets");
+      tmp.setMagical(true);
+      tmp.setItemStatus(Item.IDENTIFIED_STATUS_UNKNOWN);
+      tmp.setPrice(250);
+      tmp.setMinDamage(1);
+      tmp.setMaxDamage(4);
+      tmp.setMinMagicDamage(1);
+      tmp.setMaxMagicDamage(6);
+      tmp.setWeight(10);
+      tmp.setPiercingPower(0);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_UNARMED);
+      tmp.setTwoHandedWeapon(true);
+      tmp.setCriticalMultiplier(3);
+      tmp.setAttackType(AttackType.ICE);
     }
 
     

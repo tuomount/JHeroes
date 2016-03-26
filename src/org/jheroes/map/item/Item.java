@@ -345,6 +345,11 @@ public class Item {
   private int effectLasting;
   
   /**
+   * Effect's attack type
+   */
+  private AttackType effectAttackType;
+  
+  /**
    * Attack type with current item
    */
   private AttackType attackType;
@@ -375,6 +380,7 @@ public class Item {
     this.setEffectValue(0);
     this.setEffectAttrOrSkill(0);
     this.setEffectLasting(0);
+    this.setEffectAttackType(AttackType.NORMAL);
     this.setDroppable(true);
     this.setThrowableWeapon(false);
     this.setAttackType(AttackType.NORMAL);
@@ -1149,5 +1155,13 @@ public class Item {
 
   public void setAttackType(AttackType attackType) {
     this.attackType = attackType;
+  }
+
+  public AttackType getEffectAttackType() {
+    return effectAttackType;
+  }
+
+  public void setEffectAttackType(AttackType effectAttackType) {
+    this.effectAttackType = effectAttackType;
   }
 }

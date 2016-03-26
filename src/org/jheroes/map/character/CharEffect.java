@@ -66,6 +66,9 @@ public class CharEffect {
   public static final byte EFFECT_DRAIN_VIGOR = 12;
   public static final byte EFFECT_SLAYER = 13;
   public static final byte EFFECT_ON_MIGHTY = 14;
+  public static final byte EFFECT_ON_HIT_POISON = 15;
+  public static final byte EFFECT_ON_HIT_DISEASE = 16;
+  public static final byte EFFECT_ON_HIT_ENCHANT = 17;
   
   private byte type;
   private int duration;
