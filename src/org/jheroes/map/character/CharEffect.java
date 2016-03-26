@@ -81,11 +81,11 @@ public class CharEffect {
   
   
   /**
-   * Creates a new effect
-   * @param name String
-   * @param type byte
+   * Creates a new magical effect
+   * @param name String Effect name show in character sheet
+   * @param type byte What kind of type, curse, enchant, poison etc.
    * @param duration number of rounds
-   * @param effect effect type
+   * @param effect effect type Where or how effect effects
    * @param attrOrSkill Attribute or Skill where effect affects
    * @param value effect value
    * @param difficulty how difficulty effect is to remove

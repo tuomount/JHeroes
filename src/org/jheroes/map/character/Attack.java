@@ -1,6 +1,7 @@
 package org.jheroes.map.character;
 
 import org.jheroes.map.character.CombatModifiers.AttackType;
+import org.jheroes.map.item.Item;
 
 /**
  * 
@@ -90,6 +91,26 @@ public class Attack {
    */
   private AttackType attackType;
   
+  /**
+   * Effect on target when attack hits
+   */
+  private byte effectOnHit;
+  
+  /**
+   * How long effect last in turns
+   */
+  private int effectLast;
+  
+  /**
+   * Effect value mainly damage per turn
+   */
+  private int effectValue;
+  
+  /**
+   * What kind of damage effect causes.
+   */
+  private AttackType effectAttackType;
+  
   public Attack() {
     setMinStaminaDamage(0);
     setMaxStaminaDamage(0);
@@ -106,6 +127,7 @@ public class Attack {
     setDrainVigor(false);
     setSlayer(false);
     setAttackType(AttackType.NORMAL);
+    setEffectOnHit(Item.EFFECT_TYPE_NO_EFFECT);
   }
   
   public int getMinStaminaDamage() {
@@ -220,10 +242,15 @@ public class Attack {
    * Generate spell's attack information as a string
    * @return String
    */
-  //TODO: Add attack type to spells
   public String getAttackAsSpell() {
     StringBuilder sb = new StringBuilder();
-    sb.append("Damage: ");
+    sb.append("Damage");
+    if (this.getAttackType() != AttackType.NORMAL) {
+      sb.append("(");
+      sb.append(this.getAttackType().toString());
+      sb.append(")");
+    }
+    sb.append(": ");
     sb.append(minLethalDamage);
     sb.append("-");
     sb.append(maxLethalDamage);
@@ -237,8 +264,10 @@ public class Attack {
     }
     sb.append("x");
     sb.append(criticalMultiplier);
-    sb.append("\nPiercing: ");
-    sb.append(piercing);
+    if (piercing > 0) {
+      sb.append("\nPiercing: ");
+      sb.append(piercing);
+    }
 
     return sb.toString();
     
@@ -312,6 +341,53 @@ public class Attack {
 
   public void setAttackType(AttackType attackType) {
     this.attackType = attackType;
+  }
+
+  public byte getEffectOnHit() {
+    return effectOnHit;
+  }
+
+  public void setEffectOnHit(byte effectOnHit) {
+    this.effectOnHit = effectOnHit;
+  }
+
+  public int getEffectLast() {
+    return effectLast;
+  }
+
+  public void setEffectLast(int effectLast) {
+    this.effectLast = effectLast;
+  }
+
+  public int getEffectValue() {
+    return effectValue;
+  }
+
+  public void setEffectValue(int effectValue) {
+    this.effectValue = effectValue;
+  }
+
+  public AttackType getEffectAttackType() {
+    return effectAttackType;
+  }
+
+  public void setEffectAttackType(AttackType effectAttackType) {
+    this.effectAttackType = effectAttackType;
+  }
+  
+  /**
+   * Create item effect when hit to attack
+   * @param item Item used to hit
+   */
+  public void createEffectFromItem(Item item) {
+    if (item.getEffect() == CharEffect.EFFECT_ON_HIT_DISEASE ||
+        item.getEffect() == CharEffect.EFFECT_ON_HIT_POISON ||
+        item.getEffect() == CharEffect.EFFECT_ON_HIT_ENCHANT) {
+      this.setEffectAttackType(item.getEffectAttackType());
+      this.setEffectOnHit(item.getEffect());
+      this.setEffectLast(item.getEffectLasting());
+      this.setEffectValue(item.getEffectValue());
+    }
   }
 
    

@@ -1,8 +1,5 @@
 package org.jheroes.map;
 
-
-
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -39,9 +36,6 @@ import org.jheroes.tileset.Tile;
 import org.jheroes.tileset.TileInfo;
 import org.jheroes.tileset.Tileset;
 import org.jheroes.utilities.StreamUtilities;
-
-
-
 
 
 /**
@@ -1538,6 +1532,27 @@ public class Map {
         if (att.getPiercing()>0) {
           defenser.receiveLethalDamage(att.getPiercing());
           totalDamage = totalDamage+att.getPiercing();
+        }
+        if (att.getEffectOnHit()==CharEffect.EFFECT_ON_HIT_DISEASE ) {
+          CharEffect eff = new CharEffect(attacker.getName()+" disease", 
+              CharEffect.TYPE_DISEASE, att.getEffectLast(), CharEffect.EFFECT_ON_HEALTH,
+              Character.ATTRIBUTE_STRENGTH, -att.getEffectValue(), 75);
+          eff.setAttackType(att.getEffectAttackType());
+          defenser.addEffect(eff);
+        }
+        if (att.getEffectOnHit()==CharEffect.EFFECT_ON_HIT_POISON ) {
+          CharEffect eff = new CharEffect(attacker.getName()+" poison", 
+              CharEffect.TYPE_POISON, att.getEffectLast(), CharEffect.EFFECT_ON_HEALTH,
+              Character.ATTRIBUTE_STRENGTH, -att.getEffectValue(), 75);
+          eff.setAttackType(att.getEffectAttackType());
+          defenser.addEffect(eff);
+        }
+        if (att.getEffectOnHit()==CharEffect.EFFECT_ON_HIT_ENCHANT ) {
+          CharEffect eff = new CharEffect(att.getEffectAttackType().toString()+" damage", 
+              CharEffect.TYPE_ENCHANT, att.getEffectLast(), CharEffect.EFFECT_ON_HEALTH,
+              Character.ATTRIBUTE_STRENGTH, -att.getEffectValue(), 75);
+          eff.setAttackType(att.getEffectAttackType());
+          defenser.addEffect(eff);
         }
         
         if ((totalDamage==0) && (nonLethalDamage==0)) {

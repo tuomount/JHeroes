@@ -2263,6 +2263,7 @@ public class Character extends CharacterAnimation {
     if (firstHand != null) {
       result = calculateDamageForWeapon(firstHand);
       result.setAttackBonus(getEffectiveSkill(firstHand.getWeaponSkill()));
+      result.createEffectFromItem(firstHand);
     } else {
       result = calculateDamageForWeapon(null);      
       result.setAttackBonus(getEffectiveSkill(SKILL_UNARMED));
@@ -2287,6 +2288,7 @@ public class Character extends CharacterAnimation {
     Attack result = new Attack();
     if (firstHand != null) {
       result = calculateDamageForWeapon(firstHand);
+      result.createEffectFromItem(firstHand);
       if (firstHand.isThrowableWeapon()) {
         result.setAttackBonus(getEffectiveSkill(Character.SKILL_RANGED_WEAPONS));
       } else {
@@ -2318,6 +2320,7 @@ public class Character extends CharacterAnimation {
       Attack result = new Attack();
       if (secondHand != null) {
         result = calculateDamageForWeapon(secondHand);
+        result.createEffectFromItem(secondHand);
         if (secondHand.getWeaponSkill() == SKILL_UNARMED) {
           result.setAttackBonus(getEffectiveSkill(secondHand.getWeaponSkill()));
         }
@@ -2826,24 +2829,24 @@ public class Character extends CharacterAnimation {
   }
 
   /**
-   * Retun what character health.
-   * @return String
+   * Return what character health.
+   * @return String never null or empty.
    */
   public String getHealthAsString() {
     int percent = getCurrentHP()*100/getMaxHP();
+    StringBuilder sb = new StringBuilder(25);
     if (percent == 100) {
-      return "Unharmed";
-    }
-    if (percent > 74) {
-      return "Slightly wounded";
-    }
-    if (percent > 50) {
-      return "Wounded";
-    }
-    if (percent > 24) {
-      return "Seriously wounded";
-    }
-    return "Near death";
+      sb.append("Unharmed");
+    } else if (percent > 74) {
+      sb.append("Slightly wounded");
+    } else if (percent > 50) {
+      sb.append("Wounded");
+    } else if (percent > 24) {
+      sb.append("Seriously wounded");
+    } else { sb.append("Near death"); }
+    sb.append(" ");
+    sb.append(poisonedDiseasedOrDamaged());
+    return sb.toString();
   }
 
   public void setExperience(int experience) {
@@ -3170,6 +3173,45 @@ public class Character extends CharacterAnimation {
     
   public int[] getSkills() {
     return skills;
+  }
+  
+  /**
+   * Get string information if character is poisoned, diseased or damaged
+   * from effects.
+   * @return String, never null but can be empty
+   */
+  private String poisonedDiseasedOrDamaged() {
+    StringBuilder sb = new StringBuilder();
+    Iterator<CharEffect> it = activeEffects.getActiveEffects().iterator();
+    boolean first=true;
+    while (it.hasNext()) {
+      CharEffect eff = it.next();
+      if (eff.getEffect() == CharEffect.EFFECT_ON_HEALTH &&
+          eff.getValue() < 0) {
+        if (!first) {
+          sb.append(", ");
+        }
+        first = false;
+        if (eff.getType()==CharEffect.TYPE_DISEASE) {
+          sb.append("sick");
+        }
+        if (eff.getType()==CharEffect.TYPE_POISON) {
+          sb.append("poisoned");
+        }
+        if (eff.getType()==CharEffect.TYPE_ENCHANT) {
+          sb.append(eff.getAttackType().toString());
+          sb.append(" damaged");
+        }
+        switch (this.getRace().damageModifierFor(eff.getAttackType())) {
+        case IMMUNITY: { sb.append("(Immune)"); break;}
+        case RESISTANCE: { sb.append("(Resistance)");break;}
+        case WEAKNESS: {sb.append("(Weakness)");break;}
+        case NORMAL: {break;}
+        }
+
+      }
+    }
+    return sb.toString();
   }
   
   /**

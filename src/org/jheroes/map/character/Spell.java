@@ -194,29 +194,29 @@ public class Spell {
     case Character.SKILL_SORCERY: sb.append("School: Sorcery"); break;
     case Character.SKILL_WIZARDRY: sb.append("School: Wizardy"); break;
     }
-    sb.append("\nSkill Req.: "+minimumSkill);
-    sb.append(" ");
+    sb.append(" Skill Req.: "+minimumSkill);
     if (spellName.equalsIgnoreCase(SpellFactory.SPELL_NAME_POWER_OF_HEALING)) {
+      sb.append("\n");
       sb.append("Bonus on health ");
       sb.append("2 per level");
       sb.append("\nDuration: 1");
       sb.append("\nTarget: Aim");
     }
     if (spellEffect != null) {
-    sb.append(spellEffect.getEffectAsString());
+      sb.append("\n");
+      sb.append(spellEffect.getEffectAsString());
     }
     if (spellAttack != null) {
       if (spellName.equalsIgnoreCase(SpellFactory.SPELL_NAME_SMITE_UNDEAD)) {        
-        sb.append("Damage: 1-6 per level x2");
-        sb.append("\nPiercing: 0");
+        sb.append("\nDamage: 1-6 per level x2");
         sb.append("\nTarget: Aim");
         return sb.toString(); 
       } if (spellName.equalsIgnoreCase(SpellFactory.SPELL_NAME_POWER_OF_DESTRUCTION)) {
-        sb.append("Damage: 1-3 per level x2");
-        sb.append("\nPiercing: 0");
+        sb.append("\nDamage: 1-3 per level x2");
         sb.append("\nTarget: Aim");
         return sb.toString();         
       } else {
+        sb.append("\n");
         sb.append(spellAttack.getAttackAsSpell());
       }
     }

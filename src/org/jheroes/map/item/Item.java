@@ -788,7 +788,13 @@ public class Item {
     StringBuilder sb = new StringBuilder(20);
     int minDam=0;
     int maxDam=0;    
-    sb.append("Damage:");
+    sb.append("Damage");
+    if (this.getAttackType() != AttackType.NORMAL) {
+      sb.append("(");
+      sb.append(this.getAttackType().toString());
+      sb.append(")");
+    }
+    sb.append(":");
     if (isBluntWeapon()) {
       minDam = getMinDamage();
       maxDam = getMaxDamage();
@@ -951,6 +957,19 @@ public class Item {
         sb.append(" by ");
         sb.append(getEffectValue());
         sb.append(".");
+        break;
+      }
+      case CharEffect.EFFECT_ON_HIT_DISEASE:
+      case CharEffect.EFFECT_ON_HIT_POISON:
+      case CharEffect.EFFECT_ON_HIT_ENCHANT:{
+        sb = new StringBuilder(20);
+        sb.append("\n");
+        sb.append(this.getEffectValue());
+        sb.append(" ");
+        sb.append(this.getEffectAttackType().toString());
+        sb.append(" damages for ");
+        sb.append(this.getEffectLasting());
+        sb.append(" turns.");
         break;
       }
       }

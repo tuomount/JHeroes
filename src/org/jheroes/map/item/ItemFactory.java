@@ -2717,7 +2717,7 @@ public class ItemFactory {
       tmp.setEffectAttackType(AttackType.POISON);
     }
     if (index == 275) {
-      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned iron dagger",51);
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned iron dagger",149);
       tmp.setPrice(44);
       tmp.setMinDamage(1);
       tmp.setMaxDamage(3);
@@ -2734,7 +2734,7 @@ public class ItemFactory {
       tmp.setEffectAttackType(AttackType.POISON);
     }
     if (index == 276) {
-      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned steel dagger",50);
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Poisoned steel dagger",149);
       tmp.setPrice(50);
       tmp.setMinDamage(1);
       tmp.setMaxDamage(4);

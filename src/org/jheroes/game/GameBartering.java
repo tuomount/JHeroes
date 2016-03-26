@@ -177,7 +177,7 @@ public class GameBartering extends GamePanel {
       JScrollPane scrollingList = new JScrollPane(pcItems);
       center.add(scrollingList,BorderLayout.CENTER);
       pcItemDesc = new GameTextArea();
-      pcItemDesc.setRows(10);
+      pcItemDesc.setRows(13);
       pcItemDesc.setWrapStyleWord(true);
       pcItemDesc.setLineWrap(true);
       pcItemDesc.setEditable(false);
@@ -189,7 +189,7 @@ public class GameBartering extends GamePanel {
       scrollingList.setBackground(GuiStatics.COLOR_DARK_BROWNISH);
       center.add(scrollingList,BorderLayout.CENTER);
       npcItemDesc = new GameTextArea();
-      npcItemDesc.setRows(10);
+      npcItemDesc.setRows(13);
       npcItemDesc.setWrapStyleWord(true);
       npcItemDesc.setLineWrap(true);
       npcItemDesc.setEditable(false);
