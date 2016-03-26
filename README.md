@@ -11,6 +11,8 @@ Binary version of latest stable Heroes of the Hawks Haven is available on
 * Fixed spell name Wicked Fatique -> Wicked Fatigue
 * Added new graphical effect for QI spells.
 * Races added to engine
+* Added different damage types
+* Monster evaluation on combat 
 
 ## The project
 
