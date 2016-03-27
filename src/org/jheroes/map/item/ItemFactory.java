@@ -330,6 +330,7 @@ public class ItemFactory {
     case 284:{ tmp = createWeapon(index); break;} // Gauntlets of flame
     case 285:{ tmp = createWeapon(index); break;} // Gauntlets of electric
     case 286:{ tmp = createWeapon(index); break;} // Gauntlets of frost
+    case 287:{ tmp = createWeapon(index); break;} // Iron gauntlets
 
     }
     return tmp;
@@ -1374,7 +1375,7 @@ public class ItemFactory {
       tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Steel gauntlets",5);
       tmp.setPrice(40);
       tmp.setMinDamage(2);
-      tmp.setMaxDamage(8);
+      tmp.setMaxDamage(9);
       tmp.setWeight(10);
       tmp.setBluntWeapon(true);
       tmp.setPiercingPower(0);
@@ -1407,13 +1408,13 @@ public class ItemFactory {
       tmp.setCriticalMultiplier(2);
     }
     if (index == 11) {
-      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Spiked gauntlets",11);
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Spiked gauntlets",37);
       tmp.setPrice(45);
       tmp.setMinDamage(2);
-      tmp.setMaxDamage(8);
+      tmp.setMaxDamage(9);
       tmp.setWeight(11);
       tmp.setBluntWeapon(true);
-      tmp.setPiercingPower(1);
+      tmp.setPiercingPower(2);
       tmp.setWeaponSkill(Item.WEAPON_SKILL_UNARMED);
       tmp.setTwoHandedWeapon(true);
       tmp.setCriticalMultiplier(2);
@@ -1446,7 +1447,7 @@ public class ItemFactory {
       tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Bronze gauntlets",17);
       tmp.setPrice(20);
       tmp.setMinDamage(2);
-      tmp.setMaxDamage(6);
+      tmp.setMaxDamage(7);
       tmp.setWeight(8);
       tmp.setBluntWeapon(true);
       tmp.setPiercingPower(0);
@@ -1454,19 +1455,7 @@ public class ItemFactory {
       tmp.setTwoHandedWeapon(true);
       tmp.setCriticalMultiplier(2);
     }
-    if (index == 18) {    if (index == 5) {
-      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Steel gauntlets",5);
-      tmp.setPrice(40);
-      tmp.setMinDamage(2);
-      tmp.setMaxDamage(8);
-      tmp.setWeight(10);
-      tmp.setBluntWeapon(true);
-      tmp.setPiercingPower(0);
-      tmp.setWeaponSkill(Item.WEAPON_SKILL_UNARMED);
-      tmp.setTwoHandedWeapon(true);
-      tmp.setCriticalMultiplier(2);
-    }
-
+    if (index == 18) {    
       tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Pick axe",18);
       tmp.setPrice(30);
       tmp.setMinDamage(1);
@@ -1920,7 +1909,7 @@ public class ItemFactory {
       tmp.setItemStatus(Item.IDENTIFIED_STATUS_UNKNOWN);
       tmp.setPrice(40);
       tmp.setMinDamage(2);
-      tmp.setMaxDamage(8);
+      tmp.setMaxDamage(9);
       tmp.setWeight(15);
       tmp.setBluntWeapon(true);
       tmp.setPiercingPower(0);
@@ -2536,7 +2525,7 @@ public class ItemFactory {
       tmp.setItemStatus(Item.IDENTIFIED_STATUS_UNKNOWN);
       tmp.setPrice(300);
       tmp.setMinDamage(2);
-      tmp.setMaxDamage(8);
+      tmp.setMaxDamage(9);
       tmp.setWeight(11);
       tmp.setBluntWeapon(true);
       tmp.setPiercingPower(2);
@@ -2553,7 +2542,7 @@ public class ItemFactory {
       tmp.setItemStatus(Item.IDENTIFIED_STATUS_UNKNOWN);
       tmp.setPrice(300);
       tmp.setMinDamage(2);
-      tmp.setMaxDamage(8);
+      tmp.setMaxDamage(9);
       tmp.setMinMagicDamage(1);
       tmp.setMaxMagicDamage(4);
       tmp.setWeight(11);
@@ -2872,7 +2861,7 @@ public class ItemFactory {
       tmp.setItemStatus(Item.IDENTIFIED_STATUS_UNKNOWN);
       tmp.setPrice(250);
       tmp.setMinDamage(1);
-      tmp.setMaxDamage(4);
+      tmp.setMaxDamage(5);
       tmp.setMinMagicDamage(1);
       tmp.setMaxMagicDamage(6);
       tmp.setWeight(10);
@@ -2889,7 +2878,7 @@ public class ItemFactory {
       tmp.setItemStatus(Item.IDENTIFIED_STATUS_UNKNOWN);
       tmp.setPrice(250);
       tmp.setMinDamage(1);
-      tmp.setMaxDamage(4);
+      tmp.setMaxDamage(5);
       tmp.setMinMagicDamage(1);
       tmp.setMaxMagicDamage(6);
       tmp.setWeight(10);
@@ -2906,15 +2895,27 @@ public class ItemFactory {
       tmp.setItemStatus(Item.IDENTIFIED_STATUS_UNKNOWN);
       tmp.setPrice(250);
       tmp.setMinDamage(1);
-      tmp.setMaxDamage(4);
+      tmp.setMaxDamage(5);
       tmp.setMinMagicDamage(1);
       tmp.setMaxMagicDamage(6);
       tmp.setWeight(10);
       tmp.setPiercingPower(0);
       tmp.setWeaponSkill(Item.WEAPON_SKILL_UNARMED);
       tmp.setTwoHandedWeapon(true);
-      tmp.setCriticalMultiplier(3);
+      tmp.setCriticalMultiplier(2);
       tmp.setAttackType(AttackType.ICE);
+    }
+    if (index == 287) {
+      tmp = new Item(index,Item.TYPE_ITEM_WEAPON,"Iron gauntlets",11);
+      tmp.setPrice(30);
+      tmp.setMinDamage(2);
+      tmp.setMaxDamage(8);
+      tmp.setWeight(8);
+      tmp.setBluntWeapon(true);
+      tmp.setPiercingPower(0);
+      tmp.setWeaponSkill(Item.WEAPON_SKILL_UNARMED);
+      tmp.setTwoHandedWeapon(true);
+      tmp.setCriticalMultiplier(2);
     }
 
     

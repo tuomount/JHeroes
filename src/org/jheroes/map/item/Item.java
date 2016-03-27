@@ -801,7 +801,7 @@ public class Item {
       minDam=minDam/2;
       maxDam=maxDam/2;
       int minLetDam = minDam;
-      int maxLetDam = maxDam;
+      int maxLetDam = maxDam+getMaxDamage() % 2;
       if (getItemStatus()==IDENTIFIED_STATUS_KNOWN) {
         minLetDam = minLetDam+getMinMagicDamage();
         maxLetDam = maxLetDam+getMaxMagicDamage();      

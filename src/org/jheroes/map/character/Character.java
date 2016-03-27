@@ -1984,6 +1984,8 @@ public class Character extends CharacterAnimation {
     int bonusDamage = getBonusDamageFromStrength();
     int minDamage = 0;
     int maxDamage = 0;
+    // Max damage is odd on blunt weapon
+    int oddBluntWeapon = 0;
     Attack result = new Attack();
     if (target != null) {
      result.setAttackType(target.getAttackType()); 
@@ -2027,9 +2029,16 @@ public class Character extends CharacterAnimation {
        minDamage = target.getMinDamage()+bonusDamage;
        maxDamage = target.getMaxDamage()+bonusDamage;
      }
+     
      if (target.isBluntWeapon()) {
-       minDamage = minDamage /2+bonusDamage/2;
-       maxDamage = maxDamage /2+bonusDamage/2;
+       oddBluntWeapon = target.getMaxDamage() % 2;
+       if (target.getWeaponSkill() == SKILL_RANGED_WEAPONS) {
+         minDamage = target.getMinDamage()/2+getBonusDamageFromAgility();
+         maxDamage = target.getMaxDamage()/2+getBonusDamageFromAgility();
+       } else {
+         minDamage = target.getMinDamage()/2+bonusDamage;
+         maxDamage = target.getMaxDamage()/2+bonusDamage;
+       }
        if (minDamage == 0) {
          minDamage = 1;
        }
@@ -2052,7 +2061,7 @@ public class Character extends CharacterAnimation {
        result.setMaxStaminaDamage(maxDamage);
      }
      result.setMinLethalDamage(minDamage+target.getMinMagicDamage());
-     result.setMaxLethalDamage(maxDamage+target.getMaxMagicDamage());
+     result.setMaxLethalDamage(maxDamage+target.getMaxMagicDamage()+oddBluntWeapon);
      result.setPiercing(target.getPiercingPower());
      int critMult = target.getCriticalMultiplier();
      if ((target.getWeaponSkill() != SKILL_RANGED_WEAPONS) &&
