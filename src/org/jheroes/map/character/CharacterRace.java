@@ -518,4 +518,18 @@ public enum CharacterRace {
     }
     return DEFAULT;
   }
+  
+  /**
+   * Does this race need to rest. If it does not take damage
+   * from non-lethal there is no need to rest. For example undeads do not
+   * rest.
+   * @return true if no need to rest.
+   */
+  public boolean noNeedToRestNever() {
+    if (this.damageModifierForNonLethal()==DamageModifier.IMMUNITY) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

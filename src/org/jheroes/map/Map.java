@@ -1682,8 +1682,8 @@ public class Map {
   private int NPCattackTask(Character npc,CharTask task, Character target) {
     boolean combatContinue = false; 
     int direction = DIRECTION_NONE;
-    if ((npc.getCurrentSP() < npc.getAttackStaminaCost()) ||
-        (npc.getCurrentSP() < 5)){
+    if ((npc.getCurrentSP() < npc.getAttackStaminaCost() ||
+        npc.getCurrentSP() < 5) && !npc.getRace().noNeedToRestNever()){
           npc.getStaminaInRestTurn();
           party.addLogText(npc.getName()+" catches a breath.");
           direction = DIRECTION_ATTACK;
