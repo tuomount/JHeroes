@@ -1056,6 +1056,12 @@ Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad,
 + By Tuomo Untinen
 : Bridge repair kit :
 + By Tuomo Untinen
+: Poisoned dagger, mace, spear and shurikens :
++ By Tuomo Untinen
+: Fire, electric and ice gauntlets :
++ by Johannes Sjölund AKA Wulax
++ Modified by Tuomo Untinen
+
 
 : Look cursor, cast cursor, attack cursor, use cursor and talk cursor :
 + By Tuomo Untinen
