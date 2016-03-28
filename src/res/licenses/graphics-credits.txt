@@ -1081,6 +1081,8 @@ Male and female orc heads by MadMarcel and based on Stephen Challener's Sinbad,
 : Eating speech bubble :
 + Original meat By Jetrel
 + Adaptation by Tuomo Untinen
+: Evaluate cursor :
++ By Tuomo Untinen
 
 : Faces art :
 Art by Charles Gabriel. Commissioned by OpenGameArt.org (http://opengameart.org)

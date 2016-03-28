@@ -1027,6 +1027,8 @@ effects.png
 = Eating speech bubble =
 * Original meat By Jetrel
 * Adaptation by Tuomo Untinen
+= Evaluate cursor =
+* By Tuomo Untinen
 
 faces.png
 0: Art by Charles Gabriel. Commissioned by OpenGameArt.org (http://opengameart.org)
