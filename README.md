@@ -13,6 +13,7 @@ Binary version of latest stable Heroes of the Hawks Haven is available on
 * Races added to engine
 * Added different damage types
 * Monster evaluation on combat 
+* Mouse support on game map
 
 ## The project
 
