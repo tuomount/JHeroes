@@ -38,6 +38,7 @@ import org.jheroes.gui.buttons.GameButton;
 import org.jheroes.gui.buttons.ImageGameButton;
 import org.jheroes.gui.buttons.MenuButton;
 import org.jheroes.gui.labels.CharacterLabel;
+import org.jheroes.gui.labels.CreditsTextArea;
 import org.jheroes.gui.labels.GameLabel;
 import org.jheroes.gui.labels.GameLogArea;
 import org.jheroes.gui.labels.GameTextArea;
@@ -215,7 +216,7 @@ public class Game extends JFrame implements ActionListener {
   private GamePanel mainMenuPanel;
   private GamePanel optionsMenuPanel;
   private GamePanel creditsPanel;
-  private GameTextArea creditsTextArea;
+  private CreditsTextArea creditsTextArea;
   private GamePanel gamePanels;
   private GamePanel partyPanel;
   private GameSearchPanel searchPanel;
@@ -667,7 +668,7 @@ public class Game extends JFrame implements ActionListener {
     creditsPanel = new GamePanel(true);
     creditsPanel.setGradientColor(GuiStatics.GRADIENT_COLOR_BLUE);
     creditsPanel.setLayout(new BorderLayout());
-    creditsTextArea = new GameTextArea(creditsText);
+    creditsTextArea = new CreditsTextArea(creditsText);
     creditsTextArea.setEditable(false);
     creditsTextArea.setScrollText(creditsText, 38);
     creditsTextArea.setSmoothScroll(true);
