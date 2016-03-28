@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -72,6 +75,9 @@ import org.jheroes.musicplayer.MusicPlayer;
 import org.jheroes.musicplayer.OggPlayer;
 import org.jheroes.soundplayer.SoundPlayer;
 import org.jheroes.talk.Talk;
+import org.jheroes.tileset.Tile;
+import org.jheroes.tileset.TileInfo;
+import org.jheroes.utilities.PixelsToMapCoordinate;
 import org.jheroes.utilities.StreamUtilities;
 
 
@@ -297,7 +303,7 @@ public class Game extends JFrame implements ActionListener {
     UIManager.put("SliderUI", GameSliderUI.class.getName());
     setTitle(GAME_TITLE+" "+GAME_VERSION);
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);         
-    addWindowListener(new TWindowListener());
+    addWindowListener(new MainWindowListener());
     // Seems that Mac OS and Windows has title bar counted into JFRAME size
     // So adding 20 pixels more
     String os = System.getProperty("os.name");
@@ -944,6 +950,10 @@ public class Game extends JFrame implements ActionListener {
     gamePanels.setGradientColor(GuiStatics.GRADIENT_COLOR_BLUE); 
     gamePanels.setLayout(new BoxLayout(gamePanels, BoxLayout.LINE_AXIS));
     mapPanel = new MapPanel();
+    //TODO Uncomment these to enable early version of mouse support
+/*    MapMouseListener mouseListener = new MapMouseListener();
+    mapPanel.addMouseListener(mouseListener);
+    mapPanel.addMouseMotionListener(mouseListener);*/
     gamePanels.add(mapPanel);
     mapPanel.drawMap(map, party.getActiveChar().getX(),
         party.getActiveChar().getY(), party.isDay(),true);
@@ -3713,6 +3723,101 @@ public class Game extends JFrame implements ActionListener {
     
   }
 
+  /**
+   * Move character up in combat or non combat
+   */
+  public void moveCharacterUp() {
+    Character chr = party.getActiveChar();
+    int x = chr.getX();
+    int y = chr.getY();
+    y--;
+    int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
+    if (hit ==-1) {
+      chr.doMove(x, y);
+      playerMakesAMove();
+    } else {
+      if ((hit != 999) && (!party.isCombat())) {
+        Character target = party.getPartyChar(hit);
+        if (target != null) {
+          target.doMove(chr.getX(), chr.getY());
+          chr.doMove(x, y);
+          playerMakesAMove();
+        }
+      }
+    }
+  }
+  
+  /**
+   * Move character down in combat or non combat
+   */
+  public void moveCharacterDown() {
+    Character chr = party.getActiveChar();
+    int x = chr.getX();
+    int y = chr.getY();
+    y++;
+    int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
+    if (hit ==-1) {
+      chr.doMove(x, y);
+      playerMakesAMove();
+    } else {
+      if ((hit != 999) && (!party.isCombat())) {
+        Character target = party.getPartyChar(hit);
+        if (target != null) {
+          target.doMove(chr.getX(), chr.getY());
+          chr.doMove(x, y);
+          playerMakesAMove();
+        }
+      }
+    }
+  }
+  
+  /**
+   * Move character left in combat or non combat
+   */
+  public void moveCharacterLeft() {
+    Character chr = party.getActiveChar();
+    int x = chr.getX();
+    int y = chr.getY();
+    x--;
+    int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
+    if (hit ==-1) {
+      chr.doMove(x, y);
+      playerMakesAMove();
+    } else {
+      if ((hit != 999) && (!party.isCombat())) {
+        Character target = party.getPartyChar(hit);
+        if (target != null) {
+          target.doMove(chr.getX(), chr.getY());
+          chr.doMove(x, y);
+          playerMakesAMove();
+        }
+      }
+    }
+  }
+
+  /**
+   * Move character right in combat or non combat
+   */
+  public void moveCharacterRight() {
+    Character chr = party.getActiveChar();
+    int x = chr.getX();
+    int y = chr.getY();
+    x++;
+    int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
+    if (hit ==-1) {
+      chr.doMove(x, y);
+      playerMakesAMove();
+    } else {
+      if ((hit != 999) && (!party.isCombat())) {
+        Character target = party.getPartyChar(hit);
+        if (target != null) {
+          target.doMove(chr.getX(), chr.getY());
+          chr.doMove(x, y);
+          playerMakesAMove();
+        }
+      }
+    }
+  }
 
   /**
    * New keyboard adapter for game
@@ -3754,84 +3859,16 @@ public class Game extends JFrame implements ActionListener {
     private void keyPressedInGameNotCursorMode(int key) {
       if (turnReady != TURN_MOVES_DONE) {
         if (key == KeyEvent.VK_UP) {
-          Character chr = party.getActiveChar();
-          int x = chr.getX();
-          int y = chr.getY();
-          y--;
-          int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
-          if (hit ==-1) {
-            chr.doMove(x, y);
-            playerMakesAMove();
-          } else {
-            if ((hit != 999) && (!party.isCombat())) {
-              Character target = party.getPartyChar(hit);
-              if (target != null) {
-                target.doMove(chr.getX(), chr.getY());
-                chr.doMove(x, y);
-                playerMakesAMove();
-              }
-            }
-          }
+          moveCharacterUp();
         }
         if (key == KeyEvent.VK_DOWN) {
-          Character chr = party.getActiveChar();
-          int x = chr.getX();
-          int y = chr.getY();
-          y++;
-          int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
-          if (hit ==-1) {
-            chr.doMove(x, y);
-            playerMakesAMove();
-          } else {
-            if ((hit != 999) && (!party.isCombat())) {
-              Character target = party.getPartyChar(hit);
-              if (target != null) {
-                target.doMove(chr.getX(), chr.getY());
-                chr.doMove(x, y);
-                playerMakesAMove();
-              }
-            }
-          }
+          moveCharacterDown();
         }
         if (key == KeyEvent.VK_LEFT) {
-          Character chr = party.getActiveChar();
-          int x = chr.getX();
-          int y = chr.getY();
-          x--;
-          int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
-          if (hit ==-1) {
-            chr.doMove(x, y);
-            playerMakesAMove();
-          } else {
-            if ((hit != 999) && (!party.isCombat())) {
-              Character target = party.getPartyChar(hit);
-              if (target != null) {
-                target.doMove(chr.getX(), chr.getY());
-                chr.doMove(x, y);
-                playerMakesAMove();
-              }
-            }
-          }
+          moveCharacterLeft();
         }
         if (key == KeyEvent.VK_RIGHT) {
-          Character chr = party.getActiveChar();
-          int x = chr.getX();
-          int y = chr.getY();
-          x++;
-          int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
-          if (hit ==-1) {
-            chr.doMove(x, y);
-            playerMakesAMove();
-          } else {
-            if ((hit != 999) && (!party.isCombat())) {
-              Character target = party.getPartyChar(hit);
-              if (target != null) {
-                target.doMove(chr.getX(), chr.getY());
-                chr.doMove(x, y);
-                playerMakesAMove();
-              }
-            }
-          }
+          moveCharacterRight();
         }
         if (key == KeyEvent.VK_P) {
           Character chr = party.getActiveChar();
@@ -4687,47 +4724,57 @@ public class Game extends JFrame implements ActionListener {
     }
   }
   
-  class TWindowListener extends WindowAdapter{
+  class MapMouseListener extends MouseAdapter implements MouseMotionListener{
+
     
     @Override
-    public void windowOpened(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
+    public void mouseClicked(MouseEvent e) {
+      PixelsToMapCoordinate coord= new PixelsToMapCoordinate(map.getLastDrawnX(),
+          map.getLastDrawnY(),e.getX(),e.getY(),
+          party.getActiveChar().getX(),party.getActiveChar().getY());
+      int height = mapPanel.getSize().height;
+      int width = mapPanel.getSize().width;
+      int x = e.getX();
+      int y = e.getY();
+      System.out.println("SX: "+width+" SY:"+height+" X:"+x+" Y:"+y);
+      if (!coord.isOutOfPanel()) {
+        System.out.println("MX:"+coord.getMapX()+" MY:"+coord.getMapY());
+      }
+      if (turnReady != TURN_MOVES_DONE && !coord.isOutOfPanel() &&
+          !map.isCursorMode() && playingEvent == null && searchPanel == null
+           && (spellPanel == null) && travelPanel == null) {
+        switch (coord.getDirection()) {
+        case Map.NORTH_DIRECTION_UP: { moveCharacterUp();break;}
+        case Map.NORTH_DIRECTION_DOWN: { moveCharacterDown();break;}
+        case Map.NORTH_DIRECTION_LEFT: { moveCharacterLeft();break;}
+        case Map.NORTH_DIRECTION_RIGHT: { moveCharacterRight();break;}
+        }
+      }
+    }
+
+
+    public void mouseMoved(MouseEvent e) {
+      if (map.isCursorMode()) {
+        PixelsToMapCoordinate coord= new PixelsToMapCoordinate(map.getLastDrawnX(),
+            map.getLastDrawnY(),e.getX(),e.getY(),
+            party.getActiveChar().getX(),party.getActiveChar().getY());
+        if (!coord.isOutOfPanel()) {
+          map.setCursorX(coord.getMapX());
+          map.setCursorY(coord.getMapY());
+        }
+        
+      }
     }
     
-    @Override
-    public void windowIconified(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
-    }
-    
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
-    }
-    
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
-    }
+  }
+  
+  class MainWindowListener extends WindowAdapter{
     
     @Override
     public void windowClosing(WindowEvent e) {      
       closeGame();
     }
     
-    @Override
-    public void windowClosed(WindowEvent e) {
-      // TODO Auto-generated method stub
-    }
-    
-    @Override
-    public void windowActivated(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
-    } 
  }
 
   public void closeGame() {
