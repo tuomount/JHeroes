@@ -147,6 +147,8 @@ public class ActionCommands {
   public static final String GAME_TRAVEL_YES = "TravelYes";
   public static final String GAME_TRAVEL_NO = "TravelNo";
   
+  public static final String GAME_BACK_TO_MAIN_MENU ="GoBackToMainMenu";
+  
   public static final String SHEET_NEXT_CHAR = "SheetNextChar";
   public static final String SHEET_PREV_CHAR = "SheetPrevChar";
   public static final String SHEET_BACK_TO_GAME = "SheetBackToGame";

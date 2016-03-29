@@ -229,6 +229,7 @@ public class Game extends JFrame implements ActionListener {
   private Spell castingSpell;
   private int usedItemIndex;
   private MapPanel mapPanel;
+  private GamePanel gameButtonPanel;
   private GameCharacterSheet charSheetPanel;
   private GameTalk gameTalkPanel;
   private GameJournal gameJournalPanel;
@@ -324,7 +325,10 @@ public class Game extends JFrame implements ActionListener {
     if (noExtraSize) {
       extraSize = 0;
     }
-    setSize(950, 700+extraSize);
+    //TODO: Add 60 pixels more for buttons
+//    int screenWidth = 1010;
+    int screenWidth = 950;
+    setSize(screenWidth, 700+extraSize);
     setLocationRelativeTo(null);
     setResizable(false);
     genericTimer = new Timer(75,this);
@@ -350,7 +354,7 @@ public class Game extends JFrame implements ActionListener {
     // Final tuning for screen size just for safe
     if (this.getInsets().top > 1 && extraSize == 0) {
       extraSize = 20;
-      setSize(920, 700+20);
+      setSize(screenWidth, 700+20);
     }
   }
   
@@ -943,10 +947,31 @@ public class Game extends JFrame implements ActionListener {
     this.validate();
   }
   
+  private void createGameButtonPanel() {
+    gameButtonPanel = new GamePanel(true);
+    gameButtonPanel.setLayout(new BoxLayout(gameButtonPanel, BoxLayout.PAGE_AXIS));
+    ImageGameButton button = new ImageGameButton(GuiStatics.IMAGE_MENU_BUTTON,
+        GuiStatics.IMAGE_MENU_BUTTON_PRESS, false, 
+        "FFFFF");//ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    gameButtonPanel.add(new ImageGameButton(GuiStatics.IMAGE_QUEST_ACTIVE, GuiStatics.IMAGE_QUEST_DONE, true, "ATTACK"));
+    gameButtonPanel.add(new ImageGameButton(GuiStatics.IMAGE_QUEST_ACTIVE, GuiStatics.IMAGE_QUEST_DONE, true, "ATTACK"));
+    gameButtonPanel.add(new ImageGameButton(GuiStatics.IMAGE_QUEST_ACTIVE, GuiStatics.IMAGE_QUEST_DONE, true, "SINGLEATTACK"));
+  }
+  
+  /**
+   * Show game panels with map
+   */
   public void showGamePanels() {
     gamePanels = new GamePanel(false);
     gamePanels.setGradientColor(GuiStatics.GRADIENT_COLOR_BLUE); 
     gamePanels.setLayout(new BoxLayout(gamePanels, BoxLayout.LINE_AXIS));
+    //TODO: Testing button panel
+//    createGameButtonPanel();
+    if (gameButtonPanel != null) {
+      gamePanels.add(gameButtonPanel);
+    }
     mapPanel = new MapPanel();
     MapMouseListener mouseListener = new MapMouseListener();
     mapPanel.addMouseListener(mouseListener);
@@ -2716,6 +2741,9 @@ public class Game extends JFrame implements ActionListener {
         }
         changeState(GAME_STATE_CHARACTER_SHEET);
       }
+    }
+    if (ActionCommands.GAME_BACK_TO_MAIN_MENU.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeState(GAME_STATE_MAINMENU);
     }
   }
   

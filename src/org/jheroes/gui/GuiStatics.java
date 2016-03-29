@@ -136,6 +136,12 @@ GuiStatics.class.getResource("/res/images/scrollArrowRight_press.png"));
   public final static BufferedImage IMAGE_LEVEL_UP = loadImage(
   GuiStatics.class.getResource("/res/images/levelup.png"));
 
+  public final static BufferedImage IMAGE_MENU_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/menuBtn.png"));
+
+  public final static BufferedImage IMAGE_MENU_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/menuBtn_press.png"));
+
 
   public final static BufferedImage IMAGE_PLUS = loadImage(
   GuiStatics.class.getResource("/res/images/plus.png"));

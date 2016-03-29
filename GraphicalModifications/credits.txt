@@ -1035,6 +1035,9 @@ effects.png
 = Evaluate cursor =
 * By Tuomo Untinen
 
+gamebuttons.xcf
+* By Tuomo Untinen
+
 faces.png
 0: Art by Charles Gabriel. Commissioned by OpenGameArt.org (http://opengameart.org)
 1: Portrait graphics created by RPG Action, http://peterlzy.wix.com/rpgaction, Graphics designed by ZeNeRIA29, http://zeneria29.deviantart.com/
