@@ -1,5 +1,6 @@
 package org.jheroes.utilities;
 
+import org.jheroes.map.DiceGenerator;
 import org.jheroes.map.Map;
 import org.jheroes.tileset.Tile;
 
@@ -164,7 +165,7 @@ public class PixelsToMapCoordinate {
         } else {
           return -1;
         }
-      } else {
+      } else if (Math.abs(dx)<Math.abs(dy)) {
         if (dy > 0) {
           return Map.NORTH_DIRECTION_DOWN;
         } else if (dy < 0) {
@@ -172,10 +173,31 @@ public class PixelsToMapCoordinate {
         } else {
           return -1;
         }        
-      }
+      } else if (dx < 0 && dy < 0) {
+         switch (DiceGenerator.getRandom(1)) {
+         case 0: return Map.NORTH_DIRECTION_UP;
+         case 1: return Map.NORTH_DIRECTION_LEFT;
+         }
+      } else if (dx > 0 && dy < 0) {
+        switch (DiceGenerator.getRandom(1)) {
+        case 0: return Map.NORTH_DIRECTION_UP;
+        case 1: return Map.NORTH_DIRECTION_RIGHT;
+        }
+      } else if (dx > 0 && dy > 0) {
+        switch (DiceGenerator.getRandom(1)) {
+        case 0: return Map.NORTH_DIRECTION_DOWN;
+        case 1: return Map.NORTH_DIRECTION_RIGHT;
+        }
+      } else if (dx < 0 && dy > 0) {
+        switch (DiceGenerator.getRandom(1)) {
+        case 0: return Map.NORTH_DIRECTION_DOWN;
+        case 1: return Map.NORTH_DIRECTION_LEFT;
+        }
+      } 
     }else {
       return -1;
     }
+    return -1;
   }
   
 
