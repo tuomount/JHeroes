@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JToolTip;
 import javax.swing.border.EtchedBorder;
 
 import org.jheroes.gui.GuiStatics;
@@ -121,6 +122,15 @@ public class ImageGameButton extends JButton {
     
   }
 
+  @Override
+  public JToolTip createToolTip()
+  {
+      JToolTip toolTip = super.createToolTip();
+      toolTip.setForeground(GuiStatics.COLOR_GOLD);
+      toolTip.setBackground(GuiStatics.COLOR_BLACK);
+      toolTip.setBorder(BorderFactory.createLineBorder(GuiStatics.COLOR_GOLD_DARK));
+      return toolTip;
+  }
 
   public void setNotPressedImage(BufferedImage notPressedImage) {
     this.notPressedImage = notPressedImage;

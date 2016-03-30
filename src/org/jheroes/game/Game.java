@@ -326,7 +326,7 @@ public class Game extends JFrame implements ActionListener {
       extraSize = 0;
     }
     //TODO: Add 60 pixels more for buttons
-//    int screenWidth = 1010;
+    //int screenWidth = 1010;
     int screenWidth = 950;
     setSize(screenWidth, 700+extraSize);
     setLocationRelativeTo(null);
@@ -950,14 +950,68 @@ public class Game extends JFrame implements ActionListener {
   private void createGameButtonPanel() {
     gameButtonPanel = new GamePanel(true);
     gameButtonPanel.setLayout(new BoxLayout(gameButtonPanel, BoxLayout.PAGE_AXIS));
-    ImageGameButton button = new ImageGameButton(GuiStatics.IMAGE_MENU_BUTTON,
-        GuiStatics.IMAGE_MENU_BUTTON_PRESS, false, 
-        "FFFFF");//ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    ImageGameButton button = new ImageGameButton(GuiStatics.IMAGE_HELP_BUTTON,
+        GuiStatics.IMAGE_HELP_BUTTON_PRESS, false, 
+        ActionCommands.GAME_HELP);
+    button.addActionListener(this);
+    button.setToolTipText("Show game help");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_FULL_ATTACK_BUTTON,
+        GuiStatics.IMAGE_FULL_ATTACK_BUTTON_PRESS, false, 
+        ActionCommands.GAME_FULL_ATTACK);
+    button.addActionListener(this);
+    button.setToolTipText("Full attack");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_SINGLE_ATTACK_BUTTON,
+        GuiStatics.IMAGE_SINGLE_ATTACK_BUTTON_PRESS, false, 
+        ActionCommands.GAME_BACK_TO_MAIN_MENU);
     button.addActionListener(this);
     gameButtonPanel.add(button);
-    gameButtonPanel.add(new ImageGameButton(GuiStatics.IMAGE_QUEST_ACTIVE, GuiStatics.IMAGE_QUEST_DONE, true, "ATTACK"));
-    gameButtonPanel.add(new ImageGameButton(GuiStatics.IMAGE_QUEST_ACTIVE, GuiStatics.IMAGE_QUEST_DONE, true, "ATTACK"));
-    gameButtonPanel.add(new ImageGameButton(GuiStatics.IMAGE_QUEST_ACTIVE, GuiStatics.IMAGE_QUEST_DONE, true, "SINGLEATTACK"));
+    button = new ImageGameButton(GuiStatics.IMAGE_CAST_SPELL_BUTTON,
+        GuiStatics.IMAGE_CAST_SPELL_BUTTON_PRESS, false, 
+        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_EVALUATE_BUTTON,
+        GuiStatics.IMAGE_EVALUATE_BUTTON_PRESS, false, 
+        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_WAIT_BUTTON,
+        GuiStatics.IMAGE_WAIT_BUTTON_PRESS, false, 
+        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_LOOK_BUTTON,
+        GuiStatics.IMAGE_LOOK_BUTTON_PRESS, false, 
+        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_SEARCH_BUTTON,
+        GuiStatics.IMAGE_SEARCH_BUTTON_PRESS, false, 
+        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    //TODO: Add Pick up button here
+    button = new ImageGameButton(GuiStatics.IMAGE_INVENTORY_BUTTON,
+        GuiStatics.IMAGE_INVENTORY_BUTTON_PRESS, false, 
+        ActionCommands.GAME_INVENTORY);
+    button.addActionListener(this);
+    button.setToolTipText("Show character inventory");
+    gameButtonPanel.add(button);
+    //TODO: Add Talk button here
+    //TODO: Add Journal button here
+    button = new ImageGameButton(GuiStatics.IMAGE_REST_BUTTON,
+        GuiStatics.IMAGE_REST_BUTTON_PRESS, false, 
+        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_MENU_BUTTON,
+        GuiStatics.IMAGE_MENU_BUTTON_PRESS, false, 
+        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    button.addActionListener(this);
+    button.setToolTipText("Go back to main menu");
+    gameButtonPanel.add(button);
   }
   
   /**
@@ -968,7 +1022,7 @@ public class Game extends JFrame implements ActionListener {
     gamePanels.setGradientColor(GuiStatics.GRADIENT_COLOR_BLUE); 
     gamePanels.setLayout(new BoxLayout(gamePanels, BoxLayout.LINE_AXIS));
     //TODO: Testing button panel
-//    createGameButtonPanel();
+    //createGameButtonPanel();
     if (gameButtonPanel != null) {
       gamePanels.add(gameButtonPanel);
     }
@@ -2745,6 +2799,29 @@ public class Game extends JFrame implements ActionListener {
     if (ActionCommands.GAME_BACK_TO_MAIN_MENU.equalsIgnoreCase(arg0.getActionCommand())) {
         changeState(GAME_STATE_MAINMENU);
     }
+    
+    if (!map.isCursorMode() && (searchPanel == null) && (spellPanel == null) &&
+        (travelPanel == null) && (playingEvent == null)) {
+      // Actions start here
+      if (ActionCommands.GAME_INVENTORY.equalsIgnoreCase(arg0.getActionCommand())
+          && turnReady != TURN_MOVES_DONE) {        
+        charSheetPanel = new GameCharacterSheet(map, party, party.getActiveCharIndex(),
+            GameCharacterSheet.SELECTED_TAB_INVENTORY, this);
+        changeState(GAME_STATE_CHARACTER_SHEET);
+      }
+      if (ActionCommands.GAME_FULL_ATTACK.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeAttackCursormode(Map.CURSOR_MODE_ATTACK);
+      }
+      //TODO: Add mouse buttons here
+      
+    }
+
+    if (ActionCommands.GAME_HELP.equalsIgnoreCase(arg0.getActionCommand()) && 
+        (playingEvent == null) && (travelPanel == null) && (spellPanel == null)) {
+      gameHelpPanel = new GameHelp(this);
+      changeState(GAME_STATE_GAME_HELP);
+    }
+
   }
   
   /**
@@ -4364,6 +4441,32 @@ public class Game extends JFrame implements ActionListener {
     
   }
 
+  public void changeAttackCursormode(int attackMode){
+    if (attackMode == Map.CURSOR_MODE_ATTACK || 
+        attackMode == Map.CURSOR_MODE_SINGLE_ATTACK) {
+      if (!map.isCursorMode()) {
+        Character chr = party.getActiveChar();
+        if (!chr.isPacified()) {
+          map.setCursorMode(attackMode);         
+          map.setCursorX(chr.getX());
+          map.setCursorY(chr.getY());
+        } else {
+          party.addLogText(chr.getName()+" is pacified and cannot attack!");
+        }
+      } else {
+        if (map.getCursorMode() == Map.CURSOR_MODE_SINGLE_ATTACK &&
+            attackMode == Map.CURSOR_MODE_ATTACK) {
+          map.setCursorMode(Map.CURSOR_MODE_ATTACK);
+        } else if (map.getCursorMode() == Map.CURSOR_MODE_SINGLE_ATTACK &&
+            attackMode == Map.CURSOR_MODE_SINGLE_ATTACK) {
+          map.setCursorMode(Map.CURSOR_MODE_SINGLE_ATTACK);
+        } else {
+          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+        }
+      }
+
+    }
+  }
   
   /**
    * New keyboard adapter for game
@@ -4700,40 +4803,10 @@ public class Game extends JFrame implements ActionListener {
         }
       }
       if (key == KeyEvent.VK_A) {
-        if (!map.isCursorMode()) {
-          Character chr = party.getActiveChar();
-          if (!chr.isPacified()) {
-            map.setCursorMode(Map.CURSOR_MODE_ATTACK);         
-            map.setCursorX(chr.getX());
-            map.setCursorY(chr.getY());
-          } else {
-            party.addLogText(chr.getName()+" is pacified and cannot attack!");
-          }
-        } else {
-          if (map.getCursorMode() == Map.CURSOR_MODE_SINGLE_ATTACK) {
-            map.setCursorMode(Map.CURSOR_MODE_ATTACK);
-          } else {
-            map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-          }
-        }
+        changeAttackCursormode(Map.CURSOR_MODE_ATTACK);
       }
       if (key == KeyEvent.VK_Z) {
-        if (!map.isCursorMode()) {
-          Character chr = party.getActiveChar();
-          if (!chr.isPacified()) {
-            map.setCursorMode(Map.CURSOR_MODE_SINGLE_ATTACK);         
-            map.setCursorX(chr.getX());
-            map.setCursorY(chr.getY());
-          } else {
-            party.addLogText(chr.getName()+" is pacified and cannot attack!");
-          }
-        } else {
-          if (map.getCursorMode() == Map.CURSOR_MODE_ATTACK) {
-            map.setCursorMode(Map.CURSOR_MODE_SINGLE_ATTACK);
-          } else {
-            map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-          }
-        }
+        changeAttackCursormode(Map.CURSOR_MODE_SINGLE_ATTACK);
       }
     }
     
