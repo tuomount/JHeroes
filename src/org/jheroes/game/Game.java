@@ -964,17 +964,20 @@ public class Game extends JFrame implements ActionListener {
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_SINGLE_ATTACK_BUTTON,
         GuiStatics.IMAGE_SINGLE_ATTACK_BUTTON_PRESS, false, 
-        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+        ActionCommands.GAME_SINGLE_ATTACK);
     button.addActionListener(this);
+    button.setToolTipText("Single attack with main attack");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_CAST_SPELL_BUTTON,
         GuiStatics.IMAGE_CAST_SPELL_BUTTON_PRESS, false, 
-        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+        ActionCommands.GAME_CAST_SPELL);
     button.addActionListener(this);
+    button.setToolTipText("Cast spells if character is able");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_EVALUATE_BUTTON,
         GuiStatics.IMAGE_EVALUATE_BUTTON_PRESS, false, 
-        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+        ActionCommands.GAME_EVALUATE);
+    button.setToolTipText("Try to evaluate enemy. Evaluating takes one turn.");
     button.addActionListener(this);
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_WAIT_BUTTON,
@@ -984,13 +987,15 @@ public class Game extends JFrame implements ActionListener {
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_LOOK_BUTTON,
         GuiStatics.IMAGE_LOOK_BUTTON_PRESS, false, 
-        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+        ActionCommands.GAME_LOOK);
     button.addActionListener(this);
+    button.setToolTipText("Look and examine the world");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_SEARCH_BUTTON,
         GuiStatics.IMAGE_SEARCH_BUTTON_PRESS, false, 
-        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+        ActionCommands.GAME_SEARCH);
     button.addActionListener(this);
+    button.setToolTipText("Search for hidden items.");
     gameButtonPanel.add(button);
     //TODO: Add Pick up button here
     button = new ImageGameButton(GuiStatics.IMAGE_INVENTORY_BUTTON,
@@ -2796,9 +2801,6 @@ public class Game extends JFrame implements ActionListener {
         changeState(GAME_STATE_CHARACTER_SHEET);
       }
     }
-    if (ActionCommands.GAME_BACK_TO_MAIN_MENU.equalsIgnoreCase(arg0.getActionCommand())) {
-        changeState(GAME_STATE_MAINMENU);
-    }
     
     if (!map.isCursorMode() && (searchPanel == null) && (spellPanel == null) &&
         (travelPanel == null) && (playingEvent == null)) {
@@ -2812,15 +2814,42 @@ public class Game extends JFrame implements ActionListener {
       if (ActionCommands.GAME_FULL_ATTACK.equalsIgnoreCase(arg0.getActionCommand())) {
         changeAttackCursormode(Map.CURSOR_MODE_ATTACK);
       }
+      if (ActionCommands.GAME_SINGLE_ATTACK.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeAttackCursormode(Map.CURSOR_MODE_SINGLE_ATTACK);
+      }
+      if (ActionCommands.GAME_CAST_SPELL.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeSpellCastingMode();
+      }
+      if (ActionCommands.GAME_LOOK.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeCursormode(Map.CURSOR_MODE_LOOK);
+      }
+      if (ActionCommands.GAME_LOOK.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeCursormode(Map.CURSOR_MODE_EVALUATE);
+      }
+      if (ActionCommands.GAME_SEARCH.equalsIgnoreCase(arg0.getActionCommand())) {
+        characterMakesASearch();
+      }
+      if (ActionCommands.GAME_BACK_TO_MAIN_MENU.equalsIgnoreCase(arg0.getActionCommand())) {
+        if (party.isMainCharacterAlive()) {
+          BufferedImage image = getScreenShot();
+          try {
+            GameMaps.saveCurrentMapAndParty(party, journal, map, image);
+          } catch (IOException e1) {          
+            e1.printStackTrace();
+            System.out.print("Failing to save current game...");
+          }
+        }
+        changeState(GAME_STATE_MAINMENU);
+      }
+      if (ActionCommands.GAME_HELP.equalsIgnoreCase(arg0.getActionCommand()) && 
+          (playingEvent == null) && (travelPanel == null) && (spellPanel == null)) {
+        gameHelpPanel = new GameHelp(this);
+        changeState(GAME_STATE_GAME_HELP);
+      }
       //TODO: Add mouse buttons here
       
     }
 
-    if (ActionCommands.GAME_HELP.equalsIgnoreCase(arg0.getActionCommand()) && 
-        (playingEvent == null) && (travelPanel == null) && (spellPanel == null)) {
-      gameHelpPanel = new GameHelp(this);
-      changeState(GAME_STATE_GAME_HELP);
-    }
 
   }
   
@@ -4441,6 +4470,11 @@ public class Game extends JFrame implements ActionListener {
     
   }
 
+  /**
+   * Change to attack cursor mode. This method cannot be used for any other
+   * cursormode
+   * @param attackMode
+   */
   public void changeAttackCursormode(int attackMode){
     if (attackMode == Map.CURSOR_MODE_ATTACK || 
         attackMode == Map.CURSOR_MODE_SINGLE_ATTACK) {
@@ -4467,6 +4501,77 @@ public class Game extends JFrame implements ActionListener {
 
     }
   }
+
+  /**
+   * Change to cursor mode. This cannot be used to change attack mode.
+   * @param mode
+   */
+  public void changeCursormode(int mode){
+    if (mode != Map.CURSOR_MODE_ATTACK && 
+        mode != Map.CURSOR_MODE_SINGLE_ATTACK) {
+      if (!map.isCursorMode()) {
+        map.setCursorMode(mode);
+        Character chr = party.getActiveChar();
+        map.setCursorX(chr.getX());
+        map.setCursorY(chr.getY());
+      } else {
+        map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+      }
+    }
+  }
+
+  /**
+   * Show the spellPanel for current Character if he or she is able to cast
+   * spells
+   */
+  public void changeSpellCastingMode() {
+    Character chr = party.getActiveChar();
+    ArrayList<String> spells = chr.getSpellList();
+    if (spells  != null) {
+      if (spells.size() > 0) {
+        spellPanel = new GameSpellPanel(chr.getName(), chr.getSpellList(), this);
+        spellPanel.setSelection(party.getLastCastSpell(party.getActiveCharIndex()));
+        gamePanels.remove(partyPanel);
+        gamePanels.add(spellPanel);
+        gamePanels.validate();
+      }
+    }
+  }
+  
+  /**
+   * Current character makes a search
+   */
+  public void characterMakesASearch() {
+    if (party.isCombat()) {
+      Character chr = party.getActiveChar();
+      party.addLogText(chr.getName()+" cannot search in combat.");
+    } else {
+    Character chr = party.getActiveChar();
+    ArrayList<Item> items = map.getItemsFromSurround(chr.getX(), chr.getY());
+    if (items  != null) {
+      if (items.size() == 1) {
+        Item item = items.get(0);
+        if (chr.inventoryPickUpItem(item)) {
+          party.addLogText(chr.getName()+" found "+item.getItemNameInGame()+".");
+          map.removeItem(item);
+        } else {
+          party.addLogText(chr.getName()+" found "+item.getItemNameInGame()+" but cannot carry it.");
+        }
+        
+      } else {
+        searchPanel = new GameSearchPanel(chr.getName(), items, this);
+        gamePanels.remove(partyPanel);
+        gamePanels.add(searchPanel);
+        gamePanels.validate();
+      }
+    } else {
+      party.addLogText(chr.getName()+" found nothing.");
+    }
+    playerMakesAMove();
+    }
+
+  }
+  
   
   /**
    * New keyboard adapter for game
@@ -4509,46 +4614,10 @@ public class Game extends JFrame implements ActionListener {
           }
         }
         if (key == KeyEvent.VK_S) {
-          if (party.isCombat()) {
-            Character chr = party.getActiveChar();
-            party.addLogText(chr.getName()+" cannot search in combat.");
-          } else {
-          Character chr = party.getActiveChar();
-          ArrayList<Item> items = map.getItemsFromSurround(chr.getX(), chr.getY());
-          if (items  != null) {
-            if (items.size() == 1) {
-              Item item = items.get(0);
-              if (chr.inventoryPickUpItem(item)) {
-                party.addLogText(chr.getName()+" found "+item.getItemNameInGame()+".");
-                map.removeItem(item);
-              } else {
-                party.addLogText(chr.getName()+" found "+item.getItemNameInGame()+" but cannot carry it.");
-              }
-              
-            } else {
-              searchPanel = new GameSearchPanel(chr.getName(), items, listener);
-              gamePanels.remove(partyPanel);
-              gamePanels.add(searchPanel);
-              gamePanels.validate();
-            }
-          } else {
-            party.addLogText(chr.getName()+" found nothing.");
-          }
-          playerMakesAMove();
-          }
+          characterMakesASearch();
         }
         if (key == KeyEvent.VK_C) {
-          Character chr = party.getActiveChar();
-          ArrayList<String> spells = chr.getSpellList();
-          if (spells  != null) {
-            if (spells.size() > 0) {
-              spellPanel = new GameSpellPanel(chr.getName(), chr.getSpellList(), listener);
-              spellPanel.setSelection(party.getLastCastSpell(party.getActiveCharIndex()));
-              gamePanels.remove(partyPanel);
-              gamePanels.add(spellPanel);
-              gamePanels.validate();
-            }
-          }
+          changeSpellCastingMode();
         }
         if (key == KeyEvent.VK_R) {
           if (party.isCombat()) {
@@ -4773,34 +4842,13 @@ public class Game extends JFrame implements ActionListener {
         }
       }
       if (key == KeyEvent.VK_L) {
-        if (!map.isCursorMode()) {
-          map.setCursorMode(Map.CURSOR_MODE_LOOK);
-          Character chr = party.getActiveChar();
-          map.setCursorX(chr.getX());
-          map.setCursorY(chr.getY());
-        } else {
-          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-        }
+        changeCursormode(Map.CURSOR_MODE_LOOK);
       }
       if (key == KeyEvent.VK_T) {
-        if (!map.isCursorMode()) {
-          map.setCursorMode(Map.CURSOR_MODE_TALK);
-          Character chr = party.getActiveChar();
-          map.setCursorX(chr.getX());
-          map.setCursorY(chr.getY());
-        } else {
-          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-        }
+        changeCursormode(Map.CURSOR_MODE_TALK);
       }
       if (key == KeyEvent.VK_E) {
-        if (!map.isCursorMode()) {
-          map.setCursorMode(Map.CURSOR_MODE_EVALUATE);
-          Character chr = party.getActiveChar();
-          map.setCursorX(chr.getX());
-          map.setCursorY(chr.getY());
-        } else {
-          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-        }
+        changeCursormode(Map.CURSOR_MODE_EVALUATE);
       }
       if (key == KeyEvent.VK_A) {
         changeAttackCursormode(Map.CURSOR_MODE_ATTACK);
