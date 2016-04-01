@@ -158,6 +158,9 @@ public class ActionCommands {
   public static final String GAME_SEARCH ="GameSearch";
   public static final String GAME_WAIT ="GameWait";
   public static final String GAME_REST_HOUR ="GameRestHour";
+  public static final String GAME_TALK ="GameTalk";
+  public static final String GAME_PICKUP ="GamePickUp";
+  public static final String GAME_JOURNAL ="GameJournal";
   
   public static final String SHEET_NEXT_CHAR = "SheetNextChar";
   public static final String SHEET_PREV_CHAR = "SheetPrevChar";

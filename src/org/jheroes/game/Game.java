@@ -325,9 +325,7 @@ public class Game extends JFrame implements ActionListener {
     if (noExtraSize) {
       extraSize = 0;
     }
-    //TODO: Add 60 pixels more for buttons
-    //int screenWidth = 1010;
-    int screenWidth = 950;
+    int screenWidth = 1010;
     setSize(screenWidth, 700+extraSize);
     setLocationRelativeTo(null);
     setResizable(false);
@@ -998,15 +996,30 @@ public class Game extends JFrame implements ActionListener {
     button.addActionListener(this);
     button.setToolTipText("Search for hidden items.");
     gameButtonPanel.add(button);
-    //TODO: Add Pick up button here
+    button = new ImageGameButton(GuiStatics.IMAGE_PICKUP_BUTTON,
+        GuiStatics.IMAGE_PICKUP_BUTTON_PRESS, false, 
+        ActionCommands.GAME_PICKUP);
+    button.addActionListener(this);
+    button.setToolTipText("Pick items up from the ground");
+    gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_INVENTORY_BUTTON,
         GuiStatics.IMAGE_INVENTORY_BUTTON_PRESS, false, 
         ActionCommands.GAME_INVENTORY);
     button.addActionListener(this);
     button.setToolTipText("Show character inventory");
     gameButtonPanel.add(button);
-    //TODO: Add Talk button here
-    //TODO: Add Journal button here
+    button = new ImageGameButton(GuiStatics.IMAGE_TALK_BUTTON,
+        GuiStatics.IMAGE_TALK_BUTTON_PRESS, false, 
+        ActionCommands.GAME_TALK);
+    button.addActionListener(this);
+    button.setToolTipText("Talk with characters");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_JOURNAL_BUTTON,
+        GuiStatics.IMAGE_JOURNAL_BUTTON_PRESS, false, 
+        ActionCommands.GAME_JOURNAL);
+    button.addActionListener(this);
+    button.setToolTipText("Show party's journal");
+    gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_REST_BUTTON,
         GuiStatics.IMAGE_REST_BUTTON_PRESS, false, 
         ActionCommands.GAME_REST_HOUR);
@@ -1028,8 +1041,7 @@ public class Game extends JFrame implements ActionListener {
     gamePanels = new GamePanel(false);
     gamePanels.setGradientColor(GuiStatics.GRADIENT_COLOR_BLUE); 
     gamePanels.setLayout(new BoxLayout(gamePanels, BoxLayout.LINE_AXIS));
-    //TODO: Testing button panel
-    //createGameButtonPanel();
+    createGameButtonPanel();
     if (gameButtonPanel != null) {
       gamePanels.add(gameButtonPanel);
     }
@@ -2822,11 +2834,17 @@ public class Game extends JFrame implements ActionListener {
       if (ActionCommands.GAME_LOOK.equalsIgnoreCase(arg0.getActionCommand())) {
         changeCursormode(Map.CURSOR_MODE_LOOK);
       }
+      if (ActionCommands.GAME_TALK.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeCursormode(Map.CURSOR_MODE_TALK);
+      }
       if (ActionCommands.GAME_EVALUATE.equalsIgnoreCase(arg0.getActionCommand())) {
         changeCursormode(Map.CURSOR_MODE_EVALUATE);
       }
       if (ActionCommands.GAME_SEARCH.equalsIgnoreCase(arg0.getActionCommand())) {
         characterMakesASearch();
+      }
+      if (ActionCommands.GAME_PICKUP.equalsIgnoreCase(arg0.getActionCommand())) {
+        characterPickItemUp();
       }
       if (ActionCommands.GAME_WAIT.equalsIgnoreCase(arg0.getActionCommand())) {
         characterWaitsOneTurn();
@@ -2851,13 +2869,16 @@ public class Game extends JFrame implements ActionListener {
         gameHelpPanel = new GameHelp(this);
         changeState(GAME_STATE_GAME_HELP);
       }
-      
+      if (ActionCommands.GAME_JOURNAL.equalsIgnoreCase(arg0.getActionCommand()) &&
+          (playingEvent == null) && (travelPanel == null) && (spellPanel == null)) {
+        gameJournalPanel = new GameJournal(journal, this);
+        changeState(GAME_STATE_JOURNAL);
+      }
       if (!map.isCursorMode()) {
         if (ActionCommands.GAME_CAST_SPELL.equalsIgnoreCase(arg0.getActionCommand())) {
           changeSpellCastingMode();
         }
       }
-      //TODO: Add mouse buttons here
       
     }
 
@@ -4629,6 +4650,23 @@ public class Game extends JFrame implements ActionListener {
       map.doNPCsCheckCorrectPositions(party.getHours(), party.getMins(),false);
     }
   }
+
+  /**
+   * Active character picks up and item from the map.
+   */
+  public void characterPickItemUp() {
+    Character chr = party.getActiveChar();
+    int index = map.getItemIndexByCoordinates(chr.getX(), chr.getY());
+    if (index != -1) {
+      Item item = map.getItemByIndex(index);
+      if (chr.inventoryPickUpItem(item)) {
+        party.addLogText(chr.getName()+" picked up "+item.getItemNameInGame()+".");
+        map.removeItemByIndex(index);
+        playerMakesAMove();
+      }
+    }
+
+  }
   /**
    * New keyboard adapter for game
    *
@@ -4658,16 +4696,7 @@ public class Game extends JFrame implements ActionListener {
           moveCharacterRight();
         }
         if (key == KeyEvent.VK_P) {
-          Character chr = party.getActiveChar();
-          int index = map.getItemIndexByCoordinates(chr.getX(), chr.getY());
-          if (index != -1) {
-            Item item = map.getItemByIndex(index);
-            if (chr.inventoryPickUpItem(item)) {
-              party.addLogText(chr.getName()+" picked up "+item.getItemNameInGame()+".");
-              map.removeItemByIndex(index);
-              playerMakesAMove();
-            }
-          }
+          characterPickItemUp();
         }
         if (key == KeyEvent.VK_S) {
           characterMakesASearch();
