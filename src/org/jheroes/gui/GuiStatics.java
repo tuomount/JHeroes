@@ -180,7 +180,18 @@ GuiStatics.class.getResource("/res/images/scrollArrowRight_press.png"));
   GuiStatics.class.getResource("/res/images/wait_turn.png"));
   public final static BufferedImage IMAGE_WAIT_BUTTON_PRESS = loadImage(
   GuiStatics.class.getResource("/res/images/wait_turn_press.png"));
-
+  public final static BufferedImage IMAGE_JOURNAL_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/journal.png"));
+  public final static BufferedImage IMAGE_JOURNAL_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/journal_press.png"));
+  public final static BufferedImage IMAGE_PICKUP_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/pickup.png"));
+  public final static BufferedImage IMAGE_PICKUP_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/pickup_press.png"));
+  public final static BufferedImage IMAGE_TALK_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/talk.png"));
+  public final static BufferedImage IMAGE_TALK_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/talk_press.png"));
 
   public final static BufferedImage IMAGE_PLUS = loadImage(
   GuiStatics.class.getResource("/res/images/plus.png"));
