@@ -982,7 +982,8 @@ public class Game extends JFrame implements ActionListener {
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_WAIT_BUTTON,
         GuiStatics.IMAGE_WAIT_BUTTON_PRESS, false, 
-        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+        ActionCommands.GAME_WAIT);
+    button.setToolTipText("Wait one turn and gain a bit of stamina");
     button.addActionListener(this);
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_LOOK_BUTTON,
@@ -1008,7 +1009,8 @@ public class Game extends JFrame implements ActionListener {
     //TODO: Add Journal button here
     button = new ImageGameButton(GuiStatics.IMAGE_REST_BUTTON,
         GuiStatics.IMAGE_REST_BUTTON_PRESS, false, 
-        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+        ActionCommands.GAME_REST_HOUR);
+    button.setToolTipText("Rest and wait one hour and fully gain stamina.");
     button.addActionListener(this);
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_MENU_BUTTON,
@@ -2802,7 +2804,7 @@ public class Game extends JFrame implements ActionListener {
       }
     }
     
-    if (!map.isCursorMode() && (searchPanel == null) && (spellPanel == null) &&
+    if ((searchPanel == null) && (spellPanel == null) &&
         (travelPanel == null) && (playingEvent == null)) {
       // Actions start here
       if (ActionCommands.GAME_INVENTORY.equalsIgnoreCase(arg0.getActionCommand())
@@ -2817,17 +2819,20 @@ public class Game extends JFrame implements ActionListener {
       if (ActionCommands.GAME_SINGLE_ATTACK.equalsIgnoreCase(arg0.getActionCommand())) {
         changeAttackCursormode(Map.CURSOR_MODE_SINGLE_ATTACK);
       }
-      if (ActionCommands.GAME_CAST_SPELL.equalsIgnoreCase(arg0.getActionCommand())) {
-        changeSpellCastingMode();
-      }
       if (ActionCommands.GAME_LOOK.equalsIgnoreCase(arg0.getActionCommand())) {
         changeCursormode(Map.CURSOR_MODE_LOOK);
       }
-      if (ActionCommands.GAME_LOOK.equalsIgnoreCase(arg0.getActionCommand())) {
+      if (ActionCommands.GAME_EVALUATE.equalsIgnoreCase(arg0.getActionCommand())) {
         changeCursormode(Map.CURSOR_MODE_EVALUATE);
       }
       if (ActionCommands.GAME_SEARCH.equalsIgnoreCase(arg0.getActionCommand())) {
         characterMakesASearch();
+      }
+      if (ActionCommands.GAME_WAIT.equalsIgnoreCase(arg0.getActionCommand())) {
+        characterWaitsOneTurn();
+      }
+      if (ActionCommands.GAME_REST_HOUR.equalsIgnoreCase(arg0.getActionCommand())) {
+        partyWaitsOneHour();
       }
       if (ActionCommands.GAME_BACK_TO_MAIN_MENU.equalsIgnoreCase(arg0.getActionCommand())) {
         if (party.isMainCharacterAlive()) {
@@ -2845,6 +2850,12 @@ public class Game extends JFrame implements ActionListener {
           (playingEvent == null) && (travelPanel == null) && (spellPanel == null)) {
         gameHelpPanel = new GameHelp(this);
         changeState(GAME_STATE_GAME_HELP);
+      }
+      
+      if (!map.isCursorMode()) {
+        if (ActionCommands.GAME_CAST_SPELL.equalsIgnoreCase(arg0.getActionCommand())) {
+          changeSpellCastingMode();
+        }
       }
       //TODO: Add mouse buttons here
       
@@ -4571,8 +4582,53 @@ public class Game extends JFrame implements ActionListener {
     }
 
   }
+
+  /**
+   * Character waits one turn and gains a bit stamina back. Works in combat,
+   * solo mode or party mode.
+   */
+  public void characterWaitsOneTurn() {
+    Character chr = party.getActiveChar();
+    if ((party.isCombat()) || (party.getMode()==Party.MODE_SOLO_MODE)) {
+      chr.getStaminaInRestTurn();
+      playerMakesAMove();
+      if ((party.getHours()==6) && (party.getMins()==0) && (party.getSecs()==0)) {
+        mapPanel.forceFullRepaint();
+      }
+      if ((party.getHours()==18) && (party.getMins()==0) && (party.getSecs()==0)) {
+        mapPanel.forceFullRepaint();
+      }
+    } else {
+      party.restOneTurn();
+      party.timeAddTurn();              
+      map.doNPCsMove(party.getHours(), party.getMins());
+    }
+
+  }
   
-  
+  /**
+   * Party waits one hour and all gets full stamina.
+   */
+  public void partyWaitsOneHour() {
+    if (party.isCombat()) {
+      party.addLogText("Cannot wait for hour while in combat.");
+    } else {
+      for (int i=0;i<party.getPartySize();i++) {
+        Character chr = party.getPartyChar(i);
+        if (chr != null) {
+          chr.setCurrentSP(chr.getMaxStamina());
+        }
+      }
+      party.timeAddHour();
+      if (party.getHours()==6) {
+        mapPanel.forceFullRepaint();
+      }
+      if (party.getHours()==18) {
+        mapPanel.forceFullRepaint();
+      }              
+      map.doNPCsCheckCorrectPositions(party.getHours(), party.getMins(),false);
+    }
+  }
   /**
    * New keyboard adapter for game
    *
@@ -4620,41 +4676,10 @@ public class Game extends JFrame implements ActionListener {
           changeSpellCastingMode();
         }
         if (key == KeyEvent.VK_R) {
-          if (party.isCombat()) {
-            party.addLogText("Cannot wait for hour while in combat.");
-          } else {
-            for (int i=0;i<party.getPartySize();i++) {
-              Character chr = party.getPartyChar(i);
-              if (chr != null) {
-                chr.setCurrentSP(chr.getMaxStamina());
-              }
-            }
-            party.timeAddHour();
-            if (party.getHours()==6) {
-              mapPanel.forceFullRepaint();
-            }
-            if (party.getHours()==18) {
-              mapPanel.forceFullRepaint();
-            }              
-            map.doNPCsCheckCorrectPositions(party.getHours(), party.getMins(),false);
-          }
+          partyWaitsOneHour();
         }
         if (key == KeyEvent.VK_W) {
-            Character chr = party.getActiveChar();
-            if ((party.isCombat()) || (party.getMode()==Party.MODE_SOLO_MODE)) {
-              chr.getStaminaInRestTurn();
-              playerMakesAMove();
-              if ((party.getHours()==6) && (party.getMins()==0) && (party.getSecs()==0)) {
-                mapPanel.forceFullRepaint();
-              }
-              if ((party.getHours()==18) && (party.getMins()==0) && (party.getSecs()==0)) {
-                mapPanel.forceFullRepaint();
-              }
-            } else {
-              party.restOneTurn();
-              party.timeAddTurn();              
-              map.doNPCsMove(party.getHours(), party.getMins());
-            }
+          characterWaitsOneTurn();
         }
       } // END OF KEYS which require one turn
       
