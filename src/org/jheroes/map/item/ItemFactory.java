@@ -336,7 +336,7 @@ public class ItemFactory {
     return tmp;
   }
   
-  public static final int MAX_ITEM = 274;
+  public static final int MAX_ITEM = 288;
   
   private static ArrayList<Integer> lesserRandomItems;
   private static ArrayList<Integer> randomItems;
@@ -1242,6 +1242,7 @@ public class ItemFactory {
       tmp.setPrice(1000);
       tmp.setMagical(true);
       tmp.setWeight(50);
+      tmp.setRandomItem(false);
     }
     if (index == 260) {
       tmp = new Item(index,Item.TYPE_ITEM_TOME,"Tome of Strength",145);
@@ -1316,6 +1317,7 @@ public class ItemFactory {
       tmp.setPrice(10);
       tmp.setMagical(true);
       tmp.setCursed(true);
+      tmp.setRandomItem(false);
       tmp.setWeight(10);
     }
     if (index == 272) {
@@ -1323,7 +1325,6 @@ public class ItemFactory {
       tmp.setPrice(200);
     }
     if (index == 273) {
-      //FIXME: Wrong tile
       tmp = new Item(index,Item.TYPE_ITEM_QUEST,"Bridge repair kit",99);
       tmp.setPrice(200);
       tmp.setWeight(20);
