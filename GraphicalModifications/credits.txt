@@ -1001,6 +1001,11 @@ items.png
 * By Tuomo Untinen
 = Bridge repair kit =
 * By Tuomo Untinen
+= Poisoned dagger, mace, spear and shurikens =
+* By Tuomo Untinen
+= Fire, electric and ice gauntlets =
+* by Johannes Sjölund AKA Wulax
+* Modified by Tuomo Untinen
 
 effects.png
 = Look cursor, cast cursor, attack cursor, use cursor and talk cursor =
@@ -1027,6 +1032,11 @@ effects.png
 = Eating speech bubble =
 * Original meat By Jetrel
 * Adaptation by Tuomo Untinen
+= Evaluate cursor =
+* By Tuomo Untinen
+
+gamebuttons.xcf
+* By Tuomo Untinen
 
 faces.png
 0: Art by Charles Gabriel. Commissioned by OpenGameArt.org (http://opengameart.org)

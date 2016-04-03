@@ -9,12 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -31,6 +29,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.jheroes.map.MapUtilities;
@@ -38,11 +37,14 @@ import org.jheroes.map.Party;
 import org.jheroes.map.character.CharTask;
 import org.jheroes.map.character.Character;
 import org.jheroes.map.character.CharacterAnimation;
+import org.jheroes.map.character.CharacterList;
+import org.jheroes.map.character.CharacterRace;
 import org.jheroes.map.character.Perks;
 import org.jheroes.map.character.SpellFactory;
 import org.jheroes.map.item.Item;
 import org.jheroes.map.item.ItemFactory;
 import org.jheroes.tileset.Tileset;
+
 
 /**
  * JHeroes CRPG Engine and Game
@@ -105,7 +107,7 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
   private CharacterEditorCommonPanel basicCharTopPanel;
   private boolean selectCharacterClicked = false;
   
-  private JComboBox cbHostilityLevel;
+  private JComboBox<String> cbHostilityLevel;
   
   private final static String[] HOSTILITY_LEVEL_STRINGS 
          = {"Avoid", "Aggressive","Guard"};
@@ -146,6 +148,8 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
   private JList inventoryList;
   private JList spellList;
   private JComboBox spellCB;
+  private JComboBox raceCB;
+  private JTextArea raceDescLabel;
   private JLabel newItemLabel;
   private JLabel mainAttackLabel;
   private JLabel secondaryAttackLabel;
@@ -171,6 +175,11 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
   
   
   private String[] wayPoints;
+  
+  /**
+   * list of selectable races
+   */
+  private String[] racesList;
   
   private Party party;
   
@@ -254,47 +263,31 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
     this.setVisible(true);    
   }
 
+  private String[] getRacesList() {
+    if (racesList != null) {
+      return racesList;
+    } else {
+      racesList = new String[CharacterRace.values().length];
+      for (int i=0;i<CharacterRace.values().length;i++) {
+        racesList[i] = CharacterRace.values()[i].getName();
+      }
+      return racesList;
+    }
+    
+  }
+  
   /**
    * Read save characters for character list file
    */
   private void readSavedCharacters() {
-    DataInputStream is;
-    InputStream tmpIs = CharacterEditor.class.getResourceAsStream(CHARACTER_LIST_FILE);
-    if (tmpIs != null) {
-	    is = new DataInputStream(tmpIs);
-	    try {
-	      byte[] magicBytes = {67,72,82,76,73,83,84};
-	      for (int i = 0;i<7;i++) {
-	       byte byt = is.readByte();
-	       if (byt != magicBytes[i]) {
-	         is.close();
-	         throw new IOException("Not character list!");
-	       }
-	      }
-	      int size = is.readInt();
-	      if (size > 0) {
-	        characterList.clear();
-	        for (int i=0;i<size;i++) {
-	          Character tmpChr = new Character(0);
-	          tmpChr.loadCharacter(is);
-	          characterList.add(tmpChr);
-	          lastCharIndex=i;
-	        }
-	        currentChar = characterList.get(0);
-	      } else {
-	        is.close();
-	        throw new IOException("No characters in list!");
-	      }
-	      
-	      is.close();
-	    } catch (IOException e) {
-	      e.printStackTrace();
-	      currentChar = new Character(0);
-	      characterList.add(currentChar);
-	    }
+    characterList = CharacterList.readCharacterList(CHARACTER_LIST_FILE);
+    if (characterList != null) {
+      currentChar = characterList.get(0);
+      lastCharIndex = characterList.size()-1;
     } else {
-	    currentChar = new Character(0);
-	    characterList.add(currentChar);    	
+      currentChar = new Character(0);
+      lastCharIndex=0;
+      characterList.add(currentChar);
     }
   }
   
@@ -730,7 +723,21 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
     nameBtn.addActionListener(this);
     nameBtn.setActionCommand(ACTION_RANDOMFEMALE);
     basicCharTopPanel.add(nameBtn);
-    
+
+    //FIXME Character SubType selection
+    // This is not done yet so commented out
+    basicCharTopPanel.add(Box.createRigidArea(new Dimension(10,20)));
+    raceCB = new JComboBox<String>(getRacesList());
+    basicCharTopPanel.add(new JLabel("Type:"));
+    basicCharTopPanel.add(raceCB);
+    basicCharTopPanel.add(Box.createRigidArea(new Dimension(50,20)));
+    raceDescLabel = new JTextArea(CharacterRace.DEFAULT.getDescription());
+    raceDescLabel.setEditable(false);
+    raceDescLabel.setWrapStyleWord(true);
+    raceDescLabel.setLineWrap(true);
+    raceDescLabel.setPreferredSize(new Dimension(500, 50));
+    raceDescLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    basicCharTopPanel.add(raceDescLabel);
     JPanel center = new JPanel();
     center.setLayout(new GridLayout(1, 0));
     center.add(attributePanel());
@@ -813,6 +820,8 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
       skillLabel[i].setText("Total:"+currentChar.getEffectiveSkill(i));
     }
     cbHostilityLevel.setSelectedIndex(currentChar.getHostilityLevel());
+    raceCB.setSelectedIndex(currentChar.getRace().getIndex());
+    raceDescLabel.setText(currentChar.getRace().getDescription());
     updateTimeTablePanel();
     updateInventoryList();
     updateSpellList();
@@ -835,6 +844,8 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
       Perks charPerks = currentChar.getPerks();
       charPerks.setPerk(i, cbPerks[i].isSelected());
     }
+    currentChar.setRace(CharacterRace.getRaceByName((String)raceCB.getSelectedItem()));
+    raceDescLabel.setText(currentChar.getRace().getDescription());
     currentChar.setName(nameText.getText());
     currentChar.setLongName(longNameText.getText());
     currentChar.setDescription(characterDescField.getText());
@@ -1171,23 +1182,17 @@ public class CharacterEditor extends JDialog implements ActionListener, MouseLis
       int returnVal = fcSave.showSaveDialog(this);
       if (returnVal == JFileChooser.OPEN_DIALOG) {
           String saveStr = fcSave.getSelectedFile().getAbsolutePath();
-        try {
-          os = new DataOutputStream(new FileOutputStream(saveStr));
-          try {
-            os.writeBytes("CHRLIST");
-            os.writeInt(characterList.size());
-            for (int i=0;i<characterList.size();i++) {
-              Character tmpChr = characterList.get(i);
-              tmpChr.saveCharacter(os);
+          ArrayList<Character> tmpList = new ArrayList<Character>();
+          // Only save non-default characters, so no more Joe Does with empty
+          // descriptions
+          for (int i =0;i<characterList.size();i++) {
+            Character chr = characterList.get(i);
+            if (!chr.getLongName().equalsIgnoreCase("Joe Doe") || 
+                (chr.getDescription() != null && !chr.getDescription().isEmpty())) {
+              tmpList.add(chr);
             }
-            
-            os.close();
-          } catch (IOException e) {
-            e.printStackTrace();
-          }  
-        } catch (FileNotFoundException e) {
-          e.printStackTrace();
-        }
+          }
+          CharacterList.writeCharacterList(saveStr, tmpList);
       }
     }
     if (arg0.getActionCommand().equalsIgnoreCase("AddItem")) {

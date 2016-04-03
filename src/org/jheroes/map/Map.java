@@ -1,8 +1,5 @@
 package org.jheroes.map;
 
-
-
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -25,6 +22,8 @@ import org.jheroes.map.character.Attack;
 import org.jheroes.map.character.CharEffect;
 import org.jheroes.map.character.CharTask;
 import org.jheroes.map.character.Character;
+import org.jheroes.map.character.CharacterRace;
+import org.jheroes.map.character.CombatModifiers.DamageModifier;
 import org.jheroes.map.character.Defense;
 import org.jheroes.map.character.Perks;
 import org.jheroes.map.character.Spell;
@@ -37,9 +36,6 @@ import org.jheroes.tileset.Tile;
 import org.jheroes.tileset.TileInfo;
 import org.jheroes.tileset.Tileset;
 import org.jheroes.utilities.StreamUtilities;
-
-
-
 
 
 /**
@@ -68,9 +64,17 @@ import org.jheroes.utilities.StreamUtilities;
 public class Map {
   
   /**
+   * Original map version 1.0
+   */
+  public final static String MAP_VERSION_1_0 = "MAP1.0";
+  /**
+   * Map version 1.1, characters have race information
+   */
+  public final static String MAP_VERSION_1_1 = "MAP1.1";
+  /**
    * Current MAP version. This string is also in map files
    */
-  public final static String CURRENT_MAP_VERSION = "MAP1.0";
+  public final static String CURRENT_MAP_VERSION = MAP_VERSION_1_1;
   
   /**
    * Engine Name
@@ -101,6 +105,7 @@ public class Map {
   public final static int CURSOR_MODE_USE=4;
   public final static int CURSOR_MODE_TALK=5;
   public final static int CURSOR_MODE_SINGLE_ATTACK=6;
+  public final static int CURSOR_MODE_EVALUATE=7;
   
   public final static int VIEW_X_RADIUS = 10;
   public final static int VIEW_Y_RADIUS = 8;
@@ -140,6 +145,8 @@ public class Map {
   public final static int GRAPH_EFFECT_SPELL_DROWNING = 153;
   public final static int GRAPH_EFFECT_BUBBLE_EAT = 160;
   public final static int GRAPH_EFFECT_BUBBLE_PLAY = 164;
+  public final static int GRAPH_EFFECT_SPELL_QI_FIST = 169;
+  public final static int GRAPH_EFFECT_EVALUATE_CURSOR = 174;
 
   private static int getLightEffectForGraphEffect(int effect) {
     if (effect >= 47 && effect < 54) { // Spell positive
@@ -172,8 +179,17 @@ public class Map {
     return 0;
   }
   
+  /**
+   * Full attack with both hands
+   */
   public final static int ATTACK_TYPE_FULL_ATTACK = 0;
+  /**
+   * Single attack with main weapon
+   */
   public final static int ATTACK_TYPE_SINGLE_ATTACK = 1;
+  /**
+   * Throwing attack
+   */
   public final static int ATTACK_TYPE_THROW_ATTACK = 2;
   
   private static BufferedImage IMAGE_ATTACK=null;
@@ -1058,6 +1074,16 @@ public class Map {
       if (check > Character.CHECK_FAIL) {
         int lethalDamage = DiceGenerator.getRandom(att.getMinLethalDamage(), att.getMaxLethalDamage());
         int nonLethalDamage = DiceGenerator.getRandom(att.getMinStaminaDamage(), att.getMaxStaminaDamage());
+        switch ( (target.getRace().damageModifierFor(att.getAttackType()))) {
+        case IMMUNITY: { lethalDamage = 0; nonLethalDamage = 0; break;}
+        case NORMAL: { /*DO nothing*/ break;}
+        case RESISTANCE: { lethalDamage = lethalDamage / 2; 
+                            nonLethalDamage = nonLethalDamage /2; break;
+        }
+        case WEAKNESS: { lethalDamage = lethalDamage * 2; 
+        nonLethalDamage = nonLethalDamage *2; break;}
+        }
+
         if (check == Character.CHECK_CRITICAL_SUCCESS) {
           party.addLogText(caster.getName()+" hits critically "+target.getName());
           lethalDamage = lethalDamage*att.getCriticalMultiplier();
@@ -1078,13 +1104,19 @@ public class Map {
           totalDamage = lethalDamage;
         }
         target.receiveLethalDamage(lethalDamage);
-        target.receiveNonLethalDamage(nonLethalDamage);
+        target.receiveNonLethalDamage(nonLethalDamage,true);
         if (att.getPiercing()>0) {
           target.receiveLethalDamage(att.getPiercing());
           totalDamage = totalDamage+att.getPiercing();
         }        
         if ((totalDamage==0) && (nonLethalDamage==0)) {
-          party.addLogText("but deals no damage.");
+          if (target.getRace().damageModifierFor(att.getAttackType())
+              ==DamageModifier.IMMUNITY) {
+            party.addLogText("but "+target.getName()+" has immunity against "+
+              att.getAttackType().toString()+" attacks.");
+          } else {
+            party.addLogText("but deals no damage.");
+          }
           SoundPlayer.playSound(SoundPlayer.SOUND_FILE_BLOCK);
         } else {
           StringBuilder sb = new StringBuilder();
@@ -1098,6 +1130,12 @@ public class Map {
             sb.append("and deals "+nonLethalDamage+" points of non-lethal damage");
           }
           party.addLogText(sb.toString()+".");
+          switch (target.getRace().damageModifierFor(att.getAttackType())) {
+          case RESISTANCE: {party.addLogText("Hit was not that effective!"); break;}
+          case WEAKNESS: {party.addLogText("Hit was very effective!"); break;}
+          default: // Do nothing
+          break;
+          }
           if (target.isDead()) {
             party.addLogText(target.getName()+" is dead.");
             if (caster.isPlayer()) {
@@ -1217,6 +1255,8 @@ public class Map {
       case GRAPH_EFFECT_SPELL_SMITE: SoundPlayer.playSoundBySoundName("SMITE"); break;
       case GRAPH_EFFECT_SPELL_FEAR: SoundPlayer.playSoundBySoundName("MAGIC4"); break;
       case GRAPH_EFFECT_SPELL_DROWNING: SoundPlayer.playSoundBySoundName("WATERSPLASH"); break;
+      //TODO: Make sure SFX fits for effect
+      case GRAPH_EFFECT_SPELL_QI_FIST: SoundPlayer.playSoundBySoundName("MAGIC3"); break;
       }
     }
     return exp;
@@ -1319,7 +1359,8 @@ public class Map {
    * Make character to attack against another with selectable attack style
    * @param attacker Character
    * @param defenser Character
-   * @param attackType int
+   * @param attackType int ATTACK_TYPE_FULL_ATTACK, ATTACK_TYPE_SINGLE_ATTACK,
+   * ATTACK_TYPE_THROW_ATTACK
    * @return experience points if attack was PC
    */
   public int doAttack(Character attacker, Character defenser, int attackType) {
@@ -1331,7 +1372,11 @@ public class Map {
                             defenser.getX(), defenser.getY());
     attacker.setHeading(direction);
     if (!attacker.isPlayer()) {
-      SoundPlayer.playEnemySoundsByName(attacker.getName());
+      if (attacker.getRace()==CharacterRace.DEFAULT) {
+        SoundPlayer.playEnemySoundsByName(attacker.getName());
+      } else {
+        SoundPlayer.playEnemySoundsByName(attacker.getRace().getName());
+      }
     }
     for (int i=0;i<attacker.getNumberOfAttacks();i++) {
       if (i>0 && attackType!=ATTACK_TYPE_FULL_ATTACK) {
@@ -1432,7 +1477,7 @@ public class Map {
       } else {
         SoundPlayer.playSoundBySoundName("BOW");
       }
-      attacker.receiveNonLethalDamage(att.getStaminaCost());
+      attacker.receiveNonLethalDamage(att.getStaminaCost(),false);
       if (attacker.getCurrentSP()<attacker.getMaxStamina()/2) {
         addNewGraphEffect(attacker.getX(), attacker.getY(), GRAPH_EFFECT_SWEAT);
       }
@@ -1445,6 +1490,15 @@ public class Map {
       if (check != Character.CHECK_FAIL) {
         int lethalDamage = DiceGenerator.getRandom(att.getMinLethalDamage(), att.getMaxLethalDamage());
         int nonLethalDamage = DiceGenerator.getRandom(att.getMinStaminaDamage(), att.getMaxStaminaDamage());
+        switch ( (defenser.getRace().damageModifierFor(att.getAttackType()))) {
+        case IMMUNITY: { lethalDamage = 0; nonLethalDamage = 0; break;}
+        case NORMAL: { /*DO nothing*/ break;}
+        case RESISTANCE: { lethalDamage = lethalDamage / 2; 
+                            nonLethalDamage = nonLethalDamage /2; break;
+        }
+        case WEAKNESS: { lethalDamage = lethalDamage * 2; 
+        nonLethalDamage = nonLethalDamage *2; break;}
+        }
         if (check == Character.CHECK_CRITICAL_SUCCESS) {
           party.addLogText(attacker.getName()+" hits critically "+defenser.getName());
           lethalDamage = lethalDamage*att.getCriticalMultiplier();
@@ -1465,7 +1519,7 @@ public class Map {
           totalDamage = lethalDamage;
         }
         defenser.receiveLethalDamage(lethalDamage);
-        defenser.receiveNonLethalDamage(nonLethalDamage);
+        defenser.receiveNonLethalDamage(nonLethalDamage,true);
         if (att.isDrainHealth()) {
           attacker.setCurrentHP(attacker.getCurrentHP()+lethalDamage/2);
         }
@@ -1479,9 +1533,36 @@ public class Map {
           defenser.receiveLethalDamage(att.getPiercing());
           totalDamage = totalDamage+att.getPiercing();
         }
+        if (att.getEffectOnHit()==CharEffect.EFFECT_ON_HIT_DISEASE ) {
+          CharEffect eff = new CharEffect(attacker.getName()+" disease", 
+              CharEffect.TYPE_DISEASE, att.getEffectLast(), CharEffect.EFFECT_ON_HEALTH,
+              Character.ATTRIBUTE_STRENGTH, -att.getEffectValue(), 75);
+          eff.setAttackType(att.getEffectAttackType());
+          defenser.addEffect(eff);
+        }
+        if (att.getEffectOnHit()==CharEffect.EFFECT_ON_HIT_POISON ) {
+          CharEffect eff = new CharEffect(attacker.getName()+" poison", 
+              CharEffect.TYPE_POISON, att.getEffectLast(), CharEffect.EFFECT_ON_HEALTH,
+              Character.ATTRIBUTE_STRENGTH, -att.getEffectValue(), 75);
+          eff.setAttackType(att.getEffectAttackType());
+          defenser.addEffect(eff);
+        }
+        if (att.getEffectOnHit()==CharEffect.EFFECT_ON_HIT_ENCHANT ) {
+          CharEffect eff = new CharEffect(att.getEffectAttackType().toString()+" damage", 
+              CharEffect.TYPE_ENCHANT, att.getEffectLast(), CharEffect.EFFECT_ON_HEALTH,
+              Character.ATTRIBUTE_STRENGTH, -att.getEffectValue(), 75);
+          eff.setAttackType(att.getEffectAttackType());
+          defenser.addEffect(eff);
+        }
         
         if ((totalDamage==0) && (nonLethalDamage==0)) {
-          party.addLogText("but deals no damage.");
+          if (defenser.getRace().damageModifierFor(att.getAttackType())
+              ==DamageModifier.IMMUNITY) {
+            party.addLogText("but "+defenser.getName()+" has immunity against "+
+              att.getAttackType().toString()+" attacks.");
+          } else {
+            party.addLogText("but deals no damage.");
+          }
           SoundPlayer.playSound(SoundPlayer.SOUND_FILE_BLOCK);
         } else {
           StringBuilder sb = new StringBuilder();
@@ -1495,6 +1576,12 @@ public class Map {
             sb.append("and deals "+nonLethalDamage+" points of non-lethal damage");
           }
           party.addLogText(sb.toString()+".");
+          switch (defenser.getRace().damageModifierFor(att.getAttackType())) {
+            case RESISTANCE: {party.addLogText("Hit was not that effective!"); break;}
+            case WEAKNESS: {party.addLogText("Hit was very effective!"); break;}
+          default: // Do nothing
+            break;
+          }
           if ((defenser.isDead()) && (!isAlreadyDead)) {
             isAlreadyDead = true;
             party.addLogText(defenser.getName()+" is dead.");
@@ -1595,8 +1682,8 @@ public class Map {
   private int NPCattackTask(Character npc,CharTask task, Character target) {
     boolean combatContinue = false; 
     int direction = DIRECTION_NONE;
-    if ((npc.getCurrentSP() < npc.getAttackStaminaCost()) ||
-        (npc.getCurrentSP() < 5)){
+    if ((npc.getCurrentSP() < npc.getAttackStaminaCost() ||
+        npc.getCurrentSP() < 5) && !npc.getRace().noNeedToRestNever()){
           npc.getStaminaInRestTurn();
           party.addLogText(npc.getName()+" catches a breath.");
           direction = DIRECTION_ATTACK;
@@ -1617,7 +1704,7 @@ public class Map {
       doSpell(npc,npc,spell,true);
       combatContinue = true;
       direction = DIRECTION_ATTACK;
-      npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad());
+      npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad(),false);
       if (npc.getCurrentSP()<npc.getMaxStamina()/2) {
         addNewGraphEffect(npc.getX(), npc.getY(), GRAPH_EFFECT_SWEAT);
       }
@@ -1629,7 +1716,7 @@ public class Map {
         doSpell(npc,npc,spell,true);
         combatContinue = true;
         direction = DIRECTION_ATTACK;
-        npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad());
+        npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad(),false);
         if (npc.getCurrentSP()<npc.getMaxStamina()/2) {
           addNewGraphEffect(npc.getX(), npc.getY(), GRAPH_EFFECT_SWEAT);
         }
@@ -1665,7 +1752,7 @@ public class Map {
             direction = DIRECTION_ATTACK;
             combatContinue = true;
             doSpell(npc, target, spell,true);
-            npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad());
+            npc.receiveNonLethalDamage(spell.getCastingCost()+npc.getStaminaCostFromLoad(),false);
             if (npc.getCurrentSP()<npc.getMaxStamina()/2) {
               addNewGraphEffect(npc.getX(), npc.getY(), GRAPH_EFFECT_SWEAT);
             }
@@ -1729,7 +1816,11 @@ public class Map {
       direction = AIPath.getDirectionToMove(npc.getX(), npc.getY(),
        target.getX(), target.getY());
       if (DiceGenerator.getRandom(10)==0) {
-        SoundPlayer.playEnemySoundsByName(npc.getName());
+        if (npc.getRace()==CharacterRace.DEFAULT) {
+          SoundPlayer.playEnemySoundsByName(npc.getName());
+        } else {
+          SoundPlayer.playEnemySoundsByName(npc.getRace().getName());
+        }
       }
     } 
     shouldCombatContinue = combatContinue;
@@ -5338,8 +5429,9 @@ public int getEventY2() {
    * @throws IOException
    */
   public Map(DataInputStream is) throws IOException {
-    String tmpStr = StreamUtilities.readString(is);
-    if (!CURRENT_MAP_VERSION.equals(tmpStr)) {
+    String mapVersion = StreamUtilities.readString(is);
+    if (!CURRENT_MAP_VERSION.equals(mapVersion) &&
+        !MAP_VERSION_1_0.equals(mapVersion)) {
       throw new IOException("Not map file!");
     }
     this.party = null;
@@ -5480,7 +5572,7 @@ public int getEventY2() {
     size = is.readInt();
     boolean isPosSet = false;
     for (int i=0;i<size;i++) {
-      Event event = new Event(is);
+      Event event = new Event(is, mapVersion);
       if ((event.isWaypoint()) && (!isPosSet)) {
         myChar.setPosition(event.getX(), event.getY());
         isPosSet = true;
@@ -5489,13 +5581,13 @@ public int getEventY2() {
     }
     size = is.readInt();
     for (int i=0;i<size;i++) {
-      Item item = ItemFactory.readMapItem(is);
+      Item item = ItemFactory.readMapItem(is,mapVersion);
       listItems.add(item);
     }
     size = is.readInt();
     for (int i=0;i<size;i++) {
       Character chr = new Character(0);
-      chr.loadCharacter(is);
+      chr.loadCharacter(is,mapVersion);
       npcList.add(chr);
     }
     is.close();
@@ -5619,6 +5711,7 @@ public int getEventY2() {
     case CURSOR_MODE_TALK: this.setCursorTile(GRAPH_EFFECT_TALK_CURSOR); break;
     case CURSOR_MODE_SINGLE_ATTACK: this.setCursorTile(GRAPH_EFFECT_ATTACK_CURSOR); break;
     case CURSOR_MODE_DISABLE: castingSpell = null;setAttackText("No target"); break;
+    case CURSOR_MODE_EVALUATE: this.setCursorTile(GRAPH_EFFECT_EVALUATE_CURSOR); break;
     }
   }
   public int getCursorMode() {

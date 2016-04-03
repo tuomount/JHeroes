@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.jheroes.map.character.CombatModifiers.AttackType;
 import org.jheroes.utilities.StreamUtilities;
 
 
@@ -65,6 +66,9 @@ public class CharEffect {
   public static final byte EFFECT_DRAIN_VIGOR = 12;
   public static final byte EFFECT_SLAYER = 13;
   public static final byte EFFECT_ON_MIGHTY = 14;
+  public static final byte EFFECT_ON_HIT_POISON = 15;
+  public static final byte EFFECT_ON_HIT_DISEASE = 16;
+  public static final byte EFFECT_ON_HIT_ENCHANT = 17;
   
   private byte type;
   private int duration;
@@ -73,14 +77,15 @@ public class CharEffect {
   private int value;
   private int difficulty;
   private String name;
+  private AttackType attackType;
   
   
   /**
-   * Creates a new effect
-   * @param name String
-   * @param type byte
+   * Creates a new magical effect
+   * @param name String Effect name show in character sheet
+   * @param type byte What kind of type, curse, enchant, poison etc.
    * @param duration number of rounds
-   * @param effect effect type
+   * @param effect effect type Where or how effect effects
    * @param attrOrSkill Attribute or Skill where effect affects
    * @param value effect value
    * @param difficulty how difficulty effect is to remove
@@ -100,6 +105,15 @@ public class CharEffect {
      this.difficulty = difficulty;
      if (this.difficulty >= MAX_DIFFICULTY) {
        this.difficulty = MAX_DIFFICULTY-1;
+     }
+     if (type == TYPE_POISON) {
+       setAttackType(AttackType.POISON);
+     } else if (type == TYPE_DISEASE) {
+       setAttackType(AttackType.NORMAL);
+     } else if (type == TYPE_CURSE) {
+       setAttackType(AttackType.MINDAFFECTING);
+     } else {
+       setAttackType(AttackType.MAGIC);
      }
   }
   
@@ -270,6 +284,14 @@ public class CharEffect {
     value = is.readInt();
     difficulty = is.readInt();
     name = StreamUtilities.readString(is);
+  }
+
+  public AttackType getAttackType() {
+    return attackType;
+  }
+
+  public void setAttackType(AttackType attackType) {
+    this.attackType = attackType;
   }
 }
 

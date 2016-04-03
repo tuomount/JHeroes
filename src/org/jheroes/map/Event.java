@@ -103,9 +103,10 @@ public class Event {
   /**
    * Creates a new event from DataInputStream
    * @param is DataInputStream
+   * @param mapVersion Map Version from the read map file
    * @throws IOException
    */
-  public Event(DataInputStream is) throws IOException {
+  public Event(DataInputStream is, String mapVersion) throws IOException {
     eventType = is.readByte();
     if (eventType == TYPE_POINT) {
       x1 = is.readInt();

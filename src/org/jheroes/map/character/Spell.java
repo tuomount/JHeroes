@@ -1,6 +1,7 @@
 package org.jheroes.map.character;
 
 import org.jheroes.map.Map;
+import org.jheroes.map.character.CombatModifiers.AttackType;
 /**
  * 
  * JHeroes CRPG Engine and Game
@@ -85,7 +86,15 @@ public class Spell {
    */
   private int spellRadius;
   
+  /**
+   * Is spell mind affecting spell
+   */
   private boolean mindEffecting;
+  
+  /**
+   * Spell's attack type
+   */
+  private AttackType attackType;
   
   public Spell(String name) {
     spellName = name;
@@ -99,6 +108,7 @@ public class Spell {
     spellRadius = SPELL_RADIUS_NEED_HIT;
     mindEffecting = false;
     minimumSkill = 10;
+    setAttackType(AttackType.MAGIC);
   }
   
   /**
@@ -143,6 +153,14 @@ public class Spell {
   public void setAttack(Attack spellAttack) {
     this.spellAttack = spellAttack;
   }
+  public AttackType getAttackType() {
+    return attackType;
+  }
+
+  public void setAttackType(AttackType attackType) {
+    this.attackType = attackType;
+  }
+
   public int getCastingCost() {
     return spellCastingCost;
   }
@@ -176,29 +194,29 @@ public class Spell {
     case Character.SKILL_SORCERY: sb.append("School: Sorcery"); break;
     case Character.SKILL_WIZARDRY: sb.append("School: Wizardy"); break;
     }
-    sb.append("\nSkill Req.: "+minimumSkill);
-    sb.append(" ");
+    sb.append(" Skill Req.: "+minimumSkill);
     if (spellName.equalsIgnoreCase(SpellFactory.SPELL_NAME_POWER_OF_HEALING)) {
+      sb.append("\n");
       sb.append("Bonus on health ");
       sb.append("2 per level");
       sb.append("\nDuration: 1");
       sb.append("\nTarget: Aim");
     }
     if (spellEffect != null) {
-    sb.append(spellEffect.getEffectAsString());
+      sb.append("\n");
+      sb.append(spellEffect.getEffectAsString());
     }
     if (spellAttack != null) {
       if (spellName.equalsIgnoreCase(SpellFactory.SPELL_NAME_SMITE_UNDEAD)) {        
-        sb.append("Damage: 1-6 per level x2");
-        sb.append("\nPiercing: 0");
+        sb.append("\nDamage: 1-6 per level x2");
         sb.append("\nTarget: Aim");
         return sb.toString(); 
       } if (spellName.equalsIgnoreCase(SpellFactory.SPELL_NAME_POWER_OF_DESTRUCTION)) {
-        sb.append("Damage: 1-3 per level x2");
-        sb.append("\nPiercing: 0");
+        sb.append("\nDamage: 1-3 per level x2");
         sb.append("\nTarget: Aim");
         return sb.toString();         
       } else {
+        sb.append("\n");
         sb.append(spellAttack.getAttackAsSpell());
       }
     }
@@ -223,8 +241,17 @@ public class Spell {
     return mindEffecting;
   }
 
+  /**
+   * Set mind affecting flag to spell if true
+   * If spell is mind affecting changes also attack type to
+   * mind affecting
+   * @param isMindEffecting
+   */
   public void setMindEffecting(boolean isMindEffecting) {
     this.mindEffecting = isMindEffecting;
+    if (this.isMindEffecting()) {
+      this.setAttackType(AttackType.MINDAFFECTING);
+    }
   }
 
   public int getMinimumSkill() {

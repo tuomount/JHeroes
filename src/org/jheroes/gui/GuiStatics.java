@@ -136,6 +136,62 @@ GuiStatics.class.getResource("/res/images/scrollArrowRight_press.png"));
   public final static BufferedImage IMAGE_LEVEL_UP = loadImage(
   GuiStatics.class.getResource("/res/images/levelup.png"));
 
+  public final static BufferedImage IMAGE_MENU_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/menuBtn.png"));
+  public final static BufferedImage IMAGE_MENU_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/menuBtn_press.png"));
+  public final static BufferedImage IMAGE_CAST_SPELL_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/cast_spell.png"));
+  public final static BufferedImage IMAGE_CAST_SPELL_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/cast_spell_press.png"));
+  public final static BufferedImage IMAGE_EVALUATE_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/evaluate.png"));
+  public final static BufferedImage IMAGE_EVALUATE_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/evaluate_press.png"));
+  public final static BufferedImage IMAGE_FULL_ATTACK_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/full_attack.png"));
+  public final static BufferedImage IMAGE_FULL_ATTACK_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/full_attack_press.png"));
+  public final static BufferedImage IMAGE_HELP_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/help_btn.png"));
+  public final static BufferedImage IMAGE_HELP_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/help_btn_press.png"));
+  public final static BufferedImage IMAGE_INVENTORY_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/inventory.png"));
+  public final static BufferedImage IMAGE_INVENTORY_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/inventory_press.png"));
+  public final static BufferedImage IMAGE_LOOK_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/look.png"));
+  public final static BufferedImage IMAGE_LOOK_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/look_press.png"));
+  public final static BufferedImage IMAGE_REST_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/rest_hour.png"));
+  public final static BufferedImage IMAGE_REST_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/rest_hour_press.png"));
+  public final static BufferedImage IMAGE_SEARCH_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/search.png"));
+  public final static BufferedImage IMAGE_SEARCH_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/search_press.png"));
+  public final static BufferedImage IMAGE_SINGLE_ATTACK_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/single_attack.png"));
+  public final static BufferedImage IMAGE_SINGLE_ATTACK_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/single_attack_press.png"));
+  public final static BufferedImage IMAGE_WAIT_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/wait_turn.png"));
+  public final static BufferedImage IMAGE_WAIT_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/wait_turn_press.png"));
+  public final static BufferedImage IMAGE_JOURNAL_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/journal.png"));
+  public final static BufferedImage IMAGE_JOURNAL_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/journal_press.png"));
+  public final static BufferedImage IMAGE_PICKUP_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/pickup.png"));
+  public final static BufferedImage IMAGE_PICKUP_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/pickup_press.png"));
+  public final static BufferedImage IMAGE_TALK_BUTTON = loadImage(
+  GuiStatics.class.getResource("/res/images/talk.png"));
+  public final static BufferedImage IMAGE_TALK_BUTTON_PRESS = loadImage(
+  GuiStatics.class.getResource("/res/images/talk_press.png"));
 
   public final static BufferedImage IMAGE_PLUS = loadImage(
   GuiStatics.class.getResource("/res/images/plus.png"));

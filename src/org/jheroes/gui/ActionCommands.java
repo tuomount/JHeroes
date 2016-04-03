@@ -147,6 +147,21 @@ public class ActionCommands {
   public static final String GAME_TRAVEL_YES = "TravelYes";
   public static final String GAME_TRAVEL_NO = "TravelNo";
   
+  public static final String GAME_BACK_TO_MAIN_MENU ="GoBackToMainMenu";
+  public static final String GAME_INVENTORY ="ShowInventory";
+  public static final String GAME_HELP ="ShowHelp";
+  public static final String GAME_FULL_ATTACK ="GameFullAttack";
+  public static final String GAME_SINGLE_ATTACK ="GameSingleAttack";
+  public static final String GAME_CAST_SPELL ="GameCastSpell";
+  public static final String GAME_LOOK ="GameLook";
+  public static final String GAME_EVALUATE ="GameEvaluate";
+  public static final String GAME_SEARCH ="GameSearch";
+  public static final String GAME_WAIT ="GameWait";
+  public static final String GAME_REST_HOUR ="GameRestHour";
+  public static final String GAME_TALK ="GameTalk";
+  public static final String GAME_PICKUP ="GamePickUp";
+  public static final String GAME_JOURNAL ="GameJournal";
+  
   public static final String SHEET_NEXT_CHAR = "SheetNextChar";
   public static final String SHEET_PREV_CHAR = "SheetPrevChar";
   public static final String SHEET_BACK_TO_GAME = "SheetBackToGame";

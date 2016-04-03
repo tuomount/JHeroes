@@ -11,8 +11,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.jheroes.map.DiceGenerator;
+import org.jheroes.map.Map;
 import org.jheroes.map.MapUtilities;
 import org.jheroes.map.Party;
+import org.jheroes.map.character.CombatModifiers.AttackType;
+import org.jheroes.map.character.CombatModifiers.DamageModifier;
 import org.jheroes.map.item.Item;
 import org.jheroes.map.item.ItemFactory;
 import org.jheroes.soundplayer.SoundPlayer;
@@ -169,6 +172,11 @@ public class Character extends CharacterAnimation {
   
   private int lastDirection;
   
+  /**
+   * Character Race information
+   */
+  private CharacterRace race;
+  
   
   public Character(int tileOffset) {
     super(CharacterAnimation.ANIMATION_TYPE_NORMAL,1,1,tileOffset);
@@ -199,6 +207,9 @@ public class Character extends CharacterAnimation {
     setCurrentHP(getMaxHP());
     setCurrentSP(getMaxStamina());
     setHostilityLevel(HOSTILITY_LEVEL_AVOID);
+    
+    // Set default race as default 
+    setRace(CharacterRace.DEFAULT);
   }  
   
   /**
@@ -500,6 +511,7 @@ public class Character extends CharacterAnimation {
       setHeading(copyFrom.getHeading());
       setPosition(copyFrom.getX(), copyFrom.getY());
       
+      setRace(copyFrom.getRace());
       setName(copyFrom.getName());
       setLongName(copyFrom.getLongName());
       setDescription(copyFrom.getDescription());
@@ -650,7 +662,7 @@ public class Character extends CharacterAnimation {
     base=base+bonus;
     return base;
   }
-  
+
   public void calculateNPCLevelAndExperience() {
     int totalSkill = 0;
     int skillPointsPerLvl = 10+attributes[ATTRIBUTE_INTELLIGENCE]+attributes[ATTRIBUTE_WISDOM];
@@ -681,6 +693,8 @@ public class Character extends CharacterAnimation {
     expmod = expmod *attributeModifier/100;
     exp = exp +expmod+calculateEquipmentValue()/10;
     exp = exp +calculateSpellListValue()*10;
+    expmod = exp;
+    exp =expmod*this.getRace().getExpModifier()/100;
     setExperience(exp);
   }
   
@@ -792,6 +806,8 @@ public class Character extends CharacterAnimation {
     expmod = expmod *attributeModifier/100;
     exp = exp +expmod+calculateEquipmentValue()/10;
     exp = exp +calculateSpellListValue()*10;
+    expmod = exp;
+    exp =expmod*this.getRace().getExpModifier()/100;
     String result = "<html>"+"SkillLvl:"+String.valueOf(skillLvl)+" PerkLvl:" +
     		String.valueOf(perkLvl)+" Lvl:"+String.valueOf(lvl)+"<br>" +
     				"Attribute Mod:"+String.valueOf(attributeModifier)+"% Exp:" 
@@ -1968,8 +1984,11 @@ public class Character extends CharacterAnimation {
     int bonusDamage = getBonusDamageFromStrength();
     int minDamage = 0;
     int maxDamage = 0;
+    // Max damage is odd on blunt weapon
+    int oddBluntWeapon = 0;
     Attack result = new Attack();
     if (target != null) {
+     result.setAttackType(target.getAttackType()); 
      if (target.getWeaponSkill() == SKILL_MELEE) {
        // Calculate bonus damage for melee weapons from perks
        if (target.isTwoHandedWeapon() &&(bonusDamage > 0)) {
@@ -2010,9 +2029,16 @@ public class Character extends CharacterAnimation {
        minDamage = target.getMinDamage()+bonusDamage;
        maxDamage = target.getMaxDamage()+bonusDamage;
      }
+     
      if (target.isBluntWeapon()) {
-       minDamage = minDamage /2+bonusDamage/2;
-       maxDamage = maxDamage /2+bonusDamage/2;
+       oddBluntWeapon = target.getMaxDamage() % 2;
+       if (target.getWeaponSkill() == SKILL_RANGED_WEAPONS) {
+         minDamage = target.getMinDamage()/2+getBonusDamageFromAgility();
+         maxDamage = target.getMaxDamage()/2+getBonusDamageFromAgility();
+       } else {
+         minDamage = target.getMinDamage()/2+bonusDamage;
+         maxDamage = target.getMaxDamage()/2+bonusDamage;
+       }
        if (minDamage == 0) {
          minDamage = 1;
        }
@@ -2035,7 +2061,7 @@ public class Character extends CharacterAnimation {
        result.setMaxStaminaDamage(maxDamage);
      }
      result.setMinLethalDamage(minDamage+target.getMinMagicDamage());
-     result.setMaxLethalDamage(maxDamage+target.getMaxMagicDamage());
+     result.setMaxLethalDamage(maxDamage+target.getMaxMagicDamage()+oddBluntWeapon);
      result.setPiercing(target.getPiercingPower());
      int critMult = target.getCriticalMultiplier();
      if ((target.getWeaponSkill() != SKILL_RANGED_WEAPONS) &&
@@ -2062,6 +2088,7 @@ public class Character extends CharacterAnimation {
     } else {
       // Unarmed damage, which is calculate using perks
       if (perks.isPerkActive(Perks.PERK_KUNG_FU_MASTER)) {
+        result.setAttackType(AttackType.BLUNT);
         minDamage = 6+bonusDamage*2;
         maxDamage = 12+bonusDamage*2;
         if (minDamage < 1) {
@@ -2096,6 +2123,7 @@ public class Character extends CharacterAnimation {
         result.setMaxLethalDamage(maxDamage);
         result.setPiercing(2);        
       } else if (perks.isPerkActive(Perks.PERK_QI_STRIKE)) {
+        result.setAttackType(AttackType.BLUNT);
         minDamage = 4+bonusDamage;
         maxDamage = 10+bonusDamage;
         if (minDamage < 1) {
@@ -2130,6 +2158,7 @@ public class Character extends CharacterAnimation {
         result.setMaxLethalDamage(maxDamage);
         result.setPiercing(1);        
       } else if (perks.isPerkActive(Perks.PERK_QI_FISTS)) {
+        result.setAttackType(AttackType.BLUNT);
         minDamage = 2+bonusDamage*2;
         maxDamage = 8+bonusDamage*2;
         if (minDamage < 1) {
@@ -2163,6 +2192,7 @@ public class Character extends CharacterAnimation {
         result.setMinLethalDamage(minDamage);
         result.setMaxLethalDamage(maxDamage);
       }else if (perks.isPerkActive(Perks.PERK_LETHAL_FISTS)) {
+        result.setAttackType(AttackType.BLUNT);
         minDamage = 2+bonusDamage*2;
         maxDamage = 6+bonusDamage*2;
         if (minDamage < 1) {
@@ -2196,6 +2226,7 @@ public class Character extends CharacterAnimation {
         result.setMinLethalDamage(minDamage);
         result.setMaxLethalDamage(maxDamage);
       } else {
+        result.setAttackType(AttackType.NONLETHAL);
         minDamage = 1+bonusDamage;
         maxDamage = 3+bonusDamage;
         if (minDamage < 1) {
@@ -2241,6 +2272,7 @@ public class Character extends CharacterAnimation {
     if (firstHand != null) {
       result = calculateDamageForWeapon(firstHand);
       result.setAttackBonus(getEffectiveSkill(firstHand.getWeaponSkill()));
+      result.createEffectFromItem(firstHand);
     } else {
       result = calculateDamageForWeapon(null);      
       result.setAttackBonus(getEffectiveSkill(SKILL_UNARMED));
@@ -2265,6 +2297,7 @@ public class Character extends CharacterAnimation {
     Attack result = new Attack();
     if (firstHand != null) {
       result = calculateDamageForWeapon(firstHand);
+      result.createEffectFromItem(firstHand);
       if (firstHand.isThrowableWeapon()) {
         result.setAttackBonus(getEffectiveSkill(Character.SKILL_RANGED_WEAPONS));
       } else {
@@ -2296,6 +2329,7 @@ public class Character extends CharacterAnimation {
       Attack result = new Attack();
       if (secondHand != null) {
         result = calculateDamageForWeapon(secondHand);
+        result.createEffectFromItem(secondHand);
         if (secondHand.getWeaponSkill() == SKILL_UNARMED) {
           result.setAttackBonus(getEffectiveSkill(secondHand.getWeaponSkill()));
         }
@@ -2804,24 +2838,24 @@ public class Character extends CharacterAnimation {
   }
 
   /**
-   * Retun what character health.
-   * @return String
+   * Return what character health.
+   * @return String never null or empty.
    */
   public String getHealthAsString() {
     int percent = getCurrentHP()*100/getMaxHP();
+    StringBuilder sb = new StringBuilder(25);
     if (percent == 100) {
-      return "Unharmed";
-    }
-    if (percent > 74) {
-      return "Slightly wounded";
-    }
-    if (percent > 50) {
-      return "Wounded";
-    }
-    if (percent > 24) {
-      return "Seriously wounded";
-    }
-    return "Near death";
+      sb.append("Unharmed");
+    } else if (percent > 74) {
+      sb.append("Slightly wounded");
+    } else if (percent > 50) {
+      sb.append("Wounded");
+    } else if (percent > 24) {
+      sb.append("Seriously wounded");
+    } else { sb.append("Near death"); }
+    sb.append(" ");
+    sb.append(poisonedDiseasedOrDamaged());
+    return sb.toString();
   }
 
   public void setExperience(int experience) {
@@ -2876,6 +2910,8 @@ public class Character extends CharacterAnimation {
       os.write(skills[i]);
       sb.append(skills[i]);
     }
+    // Writing race index
+    os.writeByte(this.getRace().getIndex());
     // Name written, 4 octet length of unicode characters and then written
     // with characters
     StreamUtilities.writeString(os, name);
@@ -2987,7 +3023,7 @@ public class Character extends CharacterAnimation {
     os.write(digest.digest(data));
   }
   
-  public void loadCharacter(DataInputStream is) throws IOException {
+  public void loadCharacter(DataInputStream is, String MapVersion) throws IOException {
     // Used for hashing
     StringBuilder sb = new StringBuilder(64);
     // First attributes    
@@ -2999,6 +3035,10 @@ public class Character extends CharacterAnimation {
     for (int i=0;i<MAX_NUMBERS_OF_SKILL;i++) {
       skills[i] = is.read();
       sb.append(skills[i]);
+    }
+    if (MapVersion.equals(Map.MAP_VERSION_1_1)) {
+      int raceIndex = is.read();
+      this.setRace(CharacterRace.getRaceByIndex(raceIndex));
     }
     // Name written, 4 octet length of unicode characters and then written
     // with characters
@@ -3145,6 +3185,45 @@ public class Character extends CharacterAnimation {
   }
   
   /**
+   * Get string information if character is poisoned, diseased or damaged
+   * from effects.
+   * @return String, never null but can be empty
+   */
+  private String poisonedDiseasedOrDamaged() {
+    StringBuilder sb = new StringBuilder();
+    Iterator<CharEffect> it = activeEffects.getActiveEffects().iterator();
+    boolean first=true;
+    while (it.hasNext()) {
+      CharEffect eff = it.next();
+      if (eff.getEffect() == CharEffect.EFFECT_ON_HEALTH &&
+          eff.getValue() < 0) {
+        if (!first) {
+          sb.append(", ");
+        }
+        first = false;
+        if (eff.getType()==CharEffect.TYPE_DISEASE) {
+          sb.append("sick");
+        }
+        if (eff.getType()==CharEffect.TYPE_POISON) {
+          sb.append("poisoned");
+        }
+        if (eff.getType()==CharEffect.TYPE_ENCHANT) {
+          sb.append(eff.getAttackType().toString());
+          sb.append(" damaged");
+        }
+        switch (this.getRace().damageModifierFor(eff.getAttackType())) {
+        case IMMUNITY: { sb.append("(Immune)"); break;}
+        case RESISTANCE: { sb.append("(Resistance)");break;}
+        case WEAKNESS: {sb.append("(Weakness)");break;}
+        case NORMAL: {break;}
+        }
+
+      }
+    }
+    return sb.toString();
+  }
+  
+  /**
    * Handle all character effects this method must be called once in a turn
    * @param Party, party is used for logging
    */
@@ -3187,15 +3266,39 @@ public class Character extends CharacterAnimation {
     while (it.hasNext()) {
       CharEffect eff = it.next();
       if (eff.getEffect() == CharEffect.EFFECT_ON_HEALTH) {
-        setCurrentHP(getCurrentHP()+ eff.getValue());        
+        if (eff.getValue() > 0) {
+          setCurrentHP(getCurrentHP()+ eff.getValue());
+        } else {
+          int damage = eff.getValue();
+          damage=damage*-1;
+          switch (this.getRace().damageModifierFor(eff.getAttackType())) {
+          case IMMUNITY: { damage=0; break;}
+          case RESISTANCE: { damage=damage/2;break;}
+          case WEAKNESS: {damage=damage*2;break;}
+          case NORMAL: {break;}
+          }
+          this.receiveLethalDamage(damage);
+        }
       }
       if (eff.getEffect() == CharEffect.EFFECT_ON_STAMINA) {
-        if (eff.getValue() < 0 && Math.abs(eff.getValue()) > getCurrentSP()) {
-         int i =  Math.abs(eff.getValue())-getCurrentSP();
-         setCurrentSP(0);
-         setCurrentHP(getCurrentHP()-i);
+        int damage = eff.getValue();
+        if (damage < 0) {
+          damage = damage*-1;
+          switch (this.getRace().damageModifierFor(eff.getAttackType())) {
+          case IMMUNITY: { damage=0; break;}
+          case RESISTANCE: { damage=damage/2;break;}
+          case WEAKNESS: {damage=damage*2;break;}
+          case NORMAL: {break;}
+          }          
+          if (damage > getCurrentSP()) {
+            int i =  damage-getCurrentSP();
+            setCurrentSP(0);
+            setCurrentHP(getCurrentHP()-i);
+           } else {
+             setCurrentSP(getCurrentSP()-damage);
+           }
         } else {
-          setCurrentSP(getCurrentSP()+ eff.getValue());
+          setCurrentSP(getCurrentSP()+ eff.getValue());          
         }
       }
       if (eff.getEffect() == CharEffect.EFFECT_ON_HEALTH_AND_STAMINA) {
@@ -3513,8 +3616,19 @@ public class Character extends CharacterAnimation {
    * Character receives non lethal damage. If Stamina is less than
    * damage then character receives rest of damage in lethal.
    * @param damage
+   * @param ignoreDamageModifier, this should be true damageModifier is checked
+   * somewhere else. For example in combat.
    */
-  public void receiveNonLethalDamage(int damage) {
+  public void receiveNonLethalDamage(int damage,boolean ignoreDamageModifier) {
+    if (!ignoreDamageModifier) {
+      DamageModifier mod = this.getRace().damageModifierForNonLethal();
+      switch (mod) {
+      case IMMUNITY: {damage = 0; break; }
+      case RESISTANCE: {damage = damage /2; break; }
+      case WEAKNESS: {damage = damage *2; break; }
+      case NORMAL: {break; }
+      }
+    }
     if (currentSP > damage) {
       currentSP = currentSP -damage;
     } else {
@@ -3940,5 +4054,13 @@ public class Character extends CharacterAnimation {
 
   public void setLastDirection(int lastDirection) {
     this.lastDirection = lastDirection;
+  }
+
+  public CharacterRace getRace() {
+    return race;
+  }
+
+  public void setRace(CharacterRace race) {
+    this.race = race;
   }
 }

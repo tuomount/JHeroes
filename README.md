@@ -3,6 +3,18 @@ JHeroes CRPG engine and Heroes of the Hawks Haven.
 Code is licensed under GPL2, graphics is under CC-BY-SA, music is under CC-BY
 and sound effects are either under CC-BY or public domain from OpenGameArt.org
 
+Binary version of latest stable Heroes of the Hawks Haven is available on
+[my home page:](https://tuomount.kapsi.fi/).
+
+## Latest changes in master
+
+* Fixed spell name Wicked Fatique -> Wicked Fatigue
+* Added new graphical effect for QI spells.
+* Races added to engine
+* Added different damage types
+* Monster evaluation on combat 
+* Mouse support on game map
+
 ## The project
 
 This projects contains open sourced Heroes of the Hawks Haven and

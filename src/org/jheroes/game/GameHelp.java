@@ -57,13 +57,15 @@ public class GameHelp extends GamePanel {
     GameButton btn = new GameButton("Exit", ActionCommands.GAMEHELP_EXIT);
     btn.addActionListener(this.listener);
     this.add(btn,BorderLayout.SOUTH);
-    String[] helpTopics = new String[6];
+    String[] helpTopics = new String[8];
     helpTopics[0] = "Keys";
     helpTopics[1] = "Attributes";
     helpTopics[2] = "Skills";
     helpTopics[3] = "Perks";
     helpTopics[4] = "Leveling up";
-    helpTopics[5] = "Tips and Hints";
+    helpTopics[5] = "Evaluate enemies";
+    helpTopics[6] = "Damage types";
+    helpTopics[7] = "Tips and Hints";
     list = new StringList(helpTopics);
     list.setActionCommand(ActionCommands.GAMEHELP_SELECT);
     list.addActionListener(listener);   
@@ -101,7 +103,9 @@ public class GameHelp extends GamePanel {
      case 2:area.setText(GameTexts.HELP_TEXT_SKILLS); break;
      case 3:area.setText(GameTexts.HELP_TEXT_PERKS); break;
      case 4:area.setText(GameTexts.HELP_TEXT_LEVELING_UP); break;
-     case 5:area.setText(GameTexts.HELP_TEXT_HOW_TO_START); break;
+     case 5:area.setText(GameTexts.HELP_TEXT_EVALUATE); break;
+     case 6:area.setText(GameTexts.HELP_TEXT_DAMAGE_TYPES); break;
+     case 7:area.setText(GameTexts.HELP_TEXT_HOW_TO_START); break;
      }
    }
   }

@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.jheroes.map.character.CharEffect;
 import org.jheroes.map.character.Character;
+import org.jheroes.map.character.CombatModifiers.AttackType;
 import org.jheroes.map.character.Spell;
 import org.jheroes.map.character.SpellFactory;
 
@@ -32,6 +33,8 @@ import org.jheroes.map.character.SpellFactory;
  * 
  *
  */
+//TODO: Add attack type into item information if it is something else than 
+//normal or blunt
 public class Item {
   
   
@@ -341,6 +344,16 @@ public class Item {
    */
   private int effectLasting;
   
+  /**
+   * Effect's attack type
+   */
+  private AttackType effectAttackType;
+  
+  /**
+   * Attack type with current item
+   */
+  private AttackType attackType;
+  
   public Item(int index,byte type, String name, int tileNumber) {
     this.index = index;
     this.tileNumber = tileNumber;
@@ -367,8 +380,10 @@ public class Item {
     this.setEffectValue(0);
     this.setEffectAttrOrSkill(0);
     this.setEffectLasting(0);
+    this.setEffectAttackType(AttackType.NORMAL);
     this.setDroppable(true);
     this.setThrowableWeapon(false);
+    this.setAttackType(AttackType.NORMAL);
   }
 
   /**
@@ -527,8 +542,16 @@ public class Item {
     return (int) maxDamage;
   }
 
+  /**
+   * Is weapon blunt weapon or not. If this is set
+   * then attack type is also changed to blunt attack
+   * @param bluntWeapon Boolean
+   */
   public void setBluntWeapon(boolean bluntWeapon) {
     this.bluntWeapon = bluntWeapon;
+    if (bluntWeapon) {
+      this.setAttackType(AttackType.BLUNT);
+    }
   }
 
   public boolean isBluntWeapon() {
@@ -765,14 +788,20 @@ public class Item {
     StringBuilder sb = new StringBuilder(20);
     int minDam=0;
     int maxDam=0;    
-    sb.append("Damage:");
+    sb.append("Damage");
+    if (this.getAttackType() != AttackType.NORMAL) {
+      sb.append("(");
+      sb.append(this.getAttackType().toString());
+      sb.append(")");
+    }
+    sb.append(":");
     if (isBluntWeapon()) {
       minDam = getMinDamage();
       maxDam = getMaxDamage();
       minDam=minDam/2;
       maxDam=maxDam/2;
       int minLetDam = minDam;
-      int maxLetDam = maxDam;
+      int maxLetDam = maxDam+getMaxDamage() % 2;
       if (getItemStatus()==IDENTIFIED_STATUS_KNOWN) {
         minLetDam = minLetDam+getMinMagicDamage();
         maxLetDam = maxLetDam+getMaxMagicDamage();      
@@ -928,6 +957,19 @@ public class Item {
         sb.append(" by ");
         sb.append(getEffectValue());
         sb.append(".");
+        break;
+      }
+      case CharEffect.EFFECT_ON_HIT_DISEASE:
+      case CharEffect.EFFECT_ON_HIT_POISON:
+      case CharEffect.EFFECT_ON_HIT_ENCHANT:{
+        sb = new StringBuilder(20);
+        sb.append("\n");
+        sb.append(this.getEffectValue());
+        sb.append(" ");
+        sb.append(this.getEffectAttackType().toString());
+        sb.append(" damages for ");
+        sb.append(this.getEffectLasting());
+        sb.append(" turns.");
         break;
       }
       }
@@ -1124,5 +1166,21 @@ public class Item {
 
   public void setThrowableWeapon(boolean throwableWeapon) {
     this.throwableWeapon = throwableWeapon;
+  }
+
+  public AttackType getAttackType() {
+    return attackType;
+  }
+
+  public void setAttackType(AttackType attackType) {
+    this.attackType = attackType;
+  }
+
+  public AttackType getEffectAttackType() {
+    return effectAttackType;
+  }
+
+  public void setEffectAttackType(AttackType effectAttackType) {
+    this.effectAttackType = effectAttackType;
   }
 }

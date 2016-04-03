@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -38,6 +41,7 @@ import org.jheroes.gui.buttons.GameButton;
 import org.jheroes.gui.buttons.ImageGameButton;
 import org.jheroes.gui.buttons.MenuButton;
 import org.jheroes.gui.labels.CharacterLabel;
+import org.jheroes.gui.labels.CreditsTextArea;
 import org.jheroes.gui.labels.GameLabel;
 import org.jheroes.gui.labels.GameLogArea;
 import org.jheroes.gui.labels.GameTextArea;
@@ -71,6 +75,7 @@ import org.jheroes.musicplayer.MusicPlayer;
 import org.jheroes.musicplayer.OggPlayer;
 import org.jheroes.soundplayer.SoundPlayer;
 import org.jheroes.talk.Talk;
+import org.jheroes.utilities.PixelsToMapCoordinate;
 import org.jheroes.utilities.StreamUtilities;
 
 
@@ -215,7 +220,7 @@ public class Game extends JFrame implements ActionListener {
   private GamePanel mainMenuPanel;
   private GamePanel optionsMenuPanel;
   private GamePanel creditsPanel;
-  private GameTextArea creditsTextArea;
+  private CreditsTextArea creditsTextArea;
   private GamePanel gamePanels;
   private GamePanel partyPanel;
   private GameSearchPanel searchPanel;
@@ -224,6 +229,7 @@ public class Game extends JFrame implements ActionListener {
   private Spell castingSpell;
   private int usedItemIndex;
   private MapPanel mapPanel;
+  private GamePanel gameButtonPanel;
   private GameCharacterSheet charSheetPanel;
   private GameTalk gameTalkPanel;
   private GameJournal gameJournalPanel;
@@ -296,7 +302,7 @@ public class Game extends JFrame implements ActionListener {
     UIManager.put("SliderUI", GameSliderUI.class.getName());
     setTitle(GAME_TITLE+" "+GAME_VERSION);
     setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);         
-    addWindowListener(new TWindowListener());
+    addWindowListener(new MainWindowListener());
     // Seems that Mac OS and Windows has title bar counted into JFRAME size
     // So adding 20 pixels more
     String os = System.getProperty("os.name");
@@ -319,7 +325,8 @@ public class Game extends JFrame implements ActionListener {
     if (noExtraSize) {
       extraSize = 0;
     }
-    setSize(950, 700+extraSize);
+    int screenWidth = 1010;
+    setSize(screenWidth, 700+extraSize);
     setLocationRelativeTo(null);
     setResizable(false);
     genericTimer = new Timer(75,this);
@@ -345,7 +352,7 @@ public class Game extends JFrame implements ActionListener {
     // Final tuning for screen size just for safe
     if (this.getInsets().top > 1 && extraSize == 0) {
       extraSize = 20;
-      setSize(920, 700+20);
+      setSize(screenWidth, 700+20);
     }
   }
   
@@ -667,7 +674,7 @@ public class Game extends JFrame implements ActionListener {
     creditsPanel = new GamePanel(true);
     creditsPanel.setGradientColor(GuiStatics.GRADIENT_COLOR_BLUE);
     creditsPanel.setLayout(new BorderLayout());
-    creditsTextArea = new GameTextArea(creditsText);
+    creditsTextArea = new CreditsTextArea(creditsText);
     creditsTextArea.setEditable(false);
     creditsTextArea.setScrollText(creditsText, 38);
     creditsTextArea.setSmoothScroll(true);
@@ -938,11 +945,110 @@ public class Game extends JFrame implements ActionListener {
     this.validate();
   }
   
+  private void createGameButtonPanel() {
+    gameButtonPanel = new GamePanel(true);
+    gameButtonPanel.setLayout(new BoxLayout(gameButtonPanel, BoxLayout.PAGE_AXIS));
+    ImageGameButton button = new ImageGameButton(GuiStatics.IMAGE_HELP_BUTTON,
+        GuiStatics.IMAGE_HELP_BUTTON_PRESS, false, 
+        ActionCommands.GAME_HELP);
+    button.addActionListener(this);
+    button.setToolTipText("Show game help");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_FULL_ATTACK_BUTTON,
+        GuiStatics.IMAGE_FULL_ATTACK_BUTTON_PRESS, false, 
+        ActionCommands.GAME_FULL_ATTACK);
+    button.addActionListener(this);
+    button.setToolTipText("Full attack");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_SINGLE_ATTACK_BUTTON,
+        GuiStatics.IMAGE_SINGLE_ATTACK_BUTTON_PRESS, false, 
+        ActionCommands.GAME_SINGLE_ATTACK);
+    button.addActionListener(this);
+    button.setToolTipText("Single attack with main attack");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_CAST_SPELL_BUTTON,
+        GuiStatics.IMAGE_CAST_SPELL_BUTTON_PRESS, false, 
+        ActionCommands.GAME_CAST_SPELL);
+    button.addActionListener(this);
+    button.setToolTipText("Cast spells if character is able");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_EVALUATE_BUTTON,
+        GuiStatics.IMAGE_EVALUATE_BUTTON_PRESS, false, 
+        ActionCommands.GAME_EVALUATE);
+    button.setToolTipText("Try to evaluate enemy. Evaluating takes one turn.");
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_WAIT_BUTTON,
+        GuiStatics.IMAGE_WAIT_BUTTON_PRESS, false, 
+        ActionCommands.GAME_WAIT);
+    button.setToolTipText("Wait one turn and gain a bit of stamina");
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_LOOK_BUTTON,
+        GuiStatics.IMAGE_LOOK_BUTTON_PRESS, false, 
+        ActionCommands.GAME_LOOK);
+    button.addActionListener(this);
+    button.setToolTipText("Look and examine the world");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_SEARCH_BUTTON,
+        GuiStatics.IMAGE_SEARCH_BUTTON_PRESS, false, 
+        ActionCommands.GAME_SEARCH);
+    button.addActionListener(this);
+    button.setToolTipText("Search for hidden items.");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_PICKUP_BUTTON,
+        GuiStatics.IMAGE_PICKUP_BUTTON_PRESS, false, 
+        ActionCommands.GAME_PICKUP);
+    button.addActionListener(this);
+    button.setToolTipText("Pick items up from the ground");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_INVENTORY_BUTTON,
+        GuiStatics.IMAGE_INVENTORY_BUTTON_PRESS, false, 
+        ActionCommands.GAME_INVENTORY);
+    button.addActionListener(this);
+    button.setToolTipText("Show character inventory");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_TALK_BUTTON,
+        GuiStatics.IMAGE_TALK_BUTTON_PRESS, false, 
+        ActionCommands.GAME_TALK);
+    button.addActionListener(this);
+    button.setToolTipText("Talk with characters");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_JOURNAL_BUTTON,
+        GuiStatics.IMAGE_JOURNAL_BUTTON_PRESS, false, 
+        ActionCommands.GAME_JOURNAL);
+    button.addActionListener(this);
+    button.setToolTipText("Show party's journal");
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_REST_BUTTON,
+        GuiStatics.IMAGE_REST_BUTTON_PRESS, false, 
+        ActionCommands.GAME_REST_HOUR);
+    button.setToolTipText("Rest and wait one hour and fully gain stamina.");
+    button.addActionListener(this);
+    gameButtonPanel.add(button);
+    button = new ImageGameButton(GuiStatics.IMAGE_MENU_BUTTON,
+        GuiStatics.IMAGE_MENU_BUTTON_PRESS, false, 
+        ActionCommands.GAME_BACK_TO_MAIN_MENU);
+    button.addActionListener(this);
+    button.setToolTipText("Go back to main menu");
+    gameButtonPanel.add(button);
+  }
+  
+  /**
+   * Show game panels with map
+   */
   public void showGamePanels() {
     gamePanels = new GamePanel(false);
     gamePanels.setGradientColor(GuiStatics.GRADIENT_COLOR_BLUE); 
     gamePanels.setLayout(new BoxLayout(gamePanels, BoxLayout.LINE_AXIS));
+    createGameButtonPanel();
+    if (gameButtonPanel != null) {
+      gamePanels.add(gameButtonPanel);
+    }
     mapPanel = new MapPanel();
+    MapMouseListener mouseListener = new MapMouseListener();
+    mapPanel.addMouseListener(mouseListener);
+    mapPanel.addMouseMotionListener(mouseListener);
     gamePanels.add(mapPanel);
     mapPanel.drawMap(map, party.getActiveChar().getX(),
         party.getActiveChar().getY(), party.isDay(),true);
@@ -2344,7 +2450,7 @@ public class Game extends JFrame implements ActionListener {
           }
         } else {
           if (spell.getTargetType() == Spell.SPELL_TARGET_CASTER) {                
-            chr.receiveNonLethalDamage(spell.getCastingCost()+chr.getStaminaCostFromLoad());
+            chr.receiveNonLethalDamage(spell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
             int exp = map.doSpell(chr, chr, spell,true);
             chr.setExperience(chr.getExperience()+exp);
             if (party.isCombat()) {
@@ -2352,7 +2458,7 @@ public class Game extends JFrame implements ActionListener {
             }
           }
           if (spell.getTargetType() == Spell.SPELL_TARGET_PARTY) {                
-            chr.receiveNonLethalDamage(spell.getCastingCost()+chr.getStaminaCostFromLoad());
+            chr.receiveNonLethalDamage(spell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
             for (int i=0;i<party.getPartySize();i++) {
               Character target = party.getPartyChar(i);
               if (target != null) {
@@ -2709,12 +2815,81 @@ public class Game extends JFrame implements ActionListener {
         changeState(GAME_STATE_CHARACTER_SHEET);
       }
     }
+    
+    if ((searchPanel == null) && (spellPanel == null) &&
+        (travelPanel == null) && (playingEvent == null)) {
+      // Actions start here
+      if (ActionCommands.GAME_INVENTORY.equalsIgnoreCase(arg0.getActionCommand())
+          && turnReady != TURN_MOVES_DONE) {        
+        charSheetPanel = new GameCharacterSheet(map, party, party.getActiveCharIndex(),
+            GameCharacterSheet.SELECTED_TAB_INVENTORY, this);
+        changeState(GAME_STATE_CHARACTER_SHEET);
+      }
+      if (ActionCommands.GAME_FULL_ATTACK.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeAttackCursormode(Map.CURSOR_MODE_ATTACK);
+      }
+      if (ActionCommands.GAME_SINGLE_ATTACK.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeAttackCursormode(Map.CURSOR_MODE_SINGLE_ATTACK);
+      }
+      if (ActionCommands.GAME_LOOK.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeCursormode(Map.CURSOR_MODE_LOOK);
+      }
+      if (ActionCommands.GAME_TALK.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeCursormode(Map.CURSOR_MODE_TALK);
+      }
+      if (ActionCommands.GAME_EVALUATE.equalsIgnoreCase(arg0.getActionCommand())) {
+        changeCursormode(Map.CURSOR_MODE_EVALUATE);
+      }
+      if (ActionCommands.GAME_SEARCH.equalsIgnoreCase(arg0.getActionCommand())) {
+        characterMakesASearch();
+      }
+      if (ActionCommands.GAME_PICKUP.equalsIgnoreCase(arg0.getActionCommand())) {
+        characterPickItemUp();
+      }
+      if (ActionCommands.GAME_WAIT.equalsIgnoreCase(arg0.getActionCommand())) {
+        characterWaitsOneTurn();
+      }
+      if (ActionCommands.GAME_REST_HOUR.equalsIgnoreCase(arg0.getActionCommand())) {
+        partyWaitsOneHour();
+      }
+      if (ActionCommands.GAME_BACK_TO_MAIN_MENU.equalsIgnoreCase(arg0.getActionCommand())) {
+        if (party.isMainCharacterAlive()) {
+          BufferedImage image = getScreenShot();
+          try {
+            GameMaps.saveCurrentMapAndParty(party, journal, map, image);
+          } catch (IOException e1) {          
+            e1.printStackTrace();
+            System.out.print("Failing to save current game...");
+          }
+        }
+        changeState(GAME_STATE_MAINMENU);
+      }
+      if (ActionCommands.GAME_HELP.equalsIgnoreCase(arg0.getActionCommand()) && 
+          (playingEvent == null) && (travelPanel == null) && (spellPanel == null)) {
+        gameHelpPanel = new GameHelp(this);
+        changeState(GAME_STATE_GAME_HELP);
+      }
+      if (ActionCommands.GAME_JOURNAL.equalsIgnoreCase(arg0.getActionCommand()) &&
+          (playingEvent == null) && (travelPanel == null) && (spellPanel == null)) {
+        gameJournalPanel = new GameJournal(journal, this);
+        changeState(GAME_STATE_JOURNAL);
+      }
+      if (!map.isCursorMode()) {
+        if (ActionCommands.GAME_CAST_SPELL.equalsIgnoreCase(arg0.getActionCommand())) {
+          changeSpellCastingMode();
+        }
+      }
+      
+    }
+
+
   }
   
   /**
    * This should be called after script is being run.
    * This handles possible map changes, journal changes which
    * are now available while running the script.
+   * @param index which event will be removed
    */
   private void scriptHandlingAfterRun(int index) {
     if (playingEvent.getJournalQuestName() != null) {
@@ -3495,12 +3670,21 @@ public class Game extends JFrame implements ActionListener {
       } else 
       if (ActionCommands.SHEET_USE_EQUIP.equalsIgnoreCase(arg0.getActionCommand())) {
         usedItemIndex = charSheetPanel.getSelectedItemIndex();
-        usedItemIndex = party.getActiveChar().getInventoryItemIndexByReversed(usedItemIndex);
-        Item item = party.getActiveChar().inventoryGetIndex(usedItemIndex);
+        usedItemIndex = charSheetPanel.getCurrentChar().getInventoryItemIndexByReversed(usedItemIndex);
+        Item item = null;
+        if (party.getActiveChar().getLongName().equals(charSheetPanel.getCurrentChar().getLongName())) {
+          item = party.getActiveChar().inventoryGetIndex(usedItemIndex);
+        } else {
+          if (!party.isCombat()) {
+            party.setActiveChar(charSheetPanel.getCurrentCharIndex());
+            item = party.getActiveChar().inventoryGetIndex(usedItemIndex);
+          }
+        }
         if (item != null) {
-          if ((item.getType() == Item.TYPE_ITEM_KEY) ||
+          if (((item.getType() == Item.TYPE_ITEM_KEY) ||
               (item.getType() == Item.TYPE_ITEM_PICKLOCK) ||
-              (item.getType() == Item.TYPE_ITEM_DIGGING_TOOL)) {
+              (item.getType() == Item.TYPE_ITEM_DIGGING_TOOL)) 
+              && (!party.isCombat())) {
             if (!map.isCursorMode()) {
               map.setCursorMode(Map.CURSOR_MODE_USE);
               map.setCursorX(party.getActiveChar().getX());
@@ -3511,7 +3695,8 @@ public class Game extends JFrame implements ActionListener {
             } else {
               map.setCursorMode(Map.CURSOR_MODE_DISABLE);
             }
-          } else if (item.getType() == Item.TYPE_ITEM_MAGICL_COMPASS) {
+          } else if (item.getType() == Item.TYPE_ITEM_MAGICL_COMPASS
+                     && !party.isCombat()) {
             if (item.getName().equalsIgnoreCase("Voodoo head")) {
               charSheetPanel = null;
               changeState(GAME_STATE_GAME);
@@ -3544,6 +3729,10 @@ public class Game extends JFrame implements ActionListener {
               changeState(GAME_STATE_GAME);
               playerMakesAMove();
             }
+          }
+        } else {
+          if (party.isCombat()) {
+            party.addLogText("Cannot be used during combat!");
           }
         }
       } else
@@ -3712,7 +3901,789 @@ public class Game extends JFrame implements ActionListener {
     
   }
 
+  /**
+   * Move character up in combat or non combat
+   */
+  public void moveCharacterUp() {
+    Character chr = party.getActiveChar();
+    int x = chr.getX();
+    int y = chr.getY();
+    y--;
+    int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
+    if (hit ==-1) {
+      chr.doMove(x, y);
+      playerMakesAMove();
+    } else {
+      if ((hit != 999) && (!party.isCombat())) {
+        Character target = party.getPartyChar(hit);
+        if (target != null) {
+          target.doMove(chr.getX(), chr.getY());
+          chr.doMove(x, y);
+          playerMakesAMove();
+        }
+      }
+    }
+  }
+  
+  /**
+   * Move character down in combat or non combat
+   */
+  public void moveCharacterDown() {
+    Character chr = party.getActiveChar();
+    int x = chr.getX();
+    int y = chr.getY();
+    y++;
+    int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
+    if (hit ==-1) {
+      chr.doMove(x, y);
+      playerMakesAMove();
+    } else {
+      if ((hit != 999) && (!party.isCombat())) {
+        Character target = party.getPartyChar(hit);
+        if (target != null) {
+          target.doMove(chr.getX(), chr.getY());
+          chr.doMove(x, y);
+          playerMakesAMove();
+        }
+      }
+    }
+  }
+  
+  /**
+   * Move character left in combat or non combat
+   */
+  public void moveCharacterLeft() {
+    Character chr = party.getActiveChar();
+    int x = chr.getX();
+    int y = chr.getY();
+    x--;
+    int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
+    if (hit ==-1) {
+      chr.doMove(x, y);
+      playerMakesAMove();
+    } else {
+      if ((hit != 999) && (!party.isCombat())) {
+        Character target = party.getPartyChar(hit);
+        if (target != null) {
+          target.doMove(chr.getX(), chr.getY());
+          chr.doMove(x, y);
+          playerMakesAMove();
+        }
+      }
+    }
+  }
 
+  /**
+   * Move character right in combat or non combat
+   */
+  public void moveCharacterRight() {
+    Character chr = party.getActiveChar();
+    int x = chr.getX();
+    int y = chr.getY();
+    x++;
+    int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
+    if (hit ==-1) {
+      chr.doMove(x, y);
+      playerMakesAMove();
+    } else {
+      if ((hit != 999) && (!party.isCombat())) {
+        Character target = party.getPartyChar(hit);
+        if (target != null) {
+          target.doMove(chr.getX(), chr.getY());
+          chr.doMove(x, y);
+          playerMakesAMove();
+        }
+      }
+    }
+  }
+  
+  /**
+   * Continue watching playing event
+   */
+  public void continuePlayingEvent() {
+    if (playingEvent.getNextText()) {
+      if (playingEvent.getTalkFile() != null) {
+        if (playingEvent.isPCTalk()) {
+          // Changing to main char
+          party.setActiveChar(0);
+        }
+        DebugOutput.debugLog("Load talk file:"+playingEvent.getTalkFile()+" ...");
+        Talk talk = Talk.readTalkResource(playingEvent.getTalkFile());
+        if (talk != null) {
+          DebugOutput.debugLog("OK");
+          gameTalkPanel = new GameTalk(party, playingEvent.getCharacter(),
+              talk,journal, this);
+          changeState(GAME_STATE_TALK);
+        } else {
+          DebugOutput.debugLog("Could not found talk file");
+          party.addLogText(playingEvent.getCharacter().getName()+" has nothing to say.");
+        }
+      }
+      mapPanel.forceFullRepaint();
+      playingEvent = null;
+      map.setDisplayPopupText(null);
+      map.setPopupImage(null);
+      map.clearAllGraphEffects();
+    }
+  }
+
+  /**
+   * Active look mode target on cursor mode
+   */
+  public void activateLookModeTarget() {
+    Character chr = party.getActiveChar();
+    boolean interesting=false;
+    int cx = map.getCursorX();
+    int cy = map.getCursorY();
+    int tileIndex = map.getDecoration(cx, cy);
+    if (tileIndex != -1) {
+      party.addLogText("There might be items hidden.");
+      interesting = true;
+    } else {
+      int index = map.getItemIndexByCoordinates(cx, cy);
+      Item item = map.getItemByIndex(index);
+      if (item != null) {
+        party.addLogText(chr.getName()+" sees "+item.getItemNameInGame()+".");
+        interesting = true;
+      }
+    }
+   
+    int index = map.getCharacterByCoordinates(cx, cy);
+    if (index != -1) {
+      Character npc = map.getNPCbyIndex(index);
+      if (npc != null) {
+        party.addLogText(chr.getName()+" sees "+npc.getLongName()+".");
+        party.addLogText(npc.getDescription());
+        party.addLogText(npc.getWearings());
+        if (party.isCombat()) {
+          party.addLogText(npc.getHealthAsString());
+        }
+        DebugOutput.debugLog(npc.getName()+" task: "+npc.getCurrentTaskDesc());
+        interesting = true;
+      }
+    }
+    index = map.getEvent(cx, cy);
+    if (index != -1) {
+      Event event = map.getEventByIndex(index);
+      if (event != null) {
+        if (event.getEventCommand() == Event.COMMAND_TYPE_SIGN) {
+          party.addLogText(chr.getName()+" reads the sign:\""+event.getParam(0)+"\"");
+          interesting = true;
+        }
+        if (event.getEventCommand() == Event.COMMAND_TYPE_CLOCK) {
+          interesting = true;
+          if (event.getParam(0).equalsIgnoreCase("SUN")) {
+            party.addLogText(chr.getName()+" looks sun dial: "+party.getTimeAsString(true));
+          } else {
+            party.addLogText(chr.getName()+" looks clock: "+party.getTimeAsString(false));
+          }
+        }
+        if (event.getEventCommand() == Event.COMMAND_TYPE_LOOK_INFO) {
+          party.addLogText(event.getParam(0));
+          interesting = true;
+        }
+
+      }
+    }
+    if (!interesting) {
+      party.addLogText(chr.getName()+" sees nothing interesting.");
+    }
+    map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+  }
+
+  /**
+   * Active evaluate on cursor mode.
+   */
+  public void activateEvaluateMode() {
+    Character chr = party.getActiveChar();
+    int cx = map.getCursorX();
+    int cy = map.getCursorY();
+    int index = map.getCharacterByCoordinates(cx, cy);
+    if (index != -1) {
+      Character npc = map.getNPCbyIndex(index);
+      if (npc != null) {
+        party.addLogText(chr.getName()+" sees "+npc.getLongName()+".");
+        int evaluateSkill =0;
+        switch (chr.getAttribute(Character.ATTRIBUTE_INTELLIGENCE)) {
+        case 1: {evaluateSkill = -3; break;}
+        case 2: {evaluateSkill = -2; break;}
+        case 3: {evaluateSkill = -1; break;}
+        case 4: {evaluateSkill = -1; break;}
+        case 5: {evaluateSkill = 0; break;}
+        case 6: {evaluateSkill = 1; break;}
+        case 7: {evaluateSkill = 2; break;}
+        case 8: {evaluateSkill = 3; break;}
+        case 9: {evaluateSkill = 4; break;}
+        case 10: {evaluateSkill = 5;  break;}
+        default: {evaluateSkill = 0; break; }
+        }
+        evaluateSkill = evaluateSkill +chr.getLevel();
+        if (evaluateSkill>npc.getLevel()) {
+          party.addLogText(npc.getName()+" is "
+              +npc.getRace().getName().toLowerCase()+".");
+          party.addLogText(npc.getRace().getDescription());
+          party.addLogText(npc.getName()+" has "+
+             npc.getCurrentHP()+"/"+npc.getMaxHP()+" HP and "+
+             npc.getCurrentSP()+"/"+npc.getMaxStamina()+" SP.");
+
+        } else  if (evaluateSkill==npc.getLevel()) {
+          party.addLogText(npc.getName()+" is "
+              +npc.getRace().getName().toLowerCase()+".");
+          party.addLogText(npc.getRace().getDescription());
+
+        } else if (evaluateSkill>npc.getLevel()-3) {
+          party.addLogText(npc.getName()+" is "
+                          +npc.getRace().getName().toLowerCase()+".");
+        }   else { 
+          party.addLogText(npc.getName()+" is too difficult to evaluate."); 
+        }
+
+      }
+      playerMakesAMove();
+    } else {
+      party.addLogText("There is no one to evaluate...");
+    }
+    map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+  }
+  
+  /**
+   * Activate talk mode in cursor mode
+   */
+  public void activateTalkMode() {
+    int cx = map.getCursorX();
+    int cy = map.getCursorY();
+    int dist = MapUtilities.getDistance(party.getActiveChar().getX(), 
+        party.getActiveChar().getY(), cx, cy);
+    if ((dist < Map.MAX_TALK_RANGE) && (!party.isCombat())) {
+      Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
+      if (npc != null) {
+        Talk talk = Talk.readTalkResource(npc.getTalkFileName());
+        if (talk != null) {
+          gameTalkPanel = new GameTalk(party, npc,talk,journal, this);
+          changeState(GAME_STATE_TALK);
+        } else {
+          party.addLogText(npc.getName()+" has nothing to say.");
+          DebugOutput.debugLog("Could not find resource file:"+npc.getTalkFileName());  
+        }
+      } else {
+        if (party.getActiveCharIndex() != party.getPartyMemberByCoordinates(cx, cy)) {
+          npc = party.getPartyChar(party.getPartyMemberByCoordinates(cx, cy));
+          if (npc != null) {
+            Talk talk = Talk.readTalkResource(npc.getTalkFileName());
+            if (talk != null) {
+              gameTalkPanel = new GameTalk(party, npc,talk,journal, this);
+              changeState(GAME_STATE_TALK);
+            } else {
+              party.addLogText(npc.getName()+" has nothing to say.");
+              DebugOutput.debugLog("Could not find resource file:"+npc.getTalkFileName());  
+            }
+          }
+        }
+      }
+    } else {
+      if (party.isCombat()) {
+        party.addLogText(party.getActiveChar().getName()+" cannot talk while in combat!");
+      } else {
+        party.addLogText(party.getActiveChar().getName()+" cannot talk that far away!");
+      }
+    }
+    map.setCursorMode(Map.CURSOR_MODE_DISABLE);      
+
+  }
+  
+  /**
+   * Handle use mode in cursor mode
+   */
+  public void activateUseMode() {
+    int cx = map.getCursorX();
+    int cy = map.getCursorY();
+    int dist = MapUtilities.getDistance(party.getActiveChar().getX(), 
+        party.getActiveChar().getY(), cx, cy);
+    if ((dist == 1) && (!party.isCombat())) {
+      // Distance is okay
+      Item item = party.getActiveChar().inventoryGetIndex(usedItemIndex);
+      if (item != null) {
+        int index = map.getEvent(cx, cy);
+        Event event = map.getEventByIndex(index);
+        if (event != null) {
+          if (event.getEventCommand() == Event.COMMAND_TYPE_LOCKED_DOOR) {                  
+            activateLockedDoor(event, item, cx, cy);
+            playerMakesAMove();
+          }
+          if (event.getEventCommand() == Event.COMMAND_TYPE_LOCKED_GATE) {                  
+            activateLockedGate(event, item, cx, cy, index);
+            playerMakesAMove();
+          }
+          if (event.getEventCommand() == Event.COMMAND_TYPE_HOLE_TO_DIG) {
+            activateDigHole(event, item, cx, cy, index);
+            playerMakesAMove();
+          }
+        }
+      }
+    } else {
+      party.addLogText("Out of range!");
+    }
+    map.setCursorMode(Map.CURSOR_MODE_DISABLE);      
+  }
+  
+  /**
+   * Handle digging hole in cursor mode
+   * @param event Event to dig
+   * @param item Item to dig with
+   * @param cx coordinate x where to dig
+   * @param cy coordinate y where to dig
+   * @param index
+   */
+  public void activateDigHole(Event event, Item item, int cx, int cy,
+      int index) {
+    if (item.getType()==Item.TYPE_ITEM_DIGGING_TOOL) {
+      party.addLogText(party.getActiveChar().getName()+" dig a hole...");
+      playingEvent = new GameEventHandler(event, null, cx, cy, party);
+      if (!playingEvent.isPlayable()) {
+        playingEvent = null;
+      } else {
+        DebugOutput.debugLog(party.getActiveChar().getName()+" dig a hole at "+cx+" "+cy);
+        playingEvent.runScript();
+        scriptHandlingAfterRun(index);
+      }
+    }      
+  }
+
+  /**
+   * Locked door handling when used with key or pick lock
+   * @param event Event
+   * @param item Item with to use
+   * @param cx cursor positions
+   * @param cy cursor positions
+   */
+  private void activateLockedDoor(Event event, Item item, int cx, int cy) {
+    if ((item.getType()==Item.TYPE_ITEM_KEY) &&
+    (item.getKeyValue().equalsIgnoreCase(event.getLockDoorKeyName()))) {
+      String param1 = event.getParam(1);
+      String param2 = event.getParam(2);
+      event.setEventCommand(Event.COMMAND_TYPE_QUICK_TRAVEL);
+      event.setParam(0, param1);
+      event.setParam(1, param2);
+      event.setParam(2, "Door");
+      party.addLogText(party.getActiveChar().getName()+" opened lock with "+item.getName());
+      party.getActiveChar().inventoryRemoveItem(usedItemIndex);
+      usedItemIndex = -1;
+      SoundPlayer.playSound(SoundPlayer.SOUND_FILE_PICKLOCK);
+    }
+    if (item.getType()==Item.TYPE_ITEM_PICKLOCK) { 
+      int tn = event.getLockDoorDifficulty();
+      if (tn >= 500) {
+        party.addLogText("This lock cannot be picked!");
+      } else {
+        int skillBonus = party.getActiveChar().getEffectiveSkill(Character.SKILL_LOCK_PICKING)+item.getBonusPickLock();
+        int check =party.getActiveChar().skillBonusCheck(skillBonus, tn);
+        if (check > Character.CHECK_FAIL) {
+          String param1 = event.getParam(1);
+          String param2 = event.getParam(2);
+          event.setEventCommand(Event.COMMAND_TYPE_QUICK_TRAVEL);
+          event.setParam(0, param1);
+          event.setParam(1, param2);
+          event.setParam(2, "Door");
+          party.addLogText(party.getActiveChar().getName()+" picked the lock.");
+          usedItemIndex = -1;
+          SoundPlayer.playSound(SoundPlayer.SOUND_FILE_PICKLOCK);
+        } else {
+          check = party.getActiveChar().luckCheck(false);
+          SoundPlayer.playSoundBySoundName("PICKLOCKFAIL");
+          if (check == Character.CHECK_FAIL) {
+            party.addLogText(party.getActiveChar().getName()+" failed opening the lock and broke "+item.getName());
+            party.getActiveChar().inventoryRemoveItem(usedItemIndex);
+            usedItemIndex = -1;
+          } else {
+            party.addLogText(party.getActiveChar().getName()+" failed opening the lock.");
+          }
+        }
+      }
+    }
+    
+  }
+  
+  /**
+   * Handling for locked gate
+   * @param event Event
+   * @param item Item
+   * @param cx cursor positions
+   * @param cy cursor positions
+   * @param index Event index which to remove
+   */
+  private void activateLockedGate(Event event, Item item, int cx, int cy, int index) {
+    if ((item.getType()==Item.TYPE_ITEM_KEY) &&
+    (item.getKeyValue().equalsIgnoreCase(event.getLockDoorKeyName()))) {
+      party.addLogText(party.getActiveChar().getName()+" opened lock with "+item.getName());
+      party.getActiveChar().inventoryRemoveItem(usedItemIndex);
+      usedItemIndex = -1;
+      SoundPlayer.playSound(SoundPlayer.SOUND_FILE_PICKLOCK);
+      SoundPlayer.playSoundBySoundName(event.getEventSound());
+      map.doOpenGate(event);
+      map.removeEvent(index);
+      map.forceMapFullRepaint();
+    }
+    if (item.getType()==Item.TYPE_ITEM_PICKLOCK) { 
+      int tn = event.getLockDoorDifficulty();
+      int skillBonus = party.getActiveChar().getEffectiveSkill(Character.SKILL_LOCK_PICKING)+item.getBonusPickLock();
+      int check =party.getActiveChar().skillBonusCheck(skillBonus, tn);
+      if (check > Character.CHECK_FAIL) {
+        party.addLogText(party.getActiveChar().getName()+" picked the lock.");
+        usedItemIndex = -1;
+        SoundPlayer.playSound(SoundPlayer.SOUND_FILE_PICKLOCK);
+        SoundPlayer.playSoundBySoundName(event.getEventSound());
+        map.doOpenGate(event);
+        map.removeEvent(index);
+        map.forceMapFullRepaint();
+      } else {
+        check = party.getActiveChar().luckCheck(false);
+        SoundPlayer.playSoundBySoundName("PICKLOCKFAIL");
+        if (check == Character.CHECK_FAIL) {
+          party.addLogText(party.getActiveChar().getName()+" failed opening the lock and broke "+item.getName());
+          party.getActiveChar().inventoryRemoveItem(usedItemIndex);
+          usedItemIndex = -1;
+        } else {
+          party.addLogText(party.getActiveChar().getName()+" failed opening the lock.");
+        }
+      }
+    }
+  }
+
+  /**
+   * Handle attacking in cursor mode
+   */
+  public void activateAttackMode() {
+    int fullAttack = Map.ATTACK_TYPE_FULL_ATTACK;
+    if (map.getCursorMode()==Map.CURSOR_MODE_SINGLE_ATTACK) {
+      fullAttack = Map.ATTACK_TYPE_SINGLE_ATTACK;
+    }
+    if (turnReady != TURN_MOVES_DONE) {
+      Character chr = party.getActiveChar();
+      if ((chr.getCurrentSP()==0) && (chr.getCurrentHP() < chr.getMaxHP()/2)) {
+        party.addLogText(chr.getName()+" is too exhausted!");
+      } else {
+        int cx = map.getCursorX();
+        int cy = map.getCursorY();
+        int dist = MapUtilities.getDistance(chr.getX(), chr.getY(), cx, cy);
+        if ((chr.getFirstAttack().isRangedAttack()) 
+            && (dist <Map.MAX_RANGED_RANGE) &&
+            (map.isClearShot(chr.getX(), chr.getY(), cx, cy))) {
+          if (((dist==1) && (chr.getPerks().isPerkActive(Perks.PERK_POINT_BLANK_SHOT))) ||
+          (dist > 1)){
+            Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
+            if (npc != null) {
+              if (npc.getHostilityLevel() == Character.HOSTILITY_LEVEL_AGGRESSIVE) {
+                int exp = map.doAttack(chr,npc,fullAttack);
+                if (exp > 0) {
+                  party.shareExperience(exp);
+                }
+                int taskIndex = npc.getCurrentTaskIndex(party.getHours(), party.getMins());
+                CharTask task = npc.getTaskByIndex(taskIndex);
+                if ((task != null) && (task.getTask().equals(CharTask.TASK_ATTACK_PC))) {
+                  // Do nothing
+                } else {
+                  // Add player to killing list
+                  npc.addTaskKillPartyMember(chr.getName());
+                }
+                party.setCombat(true);
+              } else {
+                party.addLogText(npc.getName()+" is on your side!");
+              }
+            } else {
+              party.addLogText("There is nothing to attack.");
+            }
+          } else {
+            party.addLogText("Cannot shoot to close combat!");
+          }
+        }else if (chr.getFirstAttack().isThrowingAttackPossible() 
+            && dist <Map.MAX_RANGED_RANGE && dist > 1 &&
+            map.isClearShot(chr.getX(), chr.getY(), cx, cy)) {
+            Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
+            if (npc != null) {
+              if (npc.getHostilityLevel() == Character.HOSTILITY_LEVEL_AGGRESSIVE) {
+                int exp = map.doAttack(chr,npc,Map.ATTACK_TYPE_THROW_ATTACK);
+                if (exp > 0) {
+                  party.shareExperience(exp);
+                }
+                int taskIndex = npc.getCurrentTaskIndex(party.getHours(), party.getMins());
+                CharTask task = npc.getTaskByIndex(taskIndex);
+                if ((task != null) && (task.getTask().equals(CharTask.TASK_ATTACK_PC))) {
+                  // Do nothing
+                } else {
+                  // Add player to killing list
+                  npc.addTaskKillPartyMember(chr.getName());
+                }
+                party.setCombat(true);
+              } else {
+                party.addLogText(npc.getName()+" is on your side!");
+              }
+            } else {
+              party.addLogText("There is nothing to attack.");
+            }
+        } else
+        if ((!chr.getFirstAttack().isRangedAttack()) && (dist ==1)) {
+          Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
+          if (npc != null) {
+            if (npc.getHostilityLevel() == Character.HOSTILITY_LEVEL_AGGRESSIVE) {
+              int exp = map.doAttack(chr,npc,fullAttack);
+              if (exp > 0) {
+                party.shareExperience(exp);
+              }
+              int taskIndex = npc.getCurrentTaskIndex(party.getHours(), party.getMins());
+              CharTask task = npc.getTaskByIndex(taskIndex);
+              if ((task != null) && (task.getTask().equals(CharTask.TASK_ATTACK_PC))) {
+                  if (!task.getWayPointName().equalsIgnoreCase(chr.getName())) {
+                    task.setWayPointName(chr.getName()); 
+                  }                        
+              } else {
+                npc.addTaskKillPartyMember(chr.getName());
+              }
+
+              party.setCombat(true);                    
+            } else {
+              party.addLogText(npc.getName()+" is on your side!");
+            }
+          } else {
+            party.addLogText("There is nothing to attack.");
+          }
+        } else {
+          party.addLogText("Out of range!");
+        }
+        map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+        playerMakesAMove();
+      }
+    } 
+    
+  }
+
+  /**
+   * Handle casting in cursormode
+   */
+  public void activateCastingMode() {
+    if (turnReady != TURN_MOVES_DONE) {
+      Character chr = party.getActiveChar();
+      if ((chr.getCurrentSP()==0) && (chr.getCurrentHP() < chr.getMaxHP()/2)) {
+        party.addLogText(chr.getName()+" is too exhausted!");
+      } else {
+        int cx = map.getCursorX();
+        int cy = map.getCursorY();
+        int dist = MapUtilities.getDistance(chr.getX(), chr.getY(), cx, cy);
+        if ((dist <Map.MAX_RANGED_RANGE) &&
+            (map.isClearShot(chr.getX(), chr.getY(), cx, cy))) {
+          Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
+          if (npc != null) {
+            if (castingSpell.getAttack()!=null) {
+              if (npc.getHostilityLevel() == Character.HOSTILITY_LEVEL_AGGRESSIVE) {
+                int exp = map.doSpell(chr, npc, castingSpell,true);
+                chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
+                if (chr.getCurrentSP()<chr.getMaxStamina()/2) {
+                  map.addNewGraphEffect(chr.getX(), chr.getY(), Map.GRAPH_EFFECT_SWEAT);
+                }
+                if (exp > 0) {
+                  chr.setExperience(chr.getExperience()+exp);
+                }
+                party.setCombat(true);
+              } else {
+                party.addLogText(npc.getName()+" is on your side!");  
+              }
+            } else {
+              int exp = map.doSpell(chr, npc, castingSpell,true);
+              chr.setExperience(chr.getExperience()+exp);
+              chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
+              if (chr.getCurrentSP()<chr.getMaxStamina()/2) {
+                map.addNewGraphEffect(chr.getX(), chr.getY(), Map.GRAPH_EFFECT_SWEAT);
+              }
+
+            }
+          } else {
+            npc = party.getPartyChar(party.getPartyMemberByCoordinates(cx, cy));
+            if ((npc != null) && (castingSpell.getAttack()==null)) {
+              int exp = map.doSpell(chr, npc, castingSpell,true);
+              chr.setExperience(chr.getExperience()+exp);
+              chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad(),false);
+              if (chr.getCurrentSP()<chr.getMaxStamina()/2) {
+                map.addNewGraphEffect(chr.getX(), chr.getY(), Map.GRAPH_EFFECT_SWEAT);
+              }
+
+            } else {
+              party.addLogText("There is no target for casting.");
+            }
+          }
+        } else {
+          party.addLogText("Out of range!");
+        }
+        map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+        playerMakesAMove();
+      }
+    } 
+    
+  }
+
+  /**
+   * Change to attack cursor mode. This method cannot be used for any other
+   * cursormode
+   * @param attackMode
+   */
+  public void changeAttackCursormode(int attackMode){
+    if (attackMode == Map.CURSOR_MODE_ATTACK || 
+        attackMode == Map.CURSOR_MODE_SINGLE_ATTACK) {
+      if (!map.isCursorMode()) {
+        Character chr = party.getActiveChar();
+        if (!chr.isPacified()) {
+          map.setCursorMode(attackMode);         
+          map.setCursorX(chr.getX());
+          map.setCursorY(chr.getY());
+        } else {
+          party.addLogText(chr.getName()+" is pacified and cannot attack!");
+        }
+      } else {
+        if (map.getCursorMode() == Map.CURSOR_MODE_SINGLE_ATTACK &&
+            attackMode == Map.CURSOR_MODE_ATTACK) {
+          map.setCursorMode(Map.CURSOR_MODE_ATTACK);
+        } else if (map.getCursorMode() == Map.CURSOR_MODE_SINGLE_ATTACK &&
+            attackMode == Map.CURSOR_MODE_SINGLE_ATTACK) {
+          map.setCursorMode(Map.CURSOR_MODE_SINGLE_ATTACK);
+        } else {
+          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+        }
+      }
+
+    }
+  }
+
+  /**
+   * Change to cursor mode. This cannot be used to change attack mode.
+   * @param mode
+   */
+  public void changeCursormode(int mode){
+    if (mode != Map.CURSOR_MODE_ATTACK && 
+        mode != Map.CURSOR_MODE_SINGLE_ATTACK) {
+      if (!map.isCursorMode()) {
+        map.setCursorMode(mode);
+        Character chr = party.getActiveChar();
+        map.setCursorX(chr.getX());
+        map.setCursorY(chr.getY());
+      } else {
+        map.setCursorMode(Map.CURSOR_MODE_DISABLE);
+      }
+    }
+  }
+
+  /**
+   * Show the spellPanel for current Character if he or she is able to cast
+   * spells
+   */
+  public void changeSpellCastingMode() {
+    Character chr = party.getActiveChar();
+    ArrayList<String> spells = chr.getSpellList();
+    if (spells  != null) {
+      if (spells.size() > 0) {
+        spellPanel = new GameSpellPanel(chr.getName(), chr.getSpellList(), this);
+        spellPanel.setSelection(party.getLastCastSpell(party.getActiveCharIndex()));
+        gamePanels.remove(partyPanel);
+        gamePanels.add(spellPanel);
+        gamePanels.validate();
+      }
+    }
+  }
+  
+  /**
+   * Current character makes a search
+   */
+  public void characterMakesASearch() {
+    if (party.isCombat()) {
+      Character chr = party.getActiveChar();
+      party.addLogText(chr.getName()+" cannot search in combat.");
+    } else {
+    Character chr = party.getActiveChar();
+    ArrayList<Item> items = map.getItemsFromSurround(chr.getX(), chr.getY());
+    if (items  != null) {
+      if (items.size() == 1) {
+        Item item = items.get(0);
+        if (chr.inventoryPickUpItem(item)) {
+          party.addLogText(chr.getName()+" found "+item.getItemNameInGame()+".");
+          map.removeItem(item);
+        } else {
+          party.addLogText(chr.getName()+" found "+item.getItemNameInGame()+" but cannot carry it.");
+        }
+        
+      } else {
+        searchPanel = new GameSearchPanel(chr.getName(), items, this);
+        gamePanels.remove(partyPanel);
+        gamePanels.add(searchPanel);
+        gamePanels.validate();
+      }
+    } else {
+      party.addLogText(chr.getName()+" found nothing.");
+    }
+    playerMakesAMove();
+    }
+
+  }
+
+  /**
+   * Character waits one turn and gains a bit stamina back. Works in combat,
+   * solo mode or party mode.
+   */
+  public void characterWaitsOneTurn() {
+    Character chr = party.getActiveChar();
+    if ((party.isCombat()) || (party.getMode()==Party.MODE_SOLO_MODE)) {
+      chr.getStaminaInRestTurn();
+      playerMakesAMove();
+      if ((party.getHours()==6) && (party.getMins()==0) && (party.getSecs()==0)) {
+        mapPanel.forceFullRepaint();
+      }
+      if ((party.getHours()==18) && (party.getMins()==0) && (party.getSecs()==0)) {
+        mapPanel.forceFullRepaint();
+      }
+    } else {
+      party.restOneTurn();
+      party.timeAddTurn();              
+      map.doNPCsMove(party.getHours(), party.getMins());
+    }
+
+  }
+  
+  /**
+   * Party waits one hour and all gets full stamina.
+   */
+  public void partyWaitsOneHour() {
+    if (party.isCombat()) {
+      party.addLogText("Cannot wait for hour while in combat.");
+    } else {
+      for (int i=0;i<party.getPartySize();i++) {
+        Character chr = party.getPartyChar(i);
+        if (chr != null) {
+          chr.setCurrentSP(chr.getMaxStamina());
+        }
+      }
+      party.timeAddHour();
+      if (party.getHours()==6) {
+        mapPanel.forceFullRepaint();
+      }
+      if (party.getHours()==18) {
+        mapPanel.forceFullRepaint();
+      }              
+      map.doNPCsCheckCorrectPositions(party.getHours(), party.getMins(),false);
+    }
+  }
+
+  /**
+   * Active character picks up and item from the map.
+   */
+  public void characterPickItemUp() {
+    Character chr = party.getActiveChar();
+    int index = map.getItemIndexByCoordinates(chr.getX(), chr.getY());
+    if (index != -1) {
+      Item item = map.getItemByIndex(index);
+      if (chr.inventoryPickUpItem(item)) {
+        party.addLogText(chr.getName()+" picked up "+item.getItemNameInGame()+".");
+        map.removeItemByIndex(index);
+        playerMakesAMove();
+      }
+    }
+
+  }
   /**
    * New keyboard adapter for game
    *
@@ -3723,205 +4694,38 @@ public class Game extends JFrame implements ActionListener {
     
     private void keyPressedInGamePlayingEvent(int key) {
       if (key == KeyEvent.VK_ENTER) {
-        if (playingEvent.getNextText()) {
-          if (playingEvent.getTalkFile() != null) {
-            if (playingEvent.isPCTalk()) {
-              // Changing to main char
-              party.setActiveChar(0);
-            }
-            DebugOutput.debugLog("Load talk file:"+playingEvent.getTalkFile()+" ...");
-            Talk talk = Talk.readTalkResource(playingEvent.getTalkFile());
-            if (talk != null) {
-              DebugOutput.debugLog("OK");
-              gameTalkPanel = new GameTalk(party, playingEvent.getCharacter(),
-                  talk,journal, listener);
-              changeState(GAME_STATE_TALK);
-            } else {
-              DebugOutput.debugLog("Could not found talk file");
-              party.addLogText(playingEvent.getCharacter().getName()+" has nothing to say.");
-            }
-          }
-          mapPanel.forceFullRepaint();
-          playingEvent = null;
-          map.setDisplayPopupText(null);
-          map.setPopupImage(null);
-          map.clearAllGraphEffects();
-        }
-      }      
+        continuePlayingEvent();
+      }    
     }
     
     private void keyPressedInGameNotCursorMode(int key) {
       if (turnReady != TURN_MOVES_DONE) {
         if (key == KeyEvent.VK_UP) {
-          Character chr = party.getActiveChar();
-          int x = chr.getX();
-          int y = chr.getY();
-          y--;
-          int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
-          if (hit ==-1) {
-            chr.doMove(x, y);
-            playerMakesAMove();
-          } else {
-            if ((hit != 999) && (!party.isCombat())) {
-              Character target = party.getPartyChar(hit);
-              if (target != null) {
-                target.doMove(chr.getX(), chr.getY());
-                chr.doMove(x, y);
-                playerMakesAMove();
-              }
-            }
-          }
+          moveCharacterUp();
         }
         if (key == KeyEvent.VK_DOWN) {
-          Character chr = party.getActiveChar();
-          int x = chr.getX();
-          int y = chr.getY();
-          y++;
-          int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
-          if (hit ==-1) {
-            chr.doMove(x, y);
-            playerMakesAMove();
-          } else {
-            if ((hit != 999) && (!party.isCombat())) {
-              Character target = party.getPartyChar(hit);
-              if (target != null) {
-                target.doMove(chr.getX(), chr.getY());
-                chr.doMove(x, y);
-                playerMakesAMove();
-              }
-            }
-          }
+          moveCharacterDown();
         }
         if (key == KeyEvent.VK_LEFT) {
-          Character chr = party.getActiveChar();
-          int x = chr.getX();
-          int y = chr.getY();
-          x--;
-          int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
-          if (hit ==-1) {
-            chr.doMove(x, y);
-            playerMakesAMove();
-          } else {
-            if ((hit != 999) && (!party.isCombat())) {
-              Character target = party.getPartyChar(hit);
-              if (target != null) {
-                target.doMove(chr.getX(), chr.getY());
-                chr.doMove(x, y);
-                playerMakesAMove();
-              }
-            }
-          }
+          moveCharacterLeft();
         }
         if (key == KeyEvent.VK_RIGHT) {
-          Character chr = party.getActiveChar();
-          int x = chr.getX();
-          int y = chr.getY();
-          x++;
-          int hit = map.isBlockOrPartyMember(chr.getX(), chr.getY(), x, y,true);
-          if (hit ==-1) {
-            chr.doMove(x, y);
-            playerMakesAMove();
-          } else {
-            if ((hit != 999) && (!party.isCombat())) {
-              Character target = party.getPartyChar(hit);
-              if (target != null) {
-                target.doMove(chr.getX(), chr.getY());
-                chr.doMove(x, y);
-                playerMakesAMove();
-              }
-            }
-          }
+          moveCharacterRight();
         }
         if (key == KeyEvent.VK_P) {
-          Character chr = party.getActiveChar();
-          int index = map.getItemIndexByCoordinates(chr.getX(), chr.getY());
-          if (index != -1) {
-            Item item = map.getItemByIndex(index);
-            if (chr.inventoryPickUpItem(item)) {
-              party.addLogText(chr.getName()+" picked up "+item.getItemNameInGame()+".");
-              map.removeItemByIndex(index);
-              playerMakesAMove();
-            }
-          }
+          characterPickItemUp();
         }
         if (key == KeyEvent.VK_S) {
-          if (party.isCombat()) {
-            Character chr = party.getActiveChar();
-            party.addLogText(chr.getName()+" cannot search in combat.");
-          } else {
-          Character chr = party.getActiveChar();
-          ArrayList<Item> items = map.getItemsFromSurround(chr.getX(), chr.getY());
-          if (items  != null) {
-            if (items.size() == 1) {
-              Item item = items.get(0);
-              if (chr.inventoryPickUpItem(item)) {
-                party.addLogText(chr.getName()+" found "+item.getItemNameInGame()+".");
-                map.removeItem(item);
-              } else {
-                party.addLogText(chr.getName()+" found "+item.getItemNameInGame()+" but cannot carry it.");
-              }
-              
-            } else {
-              searchPanel = new GameSearchPanel(chr.getName(), items, listener);
-              gamePanels.remove(partyPanel);
-              gamePanels.add(searchPanel);
-              gamePanels.validate();
-            }
-          } else {
-            party.addLogText(chr.getName()+" found nothing.");
-          }
-          playerMakesAMove();
-          }
+          characterMakesASearch();
         }
         if (key == KeyEvent.VK_C) {
-          Character chr = party.getActiveChar();
-          ArrayList<String> spells = chr.getSpellList();
-          if (spells  != null) {
-            if (spells.size() > 0) {
-              spellPanel = new GameSpellPanel(chr.getName(), chr.getSpellList(), listener);
-              spellPanel.setSelection(party.getLastCastSpell(party.getActiveCharIndex()));
-              gamePanels.remove(partyPanel);
-              gamePanels.add(spellPanel);
-              gamePanels.validate();
-            }
-          }
+          changeSpellCastingMode();
         }
         if (key == KeyEvent.VK_R) {
-          if (party.isCombat()) {
-            party.addLogText("Cannot wait for hour while in combat.");
-          } else {
-            for (int i=0;i<party.getPartySize();i++) {
-              Character chr = party.getPartyChar(i);
-              if (chr != null) {
-                chr.setCurrentSP(chr.getMaxStamina());
-              }
-            }
-            party.timeAddHour();
-            if (party.getHours()==6) {
-              mapPanel.forceFullRepaint();
-            }
-            if (party.getHours()==18) {
-              mapPanel.forceFullRepaint();
-            }              
-            map.doNPCsCheckCorrectPositions(party.getHours(), party.getMins(),false);
-          }
+          partyWaitsOneHour();
         }
         if (key == KeyEvent.VK_W) {
-            Character chr = party.getActiveChar();
-            if ((party.isCombat()) || (party.getMode()==Party.MODE_SOLO_MODE)) {
-              chr.getStaminaInRestTurn();
-              playerMakesAMove();
-              if ((party.getHours()==6) && (party.getMins()==0) && (party.getSecs()==0)) {
-                mapPanel.forceFullRepaint();
-              }
-              if ((party.getHours()==18) && (party.getMins()==0) && (party.getSecs()==0)) {
-                mapPanel.forceFullRepaint();
-              }
-            } else {
-              party.restOneTurn();
-              party.timeAddTurn();              
-              map.doNPCsMove(party.getHours(), party.getMins());
-            }
+          characterWaitsOneTurn();
         }
       } // END OF KEYS which require one turn
       
@@ -3987,418 +4791,7 @@ public class Game extends JFrame implements ActionListener {
       }
       
     }
-    
-    private void keyEnterInLookMode() {
-      Character chr = party.getActiveChar();
-      boolean interesting=false;
-      int cx = map.getCursorX();
-      int cy = map.getCursorY();
-      int tileIndex = map.getDecoration(cx, cy);
-      if (tileIndex != -1) {
-        party.addLogText("There might be items hidden.");
-        interesting = true;
-      } else {
-        int index = map.getItemIndexByCoordinates(cx, cy);
-        Item item = map.getItemByIndex(index);
-        if (item != null) {
-          party.addLogText(chr.getName()+" sees "+item.getItemNameInGame()+".");
-          interesting = true;
-        }
-      }
-     
-      int index = map.getCharacterByCoordinates(cx, cy);
-      if (index != -1) {
-        Character npc = map.getNPCbyIndex(index);
-        if (npc != null) {
-          party.addLogText(chr.getName()+" sees "+npc.getLongName()+".");
-          party.addLogText(npc.getDescription());
-          party.addLogText(npc.getWearings());
-          if (party.isCombat()) {
-            party.addLogText(npc.getHealthAsString());
-          }
-          DebugOutput.debugLog(npc.getName()+" task: "+npc.getCurrentTaskDesc());
-          interesting = true;
-        }
-      }
-      index = map.getEvent(cx, cy);
-      if (index != -1) {
-        Event event = map.getEventByIndex(index);
-        if (event != null) {
-          if (event.getEventCommand() == Event.COMMAND_TYPE_SIGN) {
-            party.addLogText(chr.getName()+" reads the sign:\""+event.getParam(0)+"\"");
-            interesting = true;
-          }
-          if (event.getEventCommand() == Event.COMMAND_TYPE_CLOCK) {
-            interesting = true;
-            if (event.getParam(0).equalsIgnoreCase("SUN")) {
-              party.addLogText(chr.getName()+" looks sun dial: "+party.getTimeAsString(true));
-            } else {
-              party.addLogText(chr.getName()+" looks clock: "+party.getTimeAsString(false));
-            }
-          }
-          if (event.getEventCommand() == Event.COMMAND_TYPE_LOOK_INFO) {
-            party.addLogText(event.getParam(0));
-            interesting = true;
-          }
-
-        }
-      }
-      if (!interesting) {
-        party.addLogText(chr.getName()+" sees nothing interesting.");
-      }
-      map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-      
-    }
-    
-    private void keyEnterInTalkMode() {
-      int cx = map.getCursorX();
-      int cy = map.getCursorY();
-      int dist = MapUtilities.getDistance(party.getActiveChar().getX(), 
-          party.getActiveChar().getY(), cx, cy);
-      if ((dist < Map.MAX_TALK_RANGE) && (!party.isCombat())) {
-        Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
-        if (npc != null) {
-          Talk talk = Talk.readTalkResource(npc.getTalkFileName());
-          if (talk != null) {
-            gameTalkPanel = new GameTalk(party, npc,talk,journal, listener);
-            changeState(GAME_STATE_TALK);
-          } else {
-            party.addLogText(npc.getName()+" has nothing to say.");
-            DebugOutput.debugLog("Could not find resource file:"+npc.getTalkFileName());  
-          }
-        } else {
-          if (party.getActiveCharIndex() != party.getPartyMemberByCoordinates(cx, cy)) {
-            npc = party.getPartyChar(party.getPartyMemberByCoordinates(cx, cy));
-            if (npc != null) {
-              Talk talk = Talk.readTalkResource(npc.getTalkFileName());
-              if (talk != null) {
-                gameTalkPanel = new GameTalk(party, npc,talk,journal, listener);
-                changeState(GAME_STATE_TALK);
-              } else {
-                party.addLogText(npc.getName()+" has nothing to say.");
-                DebugOutput.debugLog("Could not find resource file:"+npc.getTalkFileName());  
-              }
-            }
-          }
-        }
-      } else {
-        if (party.isCombat()) {
-          party.addLogText(party.getActiveChar().getName()+" cannot talk while in combat!");
-        } else {
-          party.addLogText(party.getActiveChar().getName()+" cannot talk that far away!");
-        }
-      }
-      map.setCursorMode(Map.CURSOR_MODE_DISABLE);      
-    }
-    
-    /**
-     * Locked door handling when used with key or pick lock
-     * @param event Event
-     * @param item Item with to use
-     * @param cx cursor positions
-     * @param cy cursor positions
-     */
-    private void keyEnterToLockedDoor(Event event, Item item, int cx, int cy) {
-      if ((item.getType()==Item.TYPE_ITEM_KEY) &&
-      (item.getKeyValue().equalsIgnoreCase(event.getLockDoorKeyName()))) {
-        String param1 = event.getParam(1);
-        String param2 = event.getParam(2);
-        event.setEventCommand(Event.COMMAND_TYPE_QUICK_TRAVEL);
-        event.setParam(0, param1);
-        event.setParam(1, param2);
-        event.setParam(2, "Door");
-        party.addLogText(party.getActiveChar().getName()+" opened lock with "+item.getName());
-        party.getActiveChar().inventoryRemoveItem(usedItemIndex);
-        usedItemIndex = -1;
-        SoundPlayer.playSound(SoundPlayer.SOUND_FILE_PICKLOCK);
-      }
-      if (item.getType()==Item.TYPE_ITEM_PICKLOCK) { 
-        int tn = event.getLockDoorDifficulty();
-        if (tn >= 500) {
-          party.addLogText("This lock cannot be picked!");
-        } else {
-          int skillBonus = party.getActiveChar().getEffectiveSkill(Character.SKILL_LOCK_PICKING)+item.getBonusPickLock();
-          int check =party.getActiveChar().skillBonusCheck(skillBonus, tn);
-          if (check > Character.CHECK_FAIL) {
-            String param1 = event.getParam(1);
-            String param2 = event.getParam(2);
-            event.setEventCommand(Event.COMMAND_TYPE_QUICK_TRAVEL);
-            event.setParam(0, param1);
-            event.setParam(1, param2);
-            event.setParam(2, "Door");
-            party.addLogText(party.getActiveChar().getName()+" picked the lock.");
-            usedItemIndex = -1;
-            SoundPlayer.playSound(SoundPlayer.SOUND_FILE_PICKLOCK);
-          } else {
-            check = party.getActiveChar().luckCheck(false);
-            SoundPlayer.playSoundBySoundName("PICKLOCKFAIL");
-            if (check == Character.CHECK_FAIL) {
-              party.addLogText(party.getActiveChar().getName()+" failed opening the lock and broke "+item.getName());
-              party.getActiveChar().inventoryRemoveItem(usedItemIndex);
-              usedItemIndex = -1;
-            } else {
-              party.addLogText(party.getActiveChar().getName()+" failed opening the lock.");
-            }
-          }
-        }
-      }
-      
-    }
-    
-    /**
-     * Handling for locked gate
-     * @param event Event
-     * @param item Item
-     * @param cx cursor positions
-     * @param cy cursor positions
-     * @param index Event index which to remove
-     */
-    private void keyEnterToLockedGate(Event event, Item item, int cx, int cy, int index) {
-      if ((item.getType()==Item.TYPE_ITEM_KEY) &&
-      (item.getKeyValue().equalsIgnoreCase(event.getLockDoorKeyName()))) {
-        party.addLogText(party.getActiveChar().getName()+" opened lock with "+item.getName());
-        party.getActiveChar().inventoryRemoveItem(usedItemIndex);
-        usedItemIndex = -1;
-        SoundPlayer.playSound(SoundPlayer.SOUND_FILE_PICKLOCK);
-        SoundPlayer.playSoundBySoundName(event.getEventSound());
-        map.doOpenGate(event);
-        map.removeEvent(index);
-        map.forceMapFullRepaint();
-      }
-      if (item.getType()==Item.TYPE_ITEM_PICKLOCK) { 
-        int tn = event.getLockDoorDifficulty();
-        int skillBonus = party.getActiveChar().getEffectiveSkill(Character.SKILL_LOCK_PICKING)+item.getBonusPickLock();
-        int check =party.getActiveChar().skillBonusCheck(skillBonus, tn);
-        if (check > Character.CHECK_FAIL) {
-          party.addLogText(party.getActiveChar().getName()+" picked the lock.");
-          usedItemIndex = -1;
-          SoundPlayer.playSound(SoundPlayer.SOUND_FILE_PICKLOCK);
-          SoundPlayer.playSoundBySoundName(event.getEventSound());
-          map.doOpenGate(event);
-          map.removeEvent(index);
-          map.forceMapFullRepaint();
-        } else {
-          check = party.getActiveChar().luckCheck(false);
-          SoundPlayer.playSoundBySoundName("PICKLOCKFAIL");
-          if (check == Character.CHECK_FAIL) {
-            party.addLogText(party.getActiveChar().getName()+" failed opening the lock and broke "+item.getName());
-            party.getActiveChar().inventoryRemoveItem(usedItemIndex);
-            usedItemIndex = -1;
-          } else {
-            party.addLogText(party.getActiveChar().getName()+" failed opening the lock.");
-          }
-        }
-      }
-    }
-    
-    private void keyEnterInUseMode() {
-      int cx = map.getCursorX();
-      int cy = map.getCursorY();
-      int dist = MapUtilities.getDistance(party.getActiveChar().getX(), 
-          party.getActiveChar().getY(), cx, cy);
-      if ((dist == 1) && (!party.isCombat())) {
-        // Distance is okay
-        Item item = party.getActiveChar().inventoryGetIndex(usedItemIndex);
-        if (item != null) {
-          int index = map.getEvent(cx, cy);
-          Event event = map.getEventByIndex(index);
-          if (event != null) {
-            if (event.getEventCommand() == Event.COMMAND_TYPE_LOCKED_DOOR) {                  
-              keyEnterToLockedDoor(event, item, cx, cy);
-            }
-            if (event.getEventCommand() == Event.COMMAND_TYPE_LOCKED_GATE) {                  
-              keyEnterToLockedGate(event, item, cx, cy, index);
-            }
-            if (event.getEventCommand() == Event.COMMAND_TYPE_HOLE_TO_DIG) {
-              keyEnterToDigHole(event, item, cx, cy, index);
-            }
-          }
-        }
-      } else {
-        party.addLogText("Out of range!");
-      }
-      map.setCursorMode(Map.CURSOR_MODE_DISABLE);      
-    }
-    
-    private void keyEnterToDigHole(Event event, Item item, int cx, int cy,
-        int index) {
-      if (item.getType()==Item.TYPE_ITEM_DIGGING_TOOL) {
-        party.addLogText(party.getActiveChar().getName()+" dig a hole...");
-        playingEvent = new GameEventHandler(event, null, cx, cy, party);
-        if (!playingEvent.isPlayable()) {
-          playingEvent = null;
-        } else {
-          DebugOutput.debugLog(party.getActiveChar().getName()+" dig a hole at "+cx+" "+cy);
-          playingEvent.runScript();
-          scriptHandlingAfterRun(index);
-        }
-      }      
-    }
-
-    private void keyEnterInAttackMode() {
-      int fullAttack = Map.ATTACK_TYPE_FULL_ATTACK;
-      if (map.getCursorMode()==Map.CURSOR_MODE_SINGLE_ATTACK) {
-        fullAttack = Map.ATTACK_TYPE_SINGLE_ATTACK;
-      }
-      if (turnReady != TURN_MOVES_DONE) {
-        Character chr = party.getActiveChar();
-        if ((chr.getCurrentSP()==0) && (chr.getCurrentHP() < chr.getMaxHP()/2)) {
-          party.addLogText(chr.getName()+" is too exhausted!");
-        } else {
-          int cx = map.getCursorX();
-          int cy = map.getCursorY();
-          int dist = MapUtilities.getDistance(chr.getX(), chr.getY(), cx, cy);
-          if ((chr.getFirstAttack().isRangedAttack()) 
-              && (dist <Map.MAX_RANGED_RANGE) &&
-              (map.isClearShot(chr.getX(), chr.getY(), cx, cy))) {
-            if (((dist==1) && (chr.getPerks().isPerkActive(Perks.PERK_POINT_BLANK_SHOT))) ||
-            (dist > 1)){
-              Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
-              if (npc != null) {
-                if (npc.getHostilityLevel() == Character.HOSTILITY_LEVEL_AGGRESSIVE) {
-                  int exp = map.doAttack(chr,npc,fullAttack);
-                  if (exp > 0) {
-                    party.shareExperience(exp);
-                  }
-                  int taskIndex = npc.getCurrentTaskIndex(party.getHours(), party.getMins());
-                  CharTask task = npc.getTaskByIndex(taskIndex);
-                  if ((task != null) && (task.getTask().equals(CharTask.TASK_ATTACK_PC))) {
-                    // Do nothing
-                  } else {
-                    // Add player to killing list
-                    npc.addTaskKillPartyMember(chr.getName());
-                  }
-                  party.setCombat(true);
-                } else {
-                  party.addLogText(npc.getName()+" is on your side!");
-                }
-              } else {
-                party.addLogText("There is nothing to attack.");
-              }
-            } else {
-              party.addLogText("Cannot shoot to close combat!");
-            }
-          }else if (chr.getFirstAttack().isThrowingAttackPossible() 
-              && dist <Map.MAX_RANGED_RANGE && dist > 1 &&
-              map.isClearShot(chr.getX(), chr.getY(), cx, cy)) {
-              Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
-              if (npc != null) {
-                if (npc.getHostilityLevel() == Character.HOSTILITY_LEVEL_AGGRESSIVE) {
-                  int exp = map.doAttack(chr,npc,Map.ATTACK_TYPE_THROW_ATTACK);
-                  if (exp > 0) {
-                    party.shareExperience(exp);
-                  }
-                  int taskIndex = npc.getCurrentTaskIndex(party.getHours(), party.getMins());
-                  CharTask task = npc.getTaskByIndex(taskIndex);
-                  if ((task != null) && (task.getTask().equals(CharTask.TASK_ATTACK_PC))) {
-                    // Do nothing
-                  } else {
-                    // Add player to killing list
-                    npc.addTaskKillPartyMember(chr.getName());
-                  }
-                  party.setCombat(true);
-                } else {
-                  party.addLogText(npc.getName()+" is on your side!");
-                }
-              } else {
-                party.addLogText("There is nothing to attack.");
-              }
-          } else
-          if ((!chr.getFirstAttack().isRangedAttack()) && (dist ==1)) {
-            Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
-            if (npc != null) {
-              if (npc.getHostilityLevel() == Character.HOSTILITY_LEVEL_AGGRESSIVE) {
-                int exp = map.doAttack(chr,npc,fullAttack);
-                if (exp > 0) {
-                  party.shareExperience(exp);
-                }
-                int taskIndex = npc.getCurrentTaskIndex(party.getHours(), party.getMins());
-                CharTask task = npc.getTaskByIndex(taskIndex);
-                if ((task != null) && (task.getTask().equals(CharTask.TASK_ATTACK_PC))) {
-                    if (!task.getWayPointName().equalsIgnoreCase(chr.getName())) {
-                      task.setWayPointName(chr.getName()); 
-                    }                        
-                } else {
-                  npc.addTaskKillPartyMember(chr.getName());
-                }
-
-                party.setCombat(true);                    
-              } else {
-                party.addLogText(npc.getName()+" is on your side!");
-              }
-            } else {
-              party.addLogText("There is nothing to attack.");
-            }
-          } else {
-            party.addLogText("Out of range!");
-          }
-          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-          playerMakesAMove();
-        }
-      } 
-      
-    }
-    
-    private void keyEnterInCastingMode() {
-      if (turnReady != TURN_MOVES_DONE) {
-        Character chr = party.getActiveChar();
-        if ((chr.getCurrentSP()==0) && (chr.getCurrentHP() < chr.getMaxHP()/2)) {
-          party.addLogText(chr.getName()+" is too exhausted!");
-        } else {
-          int cx = map.getCursorX();
-          int cy = map.getCursorY();
-          int dist = MapUtilities.getDistance(chr.getX(), chr.getY(), cx, cy);
-          if ((dist <Map.MAX_RANGED_RANGE) &&
-              (map.isClearShot(chr.getX(), chr.getY(), cx, cy))) {
-            Character npc = map.getNPCbyIndex(map.getCharacterByCoordinates(cx, cy));
-            if (npc != null) {
-              if (castingSpell.getAttack()!=null) {
-                if (npc.getHostilityLevel() == Character.HOSTILITY_LEVEL_AGGRESSIVE) {
-                  int exp = map.doSpell(chr, npc, castingSpell,true);
-                  chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad());
-                  if (chr.getCurrentSP()<chr.getMaxStamina()/2) {
-                    map.addNewGraphEffect(chr.getX(), chr.getY(), Map.GRAPH_EFFECT_SWEAT);
-                  }
-                  if (exp > 0) {
-                    chr.setExperience(chr.getExperience()+exp);
-                  }
-                  party.setCombat(true);
-                } else {
-                  party.addLogText(npc.getName()+" is on your side!");  
-                }
-              } else {
-                int exp = map.doSpell(chr, npc, castingSpell,true);
-                chr.setExperience(chr.getExperience()+exp);
-                chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad());
-                if (chr.getCurrentSP()<chr.getMaxStamina()/2) {
-                  map.addNewGraphEffect(chr.getX(), chr.getY(), Map.GRAPH_EFFECT_SWEAT);
-                }
-
-              }
-            } else {
-              npc = party.getPartyChar(party.getPartyMemberByCoordinates(cx, cy));
-              if ((npc != null) && (castingSpell.getAttack()==null)) {
-                int exp = map.doSpell(chr, npc, castingSpell,true);
-                chr.setExperience(chr.getExperience()+exp);
-                chr.receiveNonLethalDamage(castingSpell.getCastingCost()+chr.getStaminaCostFromLoad());
-                if (chr.getCurrentSP()<chr.getMaxStamina()/2) {
-                  map.addNewGraphEffect(chr.getX(), chr.getY(), Map.GRAPH_EFFECT_SWEAT);
-                }
-
-              } else {
-                party.addLogText("There is no target for casting.");
-              }
-            }
-          } else {
-            party.addLogText("Out of range!");
-          }
-          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-          playerMakesAMove();
-        }
-      } 
-      
-    }
-    
+        
     private void keyPressedInSpellPanel(int key) {
       if (key == KeyEvent.VK_ENTER) {
         actionCastSpell();
@@ -4427,23 +4820,26 @@ public class Game extends JFrame implements ActionListener {
           keyPressedInGameMoveCursor(key);
           if (key == KeyEvent.VK_ENTER) {
             if (map.getCursorMode() == Map.CURSOR_MODE_LOOK) {
-              keyEnterInLookMode();
+              activateLookModeTarget();
             } // END OF LOOK
             if (map.getCursorMode() == Map.CURSOR_MODE_TALK) {
-              keyEnterInTalkMode();
+              activateTalkMode();
             } // END OF TALK
             if (map.getCursorMode() == Map.CURSOR_MODE_USE) {
-              keyEnterInUseMode();
+              activateUseMode();
             } // END OF USE
             if (map.getCursorMode() == Map.CURSOR_MODE_ATTACK) {
-              keyEnterInAttackMode();
+              activateAttackMode();
             } // END of Attack
             if (map.getCursorMode() == Map.CURSOR_MODE_SINGLE_ATTACK) {
-              keyEnterInAttackMode();
+              activateAttackMode();
             } // END of Attack
             if ((map.getCursorMode() == Map.CURSOR_MODE_CAST) && (castingSpell != null)) {
-              keyEnterInCastingMode();
-            } // END of Casting            
+              activateCastingMode();
+            } // END of Casting
+            if ((map.getCursorMode() == Map.CURSOR_MODE_EVALUATE)) {
+              activateEvaluateMode();
+            } // END of Evaluate
           } 
         } else {
           if (spellPanel != null) {
@@ -4517,60 +4913,19 @@ public class Game extends JFrame implements ActionListener {
         }
       }
       if (key == KeyEvent.VK_L) {
-        if (!map.isCursorMode()) {
-          map.setCursorMode(Map.CURSOR_MODE_LOOK);
-          Character chr = party.getActiveChar();
-          map.setCursorX(chr.getX());
-          map.setCursorY(chr.getY());
-        } else {
-          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-        }
+        changeCursormode(Map.CURSOR_MODE_LOOK);
       }
       if (key == KeyEvent.VK_T) {
-        if (!map.isCursorMode()) {
-          map.setCursorMode(Map.CURSOR_MODE_TALK);
-          Character chr = party.getActiveChar();
-          map.setCursorX(chr.getX());
-          map.setCursorY(chr.getY());
-        } else {
-          map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-        }
+        changeCursormode(Map.CURSOR_MODE_TALK);
+      }
+      if (key == KeyEvent.VK_E) {
+        changeCursormode(Map.CURSOR_MODE_EVALUATE);
       }
       if (key == KeyEvent.VK_A) {
-        if (!map.isCursorMode()) {
-          Character chr = party.getActiveChar();
-          if (!chr.isPacified()) {
-            map.setCursorMode(Map.CURSOR_MODE_ATTACK);         
-            map.setCursorX(chr.getX());
-            map.setCursorY(chr.getY());
-          } else {
-            party.addLogText(chr.getName()+" is pacified and cannot attack!");
-          }
-        } else {
-          if (map.getCursorMode() == Map.CURSOR_MODE_SINGLE_ATTACK) {
-            map.setCursorMode(Map.CURSOR_MODE_ATTACK);
-          } else {
-            map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-          }
-        }
+        changeAttackCursormode(Map.CURSOR_MODE_ATTACK);
       }
       if (key == KeyEvent.VK_Z) {
-        if (!map.isCursorMode()) {
-          Character chr = party.getActiveChar();
-          if (!chr.isPacified()) {
-            map.setCursorMode(Map.CURSOR_MODE_SINGLE_ATTACK);         
-            map.setCursorX(chr.getX());
-            map.setCursorY(chr.getY());
-          } else {
-            party.addLogText(chr.getName()+" is pacified and cannot attack!");
-          }
-        } else {
-          if (map.getCursorMode() == Map.CURSOR_MODE_ATTACK) {
-            map.setCursorMode(Map.CURSOR_MODE_SINGLE_ATTACK);
-          } else {
-            map.setCursorMode(Map.CURSOR_MODE_DISABLE);
-          }
-        }
+        changeAttackCursormode(Map.CURSOR_MODE_SINGLE_ATTACK);
       }
     }
     
@@ -4620,47 +4975,74 @@ public class Game extends JFrame implements ActionListener {
     }
   }
   
-  class TWindowListener extends WindowAdapter{
+  class MapMouseListener extends MouseAdapter implements MouseMotionListener{
+
     
     @Override
-    public void windowOpened(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
+    public void mouseClicked(MouseEvent e) {
+      PixelsToMapCoordinate coord= new PixelsToMapCoordinate(map.getLastDrawnX(),
+          map.getLastDrawnY(),e.getX(),e.getY(),
+          party.getActiveChar().getX(),party.getActiveChar().getY());
+      if (playingEvent != null && e.getY() >= 460) {
+        continuePlayingEvent();
+      } else if (turnReady != TURN_MOVES_DONE && !coord.isOutOfPanel() &&
+          !map.isCursorMode() && playingEvent == null && searchPanel == null
+           && (spellPanel == null) && travelPanel == null) {
+        switch (coord.getDirection()) {
+        case Map.NORTH_DIRECTION_UP: { moveCharacterUp();break;}
+        case Map.NORTH_DIRECTION_DOWN: { moveCharacterDown();break;}
+        case Map.NORTH_DIRECTION_LEFT: { moveCharacterLeft();break;}
+        case Map.NORTH_DIRECTION_RIGHT: { moveCharacterRight();break;}
+        } 
+      }else if (turnReady != TURN_MOVES_DONE && !coord.isOutOfPanel()) {
+        if (map.getCursorMode() == Map.CURSOR_MODE_LOOK) {
+          activateLookModeTarget();
+        } // END OF LOOK
+        if (map.getCursorMode() == Map.CURSOR_MODE_EVALUATE) {
+          activateEvaluateMode();
+        } // END OF Evaluate
+        if (map.getCursorMode() == Map.CURSOR_MODE_TALK) {
+          activateTalkMode();
+        } // END OF talk
+        if (map.getCursorMode() == Map.CURSOR_MODE_USE) {
+          activateUseMode();
+        } // END OF use
+        if (map.getCursorMode() == Map.CURSOR_MODE_ATTACK) {
+          activateAttackMode();
+        } // END OF attack
+        if (map.getCursorMode() == Map.CURSOR_MODE_SINGLE_ATTACK) {
+          activateAttackMode();
+        } // END of Attack
+        if ((map.getCursorMode() == Map.CURSOR_MODE_CAST) && (castingSpell != null)) {
+          activateCastingMode();
+        } // END of Casting
+
+      }
+    }
+
+
+    public void mouseMoved(MouseEvent e) {
+      if (map.isCursorMode()) {
+        PixelsToMapCoordinate coord= new PixelsToMapCoordinate(map.getLastDrawnX(),
+            map.getLastDrawnY(),e.getX(),e.getY(),
+            party.getActiveChar().getX(),party.getActiveChar().getY());
+        if (!coord.isOutOfPanel()) {
+          map.setCursorX(coord.getMapX());
+          map.setCursorY(coord.getMapY());
+        }
+        
+      }
     }
     
-    @Override
-    public void windowIconified(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
-    }
-    
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
-    }
-    
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
-    }
+  }
+  
+  class MainWindowListener extends WindowAdapter{
     
     @Override
     public void windowClosing(WindowEvent e) {      
       closeGame();
     }
     
-    @Override
-    public void windowClosed(WindowEvent e) {
-      // TODO Auto-generated method stub
-    }
-    
-    @Override
-    public void windowActivated(WindowEvent e) {
-      // TODO Auto-generated method stub
-      
-    } 
  }
 
   public void closeGame() {

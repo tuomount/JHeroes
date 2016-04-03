@@ -54,6 +54,26 @@ public class Party {
   public static final int MAX_ROLE = 3;
   
   /**
+   * Very first version of party file
+   */
+  public final static String PARTY_FILE_VERSION10 = "GAMEDATA#1.0";
+  /**
+   * Second version of party file added total playing time information
+   */
+  public final static String PARTY_FILE_VERSION11 = "GAMEDATA#1.1";
+  /**
+   * Third version of party file added deadline information.
+   * This was the released version of JHeroes 1.0
+   */
+  public final static String PARTY_FILE_VERSION12 = "GAMEDATA#1.2";
+  /**
+   * Fourth version of party file added map version information
+   * so that loading characters can be versioned.
+   * 
+   */
+  public final static String PARTY_FILE_VERSION13 = "GAMEDATA#1.3";
+  
+  /**
    * Characters in party
    */
   private Character partyChars[];
@@ -293,10 +313,14 @@ public class Party {
     }
     String magicStr = StreamUtilities.readString(is);
     if (magicStr.startsWith("GAMEDATA")) {
+      String mapVersion = Map.MAP_VERSION_1_0;
+      if (magicStr.equals(PARTY_FILE_VERSION13)) {
+        mapVersion = StreamUtilities.readString(is);
+      }
       int partySize = is.read();
       for (int i=0;i<partySize;i++) {
         partyChars[i] = new Character(0);
-        partyChars[i].loadCharacter(is);
+        partyChars[i].loadCharacter(is,mapVersion);
         skillPointsLeft[i] = is.read();
         perksLeft[i] = is.read();
         for (int j=0;j<MAX_ROLE;j++) {
@@ -335,8 +359,8 @@ public class Party {
    * @throws IOException
    */
   public void saveParty(DataOutputStream os) throws IOException {
-    StreamUtilities.writeString(os, "GAMEDATA#1.2");
-    
+    StreamUtilities.writeString(os, PARTY_FILE_VERSION13);
+    StreamUtilities.writeString(os, Map.CURRENT_MAP_VERSION);
     os.writeByte(this.getPartySize());
     for (int i =0;i<this.getPartySize();i++) {
       partyChars[i].saveCharacter(os);

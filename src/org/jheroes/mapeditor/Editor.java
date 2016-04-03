@@ -35,6 +35,7 @@ import org.jheroes.map.Event;
 import org.jheroes.map.Map;
 import org.jheroes.map.MapUtilities;
 import org.jheroes.map.character.Character;
+import org.jheroes.map.character.CharacterRace;
 import org.jheroes.map.item.Item;
 import org.jheroes.map.item.ItemFactory;
 import org.jheroes.musicplayer.MusicPlayer;
@@ -78,6 +79,7 @@ public class Editor extends JFrame implements ActionListener {
     private final static String ACTION_LOAD_MAP = "loadMap";
     private final static String ACTION_REMOVE_EVENT ="removeEvent";
     private final static String ACTION_TALK_EDITOR ="talkEditor";
+    private final static String ACTION_LOCATE_DEFAULT ="locateDefault";
     private final static String ACTION_EXPORT_WHOLE_MAP ="ExportMap";
     private final static String ACTION_TILE_SELECT ="TileSelect";
     
@@ -122,6 +124,7 @@ public class Editor extends JFrame implements ActionListener {
     private JMenuItem itemAddCharater;
     private JMenuItem itemRemoveCharater;
     private JMenuItem itemCopyCharater;
+    private JMenuItem itemFindDefault;
     private JMenuItem itemEditTalk;
     private JMenuItem itemSelectTile;
     private JCheckBoxMenuItem itemEditorMode;
@@ -312,6 +315,10 @@ public class Editor extends JFrame implements ActionListener {
           itemEditTalk.setActionCommand(ACTION_TALK_EDITOR);
           itemEditTalk.addActionListener(this);
           menuCharacter.add(itemEditTalk);
+          itemFindDefault = new JMenuItem("Locate default race");
+          itemFindDefault.setActionCommand(ACTION_LOCATE_DEFAULT);
+          itemFindDefault.addActionListener(this);
+          menuCharacter.add(itemFindDefault);
           JMenu menuSpecial = new JMenu("Extra");
           itemNew = new JMenuItem("Export map as PNG");
           itemNew.setActionCommand(ACTION_EXPORT_WHOLE_MAP);
@@ -791,6 +798,22 @@ public class Editor extends JFrame implements ActionListener {
       if (ACTION_TALK_EDITOR.equalsIgnoreCase(arg0.getActionCommand())) {
         TalkEditor talkEdit = new TalkEditor(this);
         talkEdit.dispose();
+      }
+      if (ACTION_LOCATE_DEFAULT.equalsIgnoreCase(arg0.getActionCommand())) {
+        Character npc = myMap.getNPCbyIndex(0);
+        int i=0;
+        while (npc != null) {
+          if (npc.getRace() == CharacterRace.DEFAULT) {
+            cursorX = npc.getX();
+            cursorY = npc.getY();
+            myMap.getMyChar().setPosition(cursorX, cursorY);
+            myMap.forceMapFullRepaint();
+            break;
+          } else {
+            i++;
+            npc = myMap.getNPCbyIndex(i);
+          }
+        }
       }
       if (ACTION_TILE_SELECT.equalsIgnoreCase(arg0.getActionCommand())) {
         TileSelection tileSelection = new TileSelection(this, mapTileset,index );
