@@ -541,6 +541,11 @@ Avoid means that NPC tries to avoid combat and does not fight with players.
 Aggressive means that it attacks immediately on players of other characters with
 avoid behaviour. Guard is something which is not tested yet and most likely does not work. 
 
+Type of character is species or race of the creature. Different types have different
+strengths and weakness against attack types. For example undead creatures are
+immune to non-lethal damage. Type also affects what kind of sound effect creature
+is using in combat. Type is simple selected from dropdown menu.
+
 Then attributes and skills works like with player characters. Since this NPC is
 going to be shopkeeper only thing that matters is the bartering.
 
