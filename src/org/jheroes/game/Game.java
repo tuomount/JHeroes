@@ -3670,12 +3670,21 @@ public class Game extends JFrame implements ActionListener {
       } else 
       if (ActionCommands.SHEET_USE_EQUIP.equalsIgnoreCase(arg0.getActionCommand())) {
         usedItemIndex = charSheetPanel.getSelectedItemIndex();
-        usedItemIndex = party.getActiveChar().getInventoryItemIndexByReversed(usedItemIndex);
-        Item item = party.getActiveChar().inventoryGetIndex(usedItemIndex);
+        usedItemIndex = charSheetPanel.getCurrentChar().getInventoryItemIndexByReversed(usedItemIndex);
+        Item item = null;
+        if (party.getActiveChar().getLongName().equals(charSheetPanel.getCurrentChar().getLongName())) {
+          item = party.getActiveChar().inventoryGetIndex(usedItemIndex);
+        } else {
+          if (!party.isCombat()) {
+            party.setActiveChar(charSheetPanel.getCurrentCharIndex());
+            item = party.getActiveChar().inventoryGetIndex(usedItemIndex);
+          }
+        }
         if (item != null) {
-          if ((item.getType() == Item.TYPE_ITEM_KEY) ||
+          if (((item.getType() == Item.TYPE_ITEM_KEY) ||
               (item.getType() == Item.TYPE_ITEM_PICKLOCK) ||
-              (item.getType() == Item.TYPE_ITEM_DIGGING_TOOL)) {
+              (item.getType() == Item.TYPE_ITEM_DIGGING_TOOL)) 
+              && (!party.isCombat())) {
             if (!map.isCursorMode()) {
               map.setCursorMode(Map.CURSOR_MODE_USE);
               map.setCursorX(party.getActiveChar().getX());
@@ -3686,7 +3695,8 @@ public class Game extends JFrame implements ActionListener {
             } else {
               map.setCursorMode(Map.CURSOR_MODE_DISABLE);
             }
-          } else if (item.getType() == Item.TYPE_ITEM_MAGICL_COMPASS) {
+          } else if (item.getType() == Item.TYPE_ITEM_MAGICL_COMPASS
+                     && !party.isCombat()) {
             if (item.getName().equalsIgnoreCase("Voodoo head")) {
               charSheetPanel = null;
               changeState(GAME_STATE_GAME);
@@ -3719,6 +3729,10 @@ public class Game extends JFrame implements ActionListener {
               changeState(GAME_STATE_GAME);
               playerMakesAMove();
             }
+          }
+        } else {
+          if (party.isCombat()) {
+            party.addLogText("Cannot be used during combat!");
           }
         }
       } else
@@ -4194,12 +4208,15 @@ public class Game extends JFrame implements ActionListener {
         if (event != null) {
           if (event.getEventCommand() == Event.COMMAND_TYPE_LOCKED_DOOR) {                  
             activateLockedDoor(event, item, cx, cy);
+            playerMakesAMove();
           }
           if (event.getEventCommand() == Event.COMMAND_TYPE_LOCKED_GATE) {                  
             activateLockedGate(event, item, cx, cy, index);
+            playerMakesAMove();
           }
           if (event.getEventCommand() == Event.COMMAND_TYPE_HOLE_TO_DIG) {
             activateDigHole(event, item, cx, cy, index);
+            playerMakesAMove();
           }
         }
       }

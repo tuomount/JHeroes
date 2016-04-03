@@ -95,6 +95,9 @@ public class GameCharacterSheet extends GamePanel {
     return currentChar;
   }
 
+  public int getCurrentCharIndex() {
+    return charIndex;
+  }
 
   private GameLabel nameLabel;
   private ImageLabel faceLabel;
