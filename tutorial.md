@@ -746,3 +746,146 @@ Then select timetable tab and attack single action for rat: Move inside waypoint
 
 Finally select the rat and add it to the map. Final result should look like this:
 ![ratfinal](tutorial-pictures/rat-final.png)
+
+### Events: NPC Yell, NPC TALK, PC Yell and PC Talk
+
+This events are very powerful tools for scripting the game. Yell events show blue dialong on map screen if
+script is run. Player does not have choice in talk. It just shows the text and runs the script. Talk on otherhand
+is similar to yell but it starts actual talk where player can have choices what to say. NPC versio is that
+NPC on map says something and PC version is that certain PC says something. Usually PC talk is someone
+who has joined to party and has something to say.
+
+Let's do simple event where player says something. Let's make add crate and random item behind the inn.
+But event area there and add following selections to event:
+![pc-yell](tutorial-pictures/event-pc-yell.png)
+
+Let's leave param1 as empty so active character makes the yell. Param1 is for actual texts. # is used
+for changing the page on dialog.
+Example:
+
+    Hey, there is a mystery box behind that tree!#I wonder what is inside.
+
+Third one is the script. Example:
+
+    removeEvent();
+
+This is probably most easiest script. removeEvent() means that after event is run it will be removed
+from the map.
+
+Final result should look like this:
+![pc-yell-final](tutorial-pictures/event-pc-yell-final.png)
+
+### Scripting
+
+Scripts can be divided into two parts. If clause and command part. If clause is not mandatory. In previous chapter script
+hand only command part. If clause checks if event is possible to run and it is run only if if clause is true.
+What can be checked in if clause. If clause can only have logical AND operation. If clause always ends to character ;
+Also commands must end to ;-character
+Example of if clause:
+
+    If day;
+
+Above runs in the script if game time is day.
+
+#### If clauses
+
+Here are the possible if operations:
+
+    day 
+      (Is day time in the game)
+
+    night 
+      (Is night time in the game
+
+    every 
+      (Something happens in every x mins/hours) example:
+    If every 5 mins; 
+
+
+    story[x] NN yy
+      (x is story variable
+       NN is sign, which can be == > >= < <= !=
+       yy is value where to check
+       Notice that there are spaces between story[x] NN and yy) Example:
+    If story[0] == 1;
+
+     
+    playerHas(item_name)
+      (Check if active player has certain item
+      notice that spaces in item name must be changed with _ characters)
+
+ 
+    playerHasNot(item_name) 
+      (Check if active player has not certain item
+      notice that spaces in item name must be changed with _ characters)
+
+    solo
+      (Player is in solo mode. Only one member in party or single character
+      is moving)
+
+    
+    playerIs(Hero_name)
+      (Check if active player name is certain name 
+      notice that spaces in hero name must be changed with _ characters)
+
+#### Commands
+
+Here are the possible commands:
+
+    addJournal(Quest name#Journal Entry#Active/Done/Failed)
+      (This command has three parameters which are separated by #.
+      First one is Quest name. Second one is the actual journal text.
+      Third one is what is the status of quest.)
+
+    story[NN] = x
+     (Set the story variables. Notice spaces again. NN is story variable
+     and x is the value where to set.)
+
+    shareExp(NN)
+      (Share experience to party. NN is how much to share)
+
+    removeEvent()
+      (Removes event after triggering. Event is then run only once.)
+
+    giveItem(Item name)
+      (Give active character item with name. Spaces can be used in item name.)
+
+    removeItem(Item name)
+      (Remove item from active character. Spaces can be used in item name.)
+
+    turnChar(UP/DOWN/LEFT/RIGHT)
+      (Turn speaking character into direction. Four different choices:
+       UP/DOWN/LEFT/RIGHT.)
+
+    playSound(Sound name)
+      (Play sound effect by name)
+
+    passTurns(NN)
+      (Number of turns should be passed when script is run.)
+
+    showImage(Image name with relative path example: /res/images/ship.png)
+      Shows image instead of map. Useful with NPC Yell or PC yell.
+
+    removeNPC(NPC long name)
+       Remove NPC from the map permanently
+
+    runModifyMap(Event name)
+     (Run modify map event by event name, modifies tiles and place graphical effect
+      See GRAPH_EFFECT_* from Map.java.)
+
+    moveNPC(NPC Name#Target WP)
+      (Move NPC immediately to certain WP. Clears also NPC's current task list.
+      This command has two parameters. First one is the NPC name to move. Second one
+      is Waypoint name where to move. Parameters are separated by #-character.)
+
+    activateSFX(SFXName,Command)
+      (Change NotActive SFX something else for example Loop, Day, Night, Day#NN,
+      Night#NN or NN where NN is number bigger than zero.
+      This has two parameters: First one event name which to edit. Second one is
+      SFX event parameter 2. See Adding sounds chapter. This should be used
+      together with runModifyMap command. runModifyMap modifies tiles in the map
+      and this one actives new sound to the map.)
+
+    endGame()
+      (Ends game immediately. This also ends the deadline. Depending the story variables
+      this could be either lose or win situation. See Game.java method moveToNextTurn())
