@@ -730,3 +730,19 @@ Each action can have couple of parameters value, storyvariable, itemname/questna
  * Change deadline: This change game deadline. Value 0 disabled deadline other value sets it if deadline hasn't
  set before. If it has set before then positive value increases deadline and negative decreases it.
  * End game: When this talk ends also Game ends and end story is shown.
+ 
+### Creating the first enemy
+
+Enemies are NPCs like other they just have behavior set as aggressive or it changes in talk with Action fight.
+First let's create are where a rat can randomly walk. Let's place it behind the inn and finish a bit the forest.
+Then area/waypoint for rat could be something like this:
+![ratarea](tutorial-pictures/rat-area.png)
+
+Next thing is select Character editor and first character in list is rat. This works fine for rat.
+![ratenemy](tutorial-pictures/rat-enemy.png)
+
+Then select timetable tab and attack single action for rat: Move inside waypoint and attack.
+![ratwp](tutorial-pictures/rat-waypoints.png)
+
+Finally select the rat and add it to the map. Final result should look like this:
+![ratfinal](tutorial-pictures/rat-final.png)
