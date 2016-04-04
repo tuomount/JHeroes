@@ -633,10 +633,12 @@ public class SoundPlayer {
   /**
    * Play Sound by Enemy sound
    * @param name String
+   * @return true if sound is actually played
    */
-  public static void playEnemySoundsByName(String name) {
+  public static boolean playEnemySoundsByName(String name) {
     if (name.equalsIgnoreCase("RAT")) {
       playSound(SOUND_FILE_RAT);
+      return true;
     }
     if (name.equalsIgnoreCase("TROLL")) {
       switch (DiceGenerator.getRandom(2)) {
@@ -644,11 +646,13 @@ public class SoundPlayer {
       case 1: playSound(SOUND_FILE_TROLL2,name); break;
       case 2: playSound(SOUND_FILE_TROLL3,name); break;
       }
+      return true;
     }
     if (name.equalsIgnoreCase("WOLFMAN") ||
         name.equalsIgnoreCase("VEGETARIAN WOLFMAN")||
         name.equalsIgnoreCase("WOLFMAN PACK LEADER")) {
       playSound(SOUND_FILE_WOLFMAN,name);
+      return true;
     }
 
     if (name.equalsIgnoreCase("ZOMBIE") ||
@@ -659,6 +663,7 @@ public class SoundPlayer {
       case 1: playSound(SOUND_FILE_ZOMBIE2); break;
       case 2: playSound(SOUND_FILE_ZOMBIE3); break;
       }
+      return true;
     }
     if (name.equalsIgnoreCase("Undead King")||
         name.equalsIgnoreCase("Heroon the Righteous")||
@@ -670,12 +675,14 @@ public class SoundPlayer {
       case 0: playSound(SOUND_FILE_LICH1); break;
       case 1: playSound(SOUND_FILE_LICH2); break;
       }
+      return true;
     }
     if (name.equalsIgnoreCase("Brain horror")) {
       switch (DiceGenerator.getRandom(1)) {
       case 0: playSound(SOUND_FILE_BRAIN_MONSTER1); break;
       case 1: playSound(SOUND_FILE_BRAIN_MONSTER2); break;
       }
+      return true;
     }
     if (name.equalsIgnoreCase("Brutal bookshelf")||
         name.equalsIgnoreCase(CharacterRace.ANIMATEDOBJECT.getName())) {
@@ -683,6 +690,7 @@ public class SoundPlayer {
       case 0: playSound(SOUND_FILE_ANIMATED_OBJECT1); break;
       case 1: playSound(SOUND_FILE_ANIMATED_OBJECT2); break;
       }
+      return true;
     }
     if (name.equalsIgnoreCase("Skeleton Warrior")||
         name.equalsIgnoreCase("Skeleton Mage")||
@@ -691,12 +699,14 @@ public class SoundPlayer {
       case 0: playSound(SOUND_FILE_SKELETON1); break;
       case 1: playSound(SOUND_FILE_SKELETON2); break;
       }
+      return true;
     }
     if (name.equalsIgnoreCase("BARTERING")) {
       switch (DiceGenerator.getRandom(1)) {
       case 0: playSound(SOUND_FILE_BUY1); break;
       case 1: playSound(SOUND_FILE_BUY2); break;      
       }
+      return true;
     }
     if (name.equalsIgnoreCase("WATER ELEMENTAL") ||
         name.equalsIgnoreCase("SMALL WATERELEMENTAL") ||
@@ -707,6 +717,7 @@ public class SoundPlayer {
       case 1: playSound(SOUND_FILE_SLIME2); break;
       case 2: playSound(SOUND_FILE_SLIME3); break;
       }     
+      return true;
     }
     if (name.equalsIgnoreCase("GIANT SPIDER")||
         name.equalsIgnoreCase(CharacterRace.SPIDER.getName())) {
@@ -715,10 +726,12 @@ public class SoundPlayer {
       case 1: playSound(SOUND_FILE_BITE_SMALL2); break;
       case 2: playSound(SOUND_FILE_BITE_SMALL3); break;
       }     
+      return true;
     }
     if (name.equalsIgnoreCase("GIANT BEE")||
         name.equalsIgnoreCase(CharacterRace.INSECT.getName())) {
       playSound(SOUND_FILE_GIANT_BEE);
+      return true;
     }
     if (name.equalsIgnoreCase("HOBGOBLIN")) {
       switch (DiceGenerator.getRandom(2)) {
@@ -726,6 +739,7 @@ public class SoundPlayer {
       case 1: playSound(SOUND_FILE_HOBGOBLIN2); break;
       case 2: playSound(SOUND_FILE_HOBGOBLIN3); break;
       }
+      return true;
     }
     if (name.equalsIgnoreCase("TROLL")) {
       switch (DiceGenerator.getRandom(2)) {
@@ -733,14 +747,18 @@ public class SoundPlayer {
       case 1: playSound(SOUND_FILE_TROLL2); break;
       case 2: playSound(SOUND_FILE_TROLL3); break;
       }
+      return true;
     }
     if (name.equalsIgnoreCase("WITCH")) {
       playSound(SOUND_FILE_WITCH);
+      return true;
     }
     if (name.equalsIgnoreCase("Witch of Orphanage")) {
       playSound(SOUND_FILE_WITCH);
+      return true;
     }
-
+    // No sound played
+    return false;
   }
 
   /**

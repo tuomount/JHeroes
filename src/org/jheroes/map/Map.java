@@ -1373,9 +1373,13 @@ public class Map {
     attacker.setHeading(direction);
     if (!attacker.isPlayer()) {
       if (attacker.getRace()==CharacterRace.DEFAULT) {
+        // Old style maps no race has been set, using always the name
         SoundPlayer.playEnemySoundsByName(attacker.getName());
       } else {
-        SoundPlayer.playEnemySoundsByName(attacker.getRace().getName());
+        // First playing sound with name and if not found then with race
+        if (!SoundPlayer.playEnemySoundsByName(attacker.getName())) {
+          SoundPlayer.playEnemySoundsByName(attacker.getRace().getName());
+        }
       }
     }
     for (int i=0;i<attacker.getNumberOfAttacks();i++) {
@@ -1817,9 +1821,13 @@ public class Map {
        target.getX(), target.getY());
       if (DiceGenerator.getRandom(10)==0) {
         if (npc.getRace()==CharacterRace.DEFAULT) {
+          // Old style maps no race has been set, using always the name
           SoundPlayer.playEnemySoundsByName(npc.getName());
         } else {
-          SoundPlayer.playEnemySoundsByName(npc.getRace().getName());
+          // First playing sound with name and if not found then with race
+          if (!SoundPlayer.playEnemySoundsByName(npc.getName())) {
+            SoundPlayer.playEnemySoundsByName(npc.getRace().getName());
+          }
         }
       }
     } 
