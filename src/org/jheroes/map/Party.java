@@ -339,9 +339,12 @@ public class Party {
         storyVariables[i] = is.read();
       }
       currentMapName = StreamUtilities.readString(is);
-      if (magicStr.equalsIgnoreCase("GAMEDATA#1.1")) {
+      if (magicStr.equalsIgnoreCase(PARTY_FILE_VERSION11)) {
         totalPlayingTime = is.readLong();
-      } else if (magicStr.equalsIgnoreCase("GAMEDATA#1.2")) {
+      } else if (magicStr.equalsIgnoreCase(PARTY_FILE_VERSION12)) {
+        totalPlayingTime = is.readLong();
+        deadLine = is.readInt();
+      } else if (magicStr.equalsIgnoreCase(PARTY_FILE_VERSION13)) {
         totalPlayingTime = is.readLong();
         deadLine = is.readInt();
       } else {
