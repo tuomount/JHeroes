@@ -952,85 +952,85 @@ public class Game extends JFrame implements ActionListener {
         GuiStatics.IMAGE_HELP_BUTTON_PRESS, false, 
         ActionCommands.GAME_HELP);
     button.addActionListener(this);
-    button.setToolTipText("Show game help");
+    button.setToolTipText("Show game help - F1");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_FULL_ATTACK_BUTTON,
         GuiStatics.IMAGE_FULL_ATTACK_BUTTON_PRESS, false, 
         ActionCommands.GAME_FULL_ATTACK);
     button.addActionListener(this);
-    button.setToolTipText("Full attack");
+    button.setToolTipText("Full attack - A");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_SINGLE_ATTACK_BUTTON,
         GuiStatics.IMAGE_SINGLE_ATTACK_BUTTON_PRESS, false, 
         ActionCommands.GAME_SINGLE_ATTACK);
     button.addActionListener(this);
-    button.setToolTipText("Single attack with main attack");
+    button.setToolTipText("Single attack with main attack - Z");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_CAST_SPELL_BUTTON,
         GuiStatics.IMAGE_CAST_SPELL_BUTTON_PRESS, false, 
         ActionCommands.GAME_CAST_SPELL);
     button.addActionListener(this);
-    button.setToolTipText("Cast spells if character is able");
+    button.setToolTipText("Cast spells if character is able - C");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_EVALUATE_BUTTON,
         GuiStatics.IMAGE_EVALUATE_BUTTON_PRESS, false, 
         ActionCommands.GAME_EVALUATE);
-    button.setToolTipText("Try to evaluate enemy. Evaluating takes one turn.");
+    button.setToolTipText("Try to evaluate enemy. Evaluating takes one turn. - E");
     button.addActionListener(this);
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_WAIT_BUTTON,
         GuiStatics.IMAGE_WAIT_BUTTON_PRESS, false, 
         ActionCommands.GAME_WAIT);
-    button.setToolTipText("Wait one turn and gain a bit of stamina");
+    button.setToolTipText("Wait one turn and gain a bit of stamina - W");
     button.addActionListener(this);
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_LOOK_BUTTON,
         GuiStatics.IMAGE_LOOK_BUTTON_PRESS, false, 
         ActionCommands.GAME_LOOK);
     button.addActionListener(this);
-    button.setToolTipText("Look and examine the world");
+    button.setToolTipText("Look and examine the world - L");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_SEARCH_BUTTON,
         GuiStatics.IMAGE_SEARCH_BUTTON_PRESS, false, 
         ActionCommands.GAME_SEARCH);
     button.addActionListener(this);
-    button.setToolTipText("Search for hidden items.");
+    button.setToolTipText("Search for hidden items. - S");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_PICKUP_BUTTON,
         GuiStatics.IMAGE_PICKUP_BUTTON_PRESS, false, 
         ActionCommands.GAME_PICKUP);
     button.addActionListener(this);
-    button.setToolTipText("Pick items up from the ground");
+    button.setToolTipText("Pick items up from the ground - P");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_INVENTORY_BUTTON,
         GuiStatics.IMAGE_INVENTORY_BUTTON_PRESS, false, 
         ActionCommands.GAME_INVENTORY);
     button.addActionListener(this);
-    button.setToolTipText("Show character inventory");
+    button.setToolTipText("Show character inventory - I");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_TALK_BUTTON,
         GuiStatics.IMAGE_TALK_BUTTON_PRESS, false, 
         ActionCommands.GAME_TALK);
     button.addActionListener(this);
-    button.setToolTipText("Talk with characters");
+    button.setToolTipText("Talk with characters - T");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_JOURNAL_BUTTON,
         GuiStatics.IMAGE_JOURNAL_BUTTON_PRESS, false, 
         ActionCommands.GAME_JOURNAL);
     button.addActionListener(this);
-    button.setToolTipText("Show party's journal");
+    button.setToolTipText("Show party's journal - J");
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_REST_BUTTON,
         GuiStatics.IMAGE_REST_BUTTON_PRESS, false, 
         ActionCommands.GAME_REST_HOUR);
-    button.setToolTipText("Rest and wait one hour and fully gain stamina.");
+    button.setToolTipText("Rest and wait one hour and fully gain stamina. - R");
     button.addActionListener(this);
     gameButtonPanel.add(button);
     button = new ImageGameButton(GuiStatics.IMAGE_MENU_BUTTON,
         GuiStatics.IMAGE_MENU_BUTTON_PRESS, false, 
         ActionCommands.GAME_BACK_TO_MAIN_MENU);
     button.addActionListener(this);
-    button.setToolTipText("Go back to main menu");
+    button.setToolTipText("Go back to main menu - ESC");
     gameButtonPanel.add(button);
   }
   
