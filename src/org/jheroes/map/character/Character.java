@@ -2533,6 +2533,12 @@ public class Character extends CharacterAnimation {
         result = 2;
       }
     }
+    if ((firstHand == null) && (secondHand != null)) {
+      if ((secondHand.getType() == Item.TYPE_ITEM_SHIELD) && 
+         (perks.isPerkActive(Perks.PERK_SHIELD_FIGHTER))) {
+        result = 2;
+      }
+    }
     if ((firstHand != null) && (secondHand == null)) {
       if ((firstHand.getWeaponSkill() == Character.SKILL_UNARMED) &&
          (firstHand.isTwoHandedWeapon()) && 

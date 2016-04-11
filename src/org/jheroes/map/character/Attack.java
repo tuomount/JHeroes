@@ -217,7 +217,13 @@ public class Attack {
     sb.append("Attack: ");
     sb.append(attackBonus);
     sb.append("\n");
-    sb.append("Damage: ");
+    sb.append("Damage");
+    if (this.getAttackType() != AttackType.NORMAL) {
+      sb.append("(");
+      sb.append(this.getAttackType().toString());
+      sb.append(")");
+    }
+    sb.append(": ");
     sb.append(minLethalDamage);
     sb.append("-");
     sb.append(maxLethalDamage);
