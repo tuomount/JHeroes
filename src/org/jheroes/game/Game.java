@@ -3662,6 +3662,9 @@ public class Game extends JFrame implements ActionListener {
             party.getActiveChar().equals(charSheetPanel.getCurrentChar()))) {
           Spell spell = charSheetPanel.getSelectedSpell();
           if (spell != null) {
+            if (!party.isCombat()) {
+              party.setActiveChar(charSheetPanel.getCurrentCharIndex());
+            }
             actionCastingSpellInGame(spell);  
           }
         charSheetPanel = null;
