@@ -1634,7 +1634,10 @@ public class Character extends CharacterAnimation {
           if (firstHand.isTwoHandedWeapon() && (secondHand != null)) {
             unequipSecondHand();
           }
-          if (firstHand.getEffect() != Item.EFFECT_TYPE_NO_EFFECT) {
+          if (firstHand.getEffect() != Item.EFFECT_TYPE_NO_EFFECT &&
+              firstHand.getEffect() != CharEffect.EFFECT_ON_HIT_DISEASE &&
+              firstHand.getEffect() != CharEffect.EFFECT_ON_HIT_POISON &&
+              firstHand.getEffect() != CharEffect.EFFECT_ON_HIT_ENCHANT) {
             CharEffect eff = new CharEffect(firstHand.getItemNameInGame(),
                  CharEffect.TYPE_WEARABLE_FIRSTHAND,
                  CharEffect.DURATION_UNTIL_REMOVED, firstHand.getEffect(),
@@ -1652,7 +1655,10 @@ public class Character extends CharacterAnimation {
             unequipFirstHand();
             unequipSecondHand();
             firstHand = it;
-            if (firstHand.getEffect() != Item.EFFECT_TYPE_NO_EFFECT) {
+            if (firstHand.getEffect() != Item.EFFECT_TYPE_NO_EFFECT &&
+                firstHand.getEffect() != CharEffect.EFFECT_ON_HIT_DISEASE &&
+                firstHand.getEffect() != CharEffect.EFFECT_ON_HIT_POISON &&
+                firstHand.getEffect() != CharEffect.EFFECT_ON_HIT_ENCHANT) {
               CharEffect eff = new CharEffect(firstHand.getItemNameInGame(),
                    CharEffect.TYPE_WEARABLE_FIRSTHAND,
                    CharEffect.DURATION_UNTIL_REMOVED, firstHand.getEffect(),
@@ -1668,7 +1674,10 @@ public class Character extends CharacterAnimation {
              // Is dual wielder
               unequipSecondHand();
               secondHand = it;
-              if (it.getEffect() != Item.EFFECT_TYPE_NO_EFFECT) {
+              if (it.getEffect() != Item.EFFECT_TYPE_NO_EFFECT &&
+                  it.getEffect() != CharEffect.EFFECT_ON_HIT_DISEASE &&
+                  it.getEffect() != CharEffect.EFFECT_ON_HIT_POISON &&
+                  it.getEffect() != CharEffect.EFFECT_ON_HIT_ENCHANT) {
                 CharEffect eff = new CharEffect(it.getItemNameInGame(),
                      CharEffect.TYPE_WEARABLE_SECONDHAND,
                      CharEffect.DURATION_UNTIL_REMOVED, it.getEffect(),
@@ -1683,7 +1692,10 @@ public class Character extends CharacterAnimation {
               // Not dual wield so just equipping weapon to main hand
               unequipFirstHand();
               firstHand = it;
-              if (firstHand.getEffect() != Item.EFFECT_TYPE_NO_EFFECT) {
+              if (firstHand.getEffect() != Item.EFFECT_TYPE_NO_EFFECT &&
+                  firstHand.getEffect() != CharEffect.EFFECT_ON_HIT_DISEASE &&
+                  firstHand.getEffect() != CharEffect.EFFECT_ON_HIT_POISON &&
+                  firstHand.getEffect() != CharEffect.EFFECT_ON_HIT_ENCHANT) {
                 CharEffect eff = new CharEffect(firstHand.getItemNameInGame(),
                      CharEffect.TYPE_WEARABLE_FIRSTHAND,
                      CharEffect.DURATION_UNTIL_REMOVED, firstHand.getEffect(),
@@ -1708,7 +1720,10 @@ public class Character extends CharacterAnimation {
           }
           unequipSecondHand();
           secondHand = it;
-          if (it.getEffect() != Item.EFFECT_TYPE_NO_EFFECT) {
+          if (it.getEffect() != Item.EFFECT_TYPE_NO_EFFECT &&
+              it.getEffect() != CharEffect.EFFECT_ON_HIT_DISEASE &&
+              it.getEffect() != CharEffect.EFFECT_ON_HIT_POISON &&
+              it.getEffect() != CharEffect.EFFECT_ON_HIT_ENCHANT) {
             CharEffect eff = new CharEffect(it.getItemNameInGame(),
                  CharEffect.TYPE_WEARABLE_SECONDHAND,
                  CharEffect.DURATION_UNTIL_REMOVED, it.getEffect(),

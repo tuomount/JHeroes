@@ -245,6 +245,23 @@ public class CharEffect {
     case EFFECT_DRAIN_VIGOR: sb.append("drain vigor"); break;
     case EFFECT_SLAYER: sb.append("slaying"); break;
     case EFFECT_ON_MIGHTY: sb.append("mighty "+String.valueOf(value)); break;
+    case EFFECT_ON_HIT_DISEASE:
+    case EFFECT_ON_HIT_ENCHANT:
+    case EFFECT_ON_HIT_POISON:
+      // This is only for toString()
+      sb = new StringBuilder(20);
+      sb.append("\nWhen hit ");
+      sb.append(value);
+      sb.append(" ");
+      if (attackType != null) {
+        sb.append(attackType.toString());
+        sb.append(" damages.");
+      } else {
+        if (effect == EFFECT_ON_HIT_POISON) {
+          sb.append("poison damages.");
+        }
+      }
+    break;
     }
     sb.append(".");
     if ((getType()==TYPE_CURSE) ||
@@ -256,6 +273,11 @@ public class CharEffect {
     return sb.toString();
   }
   
+  @Override
+  public String toString() {
+    return getEffectAsString();
+  }
+
   /**
    * Write effect into DataOutputStream
    * @param os DataOutputStream
