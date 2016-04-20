@@ -1562,6 +1562,7 @@ public class Map {
         if ((totalDamage==0) && (nonLethalDamage==0)) {
           if (defenser.getRace().damageModifierFor(att.getAttackType())
               ==DamageModifier.IMMUNITY) {
+            // IMMUNITY check is here
             party.addLogText("but "+defenser.getName()+" has immunity against "+
               att.getAttackType().toString()+" attacks.");
           } else {
@@ -1583,8 +1584,29 @@ public class Map {
           switch (defenser.getRace().damageModifierFor(att.getAttackType())) {
             case RESISTANCE: {party.addLogText("Hit was not that effective!"); break;}
             case WEAKNESS: {party.addLogText("Hit was very effective!"); break;}
+            // IMMUNITY is handled slightly above where, same place
+            // where checking the zero damage
           default: // Do nothing
             break;
+          }
+          if (att.getEffectOnHit()==CharEffect.EFFECT_ON_HIT_DISEASE ||
+              att.getEffectOnHit()==CharEffect.EFFECT_ON_HIT_POISON ||
+              att.getEffectOnHit()==CharEffect.EFFECT_ON_HIT_ENCHANT) {
+            // Handle effects on hit
+            String effOnHit = "Poison";
+            switch (att.getEffectOnHit()) {
+            case CharEffect.EFFECT_ON_HIT_POISON: effOnHit = "Poison"; break;
+            case CharEffect.EFFECT_ON_HIT_ENCHANT: effOnHit = "Effect"; break;
+            case CharEffect.EFFECT_ON_HIT_DISEASE: effOnHit = "Disease"; break;
+            }
+            switch (defenser.getRace().damageModifierFor(att.getEffectAttackType())) {
+            case RESISTANCE: {party.addLogText(effOnHit+" is not that effective!"); break;}
+            case WEAKNESS: {party.addLogText(effOnHit+" is very effective!"); break;}
+            case IMMUNITY: {party.addLogText(effOnHit+" does seem to effect at all."); break;}
+          default: // Do nothing
+            break;
+          }
+            
           }
           if ((defenser.isDead()) && (!isAlreadyDead)) {
             isAlreadyDead = true;
