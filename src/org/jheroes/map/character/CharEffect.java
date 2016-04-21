@@ -129,6 +129,7 @@ public class CharEffect {
     this.attrOrSkill = input.getAttributeOrSkill();
     this.value = input.getValue();
     this.difficulty = input.difficulty;
+    this.attackType = input.getAttackType();
   }
   
   /**
@@ -306,6 +307,16 @@ public class CharEffect {
     value = is.readInt();
     difficulty = is.readInt();
     name = StreamUtilities.readString(is);
+    if (effect == EFFECT_ON_HEALTH ||
+        effect == EFFECT_ON_STAMINA) {
+      if (type == TYPE_POISON) {
+        // Let's assume that is poison and set attack type
+        // according it      
+       attackType = AttackType.POISON;
+      } else{
+        attackType = AttackType.NORMAL;
+      }
+    }
   }
 
   public AttackType getAttackType() {
