@@ -58,7 +58,40 @@ public class CombatModifiers {
       return "normal";
     }
     
+    /**
+     * Get AttackType as byte. These are just byte values starting from 0
+     * @return byte
+     */
+    public byte toByte() {
+      switch (this) {
+      case NORMAL: {return 0;}
+      case BLUNT: {return 1;}
+      case FIRE: {return 2;}
+      case ICE: {return 3;}
+      case ELECTRIC: {return 4;}
+      case MINDAFFECTING: {return 5;}
+      case POISON: {return 6;}
+      case MAGIC: {return 7;}
+      case NONLETHAL: {return 8;}
+      }
+      //Default to Normal
+      return 0;
+    }
     
+    public static AttackType getAttackTypeByByte(byte b) {      
+      switch (b) {
+      case 0: return AttackType.NORMAL;
+      case 1: return AttackType.BLUNT;
+      case 2: return AttackType.FIRE;
+      case 3: return AttackType.ICE;
+      case 4: return AttackType.ELECTRIC;
+      case 5: return AttackType.MINDAFFECTING;
+      case 6: return AttackType.POISON;
+      case 7: return AttackType.MAGIC;
+      case 8: return AttackType.NONLETHAL;
+      default: return AttackType.NORMAL;
+      }
+    }
   }
 
 }

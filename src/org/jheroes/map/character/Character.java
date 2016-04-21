@@ -3044,7 +3044,7 @@ public class Character extends CharacterAnimation {
     os.write(digest.digest(data));
   }
   
-  public void loadCharacter(DataInputStream is, String MapVersion) throws IOException {
+  public void loadCharacter(DataInputStream is, String mapVersion) throws IOException {
     // Used for hashing
     StringBuilder sb = new StringBuilder(64);
     // First attributes    
@@ -3057,7 +3057,8 @@ public class Character extends CharacterAnimation {
       skills[i] = is.read();
       sb.append(skills[i]);
     }
-    if (MapVersion.equals(Map.MAP_VERSION_1_1)) {
+    if (mapVersion.equals(Map.MAP_VERSION_1_1) ||
+        mapVersion.equals(Map.MAP_VERSION_1_2)) {
       int raceIndex = is.read();
       this.setRace(CharacterRace.getRaceByIndex(raceIndex));
     }
@@ -3080,7 +3081,7 @@ public class Character extends CharacterAnimation {
     // read perks
     perks.readPerks(is);
     // read effects
-    activeEffects.readActiveEffects(is);
+    activeEffects.readActiveEffects(is,mapVersion);
     // read face number
     faceNumber = is.readInt();
     // Read money

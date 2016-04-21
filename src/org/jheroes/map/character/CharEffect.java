@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.jheroes.map.Map;
 import org.jheroes.map.character.CombatModifiers.AttackType;
 import org.jheroes.utilities.StreamUtilities;
 
@@ -106,6 +107,7 @@ public class CharEffect {
      if (this.difficulty >= MAX_DIFFICULTY) {
        this.difficulty = MAX_DIFFICULTY-1;
      }
+     setAttackType(AttackType.NORMAL);
      if (type == TYPE_POISON) {
        setAttackType(AttackType.POISON);
      } else if (type == TYPE_DISEASE) {
@@ -136,7 +138,7 @@ public class CharEffect {
    * Empty charEffect
    */
   public CharEffect() {
-    
+    this.attackType = AttackType.NORMAL;
   }
   
   public byte getType() {
@@ -292,14 +294,17 @@ public class CharEffect {
     os.writeInt(value);
     os.writeInt(difficulty);
     StreamUtilities.writeString(os, name);
+    os.writeByte(attackType.toByte());
   }
   
   /**
    * Read effect from DataInputStream
    * @param is DataInputStream
+   * @param mapVersion Version field of map
    * @throws IOException
    */
-  public void readEffect(DataInputStream is) throws IOException {
+  public void readEffect(DataInputStream is, String mapVersion)
+      throws IOException {
     type = is.readByte();
     duration = is.readInt();
     effect = is.readByte();
@@ -307,14 +312,19 @@ public class CharEffect {
     value = is.readInt();
     difficulty = is.readInt();
     name = StreamUtilities.readString(is);
-    if (effect == EFFECT_ON_HEALTH ||
-        effect == EFFECT_ON_STAMINA) {
-      if (type == TYPE_POISON) {
-        // Let's assume that is poison and set attack type
-        // according it      
-       attackType = AttackType.POISON;
-      } else{
-        attackType = AttackType.NORMAL;
+    if (mapVersion.equals(Map.MAP_VERSION_1_2)) {
+      byte b = is.readByte();
+      attackType = AttackType.getAttackTypeByByte(b);
+    } else {
+      if (effect == EFFECT_ON_HEALTH ||
+          effect == EFFECT_ON_STAMINA) {
+        if (type == TYPE_POISON) {
+          // Let's assume that is poison and set attack type
+          // according it      
+         attackType = AttackType.POISON;
+        } else{
+          attackType = AttackType.NORMAL;
+        }
       }
     }
   }

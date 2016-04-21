@@ -179,14 +179,16 @@ public class CharEffects {
   /**
    * Reads Active effect from DataInputStream
    * @param is DataInputStream
+   * @param mapVersion Version field of map
    * @throws IOException if read fails
    */
-  public void readActiveEffects(DataInputStream is) throws IOException {
+  public void readActiveEffects(DataInputStream is, String mapVersion)
+      throws IOException {
     int num = is.readByte();
     activeEffects.clear();
     for (int i=0;i<num;i++) {
       CharEffect eff = new CharEffect();
-      eff.readEffect(is);
+      eff.readEffect(is,mapVersion);
       activeEffects.add(eff);
     }
   }
