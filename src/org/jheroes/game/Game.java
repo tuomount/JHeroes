@@ -401,7 +401,7 @@ public class Game extends JFrame implements ActionListener {
       musicSlider = new JSlider(SwingConstants.HORIZONTAL,0, 100, OggPlayer.getMusicVolume());
       optionsMenuPanel.add(musicSlider);
       
-      optionsMenuPanel.add(Box.createRigidArea(new Dimension(50,50)));
+      optionsMenuPanel.add(Box.createRigidArea(new Dimension(100,50)));
 
       
       MenuButton saveBtn = new MenuButton("OK",
