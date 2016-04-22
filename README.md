@@ -14,6 +14,10 @@ Binary version of latest stable Heroes of the Hawks Haven is available on
 * Added different damage types
 * Monster evaluation on combat 
 * Mouse support on game map
+* Lot's of graphical bugs fixed in maps
+* Typos fixed in talks and NPC descriptions
+* Added new weapons
+* Fixed blunt weapon damage calculation.
 
 ## The project
 

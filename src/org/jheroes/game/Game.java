@@ -130,7 +130,7 @@ public class Game extends JFrame implements ActionListener {
   public static final int GAME_STATE_DEBUGMODE = 255;
   
   public static final String GAME_TITLE = "Heroes of The Hawks Haven";
-  public static final String GAME_VERSION ="1.0.0";
+  public static final String GAME_VERSION ="1.1.0Beta00";
  
   /**
    * Is running in debug mode
