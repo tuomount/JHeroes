@@ -530,9 +530,9 @@ public class Game extends JFrame implements ActionListener {
     titlePanel.add(titleLabel,BorderLayout.CENTER);
     mainMenuPanel.add(titlePanel);
     ImageLabel imLabel = new ImageLabel(GuiStatics.IMAGE_HERO_DOWN, true);
-    mainMenuPanel.add(Box.createRigidArea(new Dimension(50,50)));
+    mainMenuPanel.add(Box.createRigidArea(new Dimension(90,50)));
     mainMenuPanel.add(imLabel);
-    mainMenuPanel.add(Box.createRigidArea(new Dimension(50,50)));
+    mainMenuPanel.add(Box.createRigidArea(new Dimension(90,50)));
     
     MenuButton newGameBtn = new MenuButton("Main menu",
                      ActionCommands.ACTION_HERODOWN_MAINMENU);
@@ -3389,6 +3389,9 @@ public class Game extends JFrame implements ActionListener {
           if (party.isCombat()) {
             if (party.isHeroDown()) {
               MusicPlayer.setNextSong(MusicPlayer.MUSIC_FILE_HERO_DOWN);
+              if (!party.isMainCharacterAlive()) {
+                changeState(GAME_STATE_HERO_DOWN);
+              }
             } else {
               MusicPlayer.setNextSong(map.getCombatMusicBySector(sector));
             }
@@ -4911,6 +4914,8 @@ public class Game extends JFrame implements ActionListener {
               e1.printStackTrace();
               System.out.print("Failing to save current game...");
             }
+          } else {
+            party = null;
           }
           changeState(GAME_STATE_MAINMENU);
         }

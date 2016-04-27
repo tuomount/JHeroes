@@ -262,7 +262,7 @@ public class Party {
       if (!partyChars[0].isDead()) {
         return true;
       }
-    }
+    } 
     return false;
   }
   
