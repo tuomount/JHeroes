@@ -18,6 +18,7 @@ Binary version of latest stable Heroes of the Hawks Haven is available on
 * Typos fixed in talks and NPC descriptions
 * Added new weapons
 * Fixed blunt weapon damage calculation.
+* Fixed typo in one end screens.
 
 ## The project
 
