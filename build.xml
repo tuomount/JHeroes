@@ -7,7 +7,7 @@
     <property name="dir.workspace" value="."/>
     <property name="dir.jarfile" value="./build-jar/"/>
     <target name="create_run_jar">
-        <jar destfile="${dir.jarfile}/JHeroes1-0-0.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="${dir.jarfile}/JHeroes1-1-0.jar" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Main-Class" value="org.jheroes.game.Game"/>
                 <attribute name="Class-Path" value="."/>
