@@ -83,7 +83,7 @@ import org.jheroes.utilities.StreamUtilities;
 
 /**
  * JHeroes CRPG Engine and Game
- * Copyright (C) 2014  Tuomo Untinen
+ * Copyright (C) 2014,2018  Tuomo Untinen
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -130,7 +130,7 @@ public class Game extends JFrame implements ActionListener {
   public static final int GAME_STATE_DEBUGMODE = 255;
   
   public static final String GAME_TITLE = "Heroes of The Hawks Haven";
-  public static final String GAME_VERSION ="1.1.0";
+  public static final String GAME_VERSION ="1.1.1";
  
   /**
    * Is running in debug mode

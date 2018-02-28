@@ -36,9 +36,9 @@ Full and detailed graphics credits:
 : LPC Well, Red roof and Wooden roof :
  + Xenodora
 : Wall lamp(or fence lamp) :
- + Curt
- + Sharm
- + Hyptosis
+ + Lanea Zimmerman
+ + William Thompson
+ + Animation done by Tuomo Untinen
 : Water tiles  :
  + Based on water and grass tiles in LPC made by Lanea Zimmerman (Sharm)
 : Blueish roof : 
@@ -106,9 +106,7 @@ Manuel Riecke (AKA MrBeast)
  + Based on LPC base tileset by Lanea Zimmerman (AKA Sharm)
  + Armors by: Adapted by Matthew Krohn from art created by Johannes Sjolund
 : Table lamp :
-  + Curt
-  + Sharm
-  + Hyptosis
+  + Tuomo Untinen
 : Distiller :
  + Table is from LPC base tileset by Lanea Zimmerman (AKA Sharm)
  + Distiller by Tuomo Untinen
@@ -279,9 +277,9 @@ Manuel Riecke (AKA MrBeast)
  + By Tuomo Untinen
  + Dark border is from Castle_2.png by Lanea Zimmerman (AKA Sharm)
 : Lamp post :
-  + Curt
-  + Sharm
-  + Hyptosis
+ + Lanea Zimmerman
+ + William Thompson
+ + Animation done by Tuomo Untinen
 : Red chimney :
  + Tuomo Untinen
 : Round flowerbeds :
